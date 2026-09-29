@@ -21,20 +21,15 @@ a:hover{color:inherit}
 .cap{font-size:11px;font-weight:400;letter-spacing:.32em;text-transform:uppercase}
 .grain{position:fixed;inset:-50%;z-index:120;pointer-events:none;background-image:url(/_blob/eae2e40ec15aa1a126ae0f89be541811);opacity:.07;mix-blend-mode:overlay}
 
-/* photo slots: abstract light until the official photographs arrive */
-.ph{background-color:#15130F;background-image:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(201,181,142,.20),rgba(201,181,142,0) 70%)}
-.ph-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;pointer-events:none;color:#8E8676}
+/* photographs (provisional, rights to be confirmed) */
+.ph{background-color:#15130F}
 .bg{background-size:cover;background-position:center}
-.p-sacred{background-image:url(/_blob/f2d1801f926ae8b1a8367a7b4b39c10a)!important}
-.p-room{background-image:url(/_blob/a74ab4f622ec636e955e541fe8191e15)!important}
-.p-gam{background-image:url(/_blob/63d8a64736543c7b862d6798332b4593)!important}
-.p-church{background-image:url(/_blob/77692793af1869b08e0abe819dc8ca44)!important}
-.p-valley{background-image:url(/_blob/04452432db7c8a893ddef34cb2ce756f)!important}
-.p-nara{background-image:url(/_blob/760a5279aeccfedb1fa59eea80a0f188)!important}
-.p-fogo{background-image:url(/_blob/3fccf4e50f5659ed36b55ff19e50495d)!important}
-.p-deplar{background-image:url(/_blob/fd5c857aa2f36a89f4f24eec68266b33)!important}
-.p-khiva{background-image:url(/_blob/6ea5de4cc528425fb3baab1fdafe21ae)!important}
-.p-sacred,.p-room,.p-gam,.p-church,.p-valley,.p-nara,.p-fogo,.p-deplar,.p-khiva{background-size:cover;background-position:center;background-repeat:no-repeat}
+.p-sacred{background-image:url(/_blob/f2d1801f926ae8b1a8367a7b4b39c10a)}
+.p-room{background-image:url(/_blob/a74ab4f622ec636e955e541fe8191e15)}
+.p-gam{background-image:url(/_blob/63d8a64736543c7b862d6798332b4593)}
+.p-church{background-image:url(/_blob/77692793af1869b08e0abe819dc8ca44)}
+.p-valley{background-image:url(/_blob/04452432db7c8a893ddef34cb2ce756f)}
+.p-sacred,.p-room,.p-gam,.p-church,.p-valley{background-size:cover;background-position:center;background-repeat:no-repeat}
 
 /* intro curtain */
 @keyframes lineIn{from{transform:scaleY(0)}to{transform:scaleY(1)}}
@@ -79,11 +74,10 @@ a:hover{color:inherit}
 .hero-track{position:relative;height:calc(100vh + 980px);height:calc(100svh + 980px)}
 .hero-stick{position:sticky;top:0;height:100vh;height:100svh;min-height:640px;overflow:hidden;background:#080807}
 .arch{position:absolute;inset:0;clip-path:inset(16% 35.5% 6% 35.5% round 420px 420px 0 0)}
-@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes rise{from{transform:translateY(115%)}to{transform:none}}
 .ln{display:block;overflow:hidden;min-width:0;padding:.16em .2em .2em .08em;margin:-.16em -.2em -.2em -.08em}
 .ln>span{display:block;animation:rise 1.6s cubic-bezier(.2,.7,.1,1) both;text-wrap:balance}
-@keyframes rise{from{transform:translateY(115%)}to{transform:none}}
 .t1{animation-delay:2.3s!important}.t2{animation-delay:2.45s!important}
 .fu{animation:fadeUp 1.4s cubic-bezier(.2,.7,.1,1) 2.7s both}
 
@@ -95,8 +89,11 @@ a:hover{color:inherit}
 
 /* the two doors */
 .door{position:relative;display:flex;flex-direction:column;gap:30px;border:0;padding:0;background:transparent;color:#080807;text-align:left;cursor:pointer;font:inherit}
-.door-frame{position:relative;display:block;height:760px;border-radius:999px 999px 0 0;overflow:hidden;perspective:1800px;outline:1px solid rgba(8,8,7,.2);outline-offset:14px;transition:outline-offset 1s cubic-bezier(.2,.7,.1,1),outline-color 1s}
+.door-frame{position:relative;display:block;height:760px;border-radius:999px 999px 0 0;overflow:hidden;perspective:1800px;outline:1px solid rgba(8,8,7,.2);outline-offset:14px;background:#15130F;transition:outline-offset 1s cubic-bezier(.2,.7,.1,1),outline-color 1s}
 .door:hover .door-frame,.door:focus-visible .door-frame{outline-offset:24px;outline-color:#A88B57}
+.door-photo{position:absolute;inset:0;display:block;transform:scale(1.02);transition:transform 2.4s cubic-bezier(.2,.7,.1,1),filter 1.2s}
+.door:hover .door-photo,.door:focus-visible .door-photo{transform:scale(1.08)}
+.door.locked .door-photo{filter:blur(16px) brightness(.6) saturate(.8);transform:scale(1.12)}
 .leaf{position:absolute;top:0;bottom:0;width:50%;background:#16130F;transition:transform 1.6s cubic-bezier(.2,.7,.1,1)}
 .leaf.l{left:0;transform-origin:left center;border-right:1px solid rgba(201,181,142,.35)}
 .leaf.r{right:0;transform-origin:right center}
@@ -105,6 +102,7 @@ a:hover{color:inherit}
 .leaf.l::after{right:14px}.leaf.r::after{left:14px}
 .door:hover .leaf.l,.door:focus-visible .leaf.l{transform:rotateY(-58deg)}
 .door:hover .leaf.r,.door:focus-visible .leaf.r{transform:rotateY(58deg)}
+.lock-badge{position:absolute;z-index:3;left:50%;top:44%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:999px;border:1px solid rgba(239,233,221,.5);background:rgba(8,8,7,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#EFE9DD}
 .door .go{display:inline-flex;align-items:center;gap:14px;color:#7A6A48;transition:gap .6s}
 .door:hover .go{gap:24px}
 
@@ -120,31 +118,35 @@ a:hover{color:inherit}
 .d-btn{height:52px;padding:0 26px;border-radius:999px;border:1px solid rgba(239,233,221,.35);background:transparent;color:#EFE9DD;font:400 11px Jost,sans-serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:14px;transition:background .5s,color .5s,border-color .5s}
 .d-btn:hover{background:#EFE9DD;color:#080807;border-color:#EFE9DD}
 
-/* story arches */
+/* dossier viewer: photographs under a light mist, browsed with arrows */
+.d-view{position:relative;height:640px;border-radius:340px 340px 0 0;overflow:hidden;background:#110F0D;outline:1px solid rgba(201,181,142,.3);outline-offset:14px}
+.slide{position:absolute;inset:0;opacity:0;transform:scale(1.07);transition:opacity 1.5s ease,transform 8s cubic-bezier(.2,.7,.1,1),filter .8s;filter:saturate(.8) contrast(.94) brightness(.9)}
+.slide.on{opacity:1;transform:scale(1)}
+.d-view.gated .slide{filter:blur(18px) brightness(.55) saturate(.7)}
+.mist{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.mist i{position:absolute;left:-35%;width:170%;height:58%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(239,233,221,.34),rgba(239,233,221,0) 66%);filter:blur(28px);mix-blend-mode:screen;animation:mistDrift 26s ease-in-out infinite alternate}
+.mist i:nth-child(1){top:-12%}
+.mist i:nth-child(2){top:34%;opacity:.7;animation-duration:34s;animation-direction:alternate-reverse}
+.mist i:nth-child(3){top:auto;bottom:-16%;opacity:.95;animation-duration:40s}
+.mist::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,19,32,.28),rgba(239,233,221,.09) 52%,rgba(8,8,7,.5))}
+@keyframes mistDrift{from{transform:translateX(-9%) scale(1)}to{transform:translateX(11%) scale(1.12)}}
+.arrow{width:54px;height:54px;border-radius:999px;border:1px solid rgba(239,233,221,.4);background:rgba(8,8,7,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#EFE9DD;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .5s,color .5s,border-color .5s}
+.arrow:hover{background:#EFE9DD;color:#080807;border-color:#EFE9DD}
+.gate-badge{position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#EFE9DD;pointer-events:none}
+
+/* story arches: photograph splits, text appears, then the whole photograph settles behind it */
 .chapter{view-timeline:--ch block}
-.s-arch{position:relative;height:720px;border-radius:999px 999px 0 0;overflow:hidden;background:#110F0D;display:flex;align-items:center;justify-content:center}
-.s-leaf{position:absolute;top:0;bottom:0;width:50%;background:#1A1714;z-index:2}
+.s-arch{position:relative;aspect-ratio:3/2;border-radius:180px 180px 0 0;overflow:hidden;background:#0E0C0A;display:flex;align-items:center;justify-content:center}
+.s-full{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.85) contrast(.95) brightness(.9)}
+.s-full::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,7,.5),rgba(8,8,7,.72))}
+.s-arch.lockedarch .s-full{filter:blur(16px) brightness(.55) saturate(.75)}
+.s-leaf{position:absolute;top:0;bottom:0;width:50%;background:#1A1714;z-index:2;overflow:hidden}
 .s-img{position:absolute;top:0;bottom:0;width:200%;background-size:cover;background-position:center}
 .s-leaf.l .s-img{left:0}.s-leaf.r .s-img{right:0}
-.s-leaf::after{content:"";position:absolute;inset:0;background:rgba(8,8,7,.18)}
 .s-leaf.l{left:0;transform:translateX(-100%);border-right:1px solid rgba(201,181,142,.4)}
 .s-leaf.r{right:0;transform:translateX(100%)}
-
-/* index rows */
-.row{position:relative;display:grid;grid-template-columns:70px minmax(0,1.5fr) minmax(0,1fr) minmax(0,1.6fr) 40px;align-items:center;column-gap:28px;padding:44px 28px;border-top:1px solid rgba(8,8,7,.16);color:#080807;overflow:hidden}
-.row::before{content:"";position:absolute;inset:0;background:#080807;transform:scaleY(0);transform-origin:bottom;transition:transform .9s cubic-bezier(.7,0,.2,1)}
-.r-nara{--pic:url(/_blob/760a5279aeccfedb1fa59eea80a0f188)}
-.r-fogo{--pic:url(/_blob/3fccf4e50f5659ed36b55ff19e50495d)}
-.r-deplar{--pic:url(/_blob/fd5c857aa2f36a89f4f24eec68266b33)}
-.r-khiva{--pic:url(/_blob/6ea5de4cc528425fb3baab1fdafe21ae)}
-.row::after{content:"";position:absolute;inset:0;z-index:0;background-image:var(--pic);background-size:cover;background-position:center;opacity:0;transition:opacity 1s;mix-blend-mode:luminosity}
-.row:hover::after,.row:focus-visible::after{opacity:.38}
-.row::before{z-index:0}
-.row>*{z-index:1;position:relative;transition:color .6s,transform .9s cubic-bezier(.2,.7,.1,1)}
-.row:hover::before,.row:focus-visible::before{transform:scaleY(1);transform-origin:top}
-.row:hover>*,.row:focus-visible>*{color:#EFE9DD}
-.row:hover .r-name,.row:focus-visible .r-name{transform:translateX(22px)}
-.row:hover .r-arrow,.row:focus-visible .r-arrow{transform:translateX(8px);color:#C9B58E}
+.s-text{position:relative;z-index:1;text-shadow:0 2px 24px rgba(8,8,7,.7)}
+.lock-center{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#EFE9DD;text-align:center;padding:24px}
 
 /* newsletter */
 .field{width:100%;height:58px;border:0;border-bottom:1px solid rgba(239,233,221,.3);background:transparent;font:300 22px Cormorant,Georgia,serif;color:#EFE9DD;outline:none;text-align:center;transition:border-color .5s}
@@ -166,6 +168,7 @@ a:hover{color:inherit}
   @keyframes sL{from{transform:translateX(0)}to{transform:translateX(-100%)}}
   @keyframes sR{from{transform:translateX(0)}to{transform:translateX(100%)}}
   @keyframes sText{from{opacity:0;filter:blur(10px)}to{opacity:1;filter:none}}
+  @keyframes sFull{from{opacity:0;transform:scale(1.12)}to{opacity:1;transform:scale(1)}}
   @keyframes archGrow{from{clip-path:inset(40% 20% 0 20% round 999px 999px 0 0)}to{clip-path:inset(0 0 0 0 round 999px 999px 0 0)}}
   .arch{animation:archOpen linear both;animation-timeline:scroll(root);animation-range:0px 720px}
   .arch-img{animation:imgSettle linear both;animation-timeline:scroll(root);animation-range:0px 720px}
@@ -175,21 +178,21 @@ a:hover{color:inherit}
   .lr{animation:lineReveal linear both;animation-timeline:view();animation-range:entry 10% cover 35%}
   .draw{transform-origin:left;animation:draw linear both;animation-timeline:view();animation-range:entry 20% cover 45%}
   .grow{animation:archGrow linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
-  .s-leaf.l{animation:sL linear both;animation-timeline:--ch;animation-range:cover 25% cover 55%}
-  .s-leaf.r{animation:sR linear both;animation-timeline:--ch;animation-range:cover 25% cover 55%}
-  .s-text{animation:sText linear both;animation-timeline:--ch;animation-range:cover 38% cover 58%}
+  .s-leaf.l{animation:sL linear both;animation-timeline:--ch;animation-range:cover 22% cover 46%}
+  .s-leaf.r{animation:sR linear both;animation-timeline:--ch;animation-range:cover 22% cover 46%}
+  .s-text{animation:sText linear both;animation-timeline:--ch;animation-range:cover 34% cover 52%}
+  .s-arch:not(.lockedarch) .s-full{opacity:0;animation:sFull linear both;animation-timeline:--ch;animation-range:cover 46% cover 74%}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .curtain{display:none}
+  .s-arch .s-full{opacity:1!important}
 }
 @media (max-width: 900px){
   .hide-m{display:none!important}
   .stack-m{grid-template-columns:minmax(0,1fr)!important}
   .stack-m>*{grid-column:auto!important;order:0!important;margin-top:0!important}
   .pad-m{padding-left:20px!important;padding-right:20px!important}
-  .row{grid-template-columns:40px minmax(0,1fr) 30px}
-  .row .r-hide{display:none}
   .arch{clip-path:inset(18% 12% 6% 12% round 420px 420px 0 0)}
   .hero-h1{left:20px!important;right:20px!important;top:auto!important;bottom:150px;transform:none!important;flex-direction:column!important;align-items:flex-start!important;gap:6px!important;font-size:clamp(40px,12.5vw,64px)!important;line-height:1.08!important}
   .hero-h1 .ln{max-width:100%!important;text-align:left!important}
@@ -197,6 +200,10 @@ a:hover{color:inherit}
   .hero-cap{left:20px!important;right:20px!important;bottom:36px!important;flex-direction:column!important;align-items:flex-start!important}
   .hero-cap>a{display:none!important}
   .hero-title{padding:0!important}
+  .door-frame{height:520px}
+  .d-body.pad-m{padding-top:96px!important;padding-bottom:60px!important}
+  .d-view{height:460px}
+  .s-arch{aspect-ratio:4/3;border-radius:120px 120px 0 0}
 }
 </style>
 </helmet>
@@ -218,6 +225,9 @@ a:hover{color:inherit}
 </a>
 <span class="cap hide-m" style="opacity: .7"><span class="lx">{{t.issue}}</span></span>
 <div style="display: flex; align-items: center; gap: 28px">
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<span class="cap hide-m" style="opacity: .9; display: flex; align-items: center; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor"></span><span class="lx">{{t.member}}</span></span>
+</sc-if>
 <div role="group" aria-label="Language" style="display: flex">
 <sc-for list="{{langs}}" as="l" hint-placeholder-count="2">
 <button type="button" class="lang {{l.cls}}" onClick="{{l.pick}}" aria-label="{{l.name}}" aria-pressed="{{l.on}}">{{l.code}}</button>
@@ -236,7 +246,7 @@ a:hover{color:inherit}
 <div class="m-body pad-m" style="padding: 0 48px">
 <div class="stack-m" style="width: 100%; max-width: 1240px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end">
 <nav style="grid-column: 1 / span 8; display: flex; flex-direction: column" aria-label="Main">
-<sc-for list="{{navItems}}" as="it" hint-placeholder-count="6">
+<sc-for list="{{navItems}}" as="it" hint-placeholder-count="5">
 <a href="{{it.href}}" class="m-link" onClick="{{it.go}}"><span class="cap" style="color: #7A6A48; width: 40px">{{it.n}}</span><span class="serif" style="font-size: clamp(40px, 5vw, 76px); font-weight: 300; line-height: 1.08">{{it.label}}</span></a>
 </sc-for>
 </nav>
@@ -244,7 +254,7 @@ a:hover{color:inherit}
 <span class="cap" style="color: #7A6A48"><span class="lx">{{t.issue}}</span></span>
 <p class="serif" style="margin: 0; font-size: 24px; font-style: italic; line-height: 1.35; color: #080807"><span class="lx">{{t.tagline}}</span></p>
 <span style="height: 1px; background: rgba(8,8,7,.2)"></span>
-<span style="font-size: 14px">Sacred House · Gamirasu</span>
+<span style="font-size: 14px"><span class="lx">{{t.menuNote}}</span></span>
 </div>
 </div>
 </div>
@@ -254,17 +264,51 @@ a:hover{color:inherit}
 <div class="dossier {{dosCls}}" aria-hidden="{{dosHidden}}" role="dialog" aria-label="{{d.name}}">
 <div class="d-leaf l"></div><div class="d-leaf r"></div>
 <div class="d-body pad-m" style="padding: 120px 64px 80px">
-<div class="stack-m" style="max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: 56px; align-items: start">
-<div style="grid-column: 1 / span 5; position: relative; height: 720px; border-radius: 999px 999px 0 0; overflow: hidden; outline: 1px solid rgba(201,181,142,.3); outline-offset: 14px" class="ph {{dImg}}"></div>
-<div style="grid-column: 7 / span 6; display: flex; flex-direction: column; gap: 30px">
+<div class="stack-m" style="max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: 72px; align-items: start">
+
+<div style="grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 44px">
+<div class="d-view {{gatedCls}}">
+<sc-for list="{{slides}}" as="sl" hint-placeholder-count="2">
+<div class="slide bg {{sl.cls}} {{sl.on}}"></div>
+</sc-for>
+<div class="mist" aria-hidden="true"><i></i><i></i><i></i></div>
+<sc-if value="{{d.gated}}" hint-placeholder-val="{{ false }}">
+<div class="gate-badge">
+<svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg>
+<span class="cap"><span class="lx">{{t.lockTag}}</span></span>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; align-items: center; justify-content: center; gap: 28px">
+<button type="button" class="arrow" onClick="{{prevSlide}}" aria-label="{{t.prevPhoto}}"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1"></path></svg></button>
+<span class="cap" style="min-width: 90px; text-align: center; color: #CFC6B8">{{counter}}</span>
+<button type="button" class="arrow" onClick="{{nextSlide}}" aria-label="{{t.nextPhoto}}"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></button>
+</div>
+</div>
+
+<div style="grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 28px">
 <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px">
 <span class="cap" style="color: #C9B58E">{{d.num}} · {{d.tag}}</span>
 <button type="button" class="d-btn" onClick="{{closeDossier}}">{{t.close}} <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1"></path></svg></button>
 </div>
-<h2 class="serif" style="margin: 0; font-weight: 300; font-size: clamp(56px, 6vw, 96px); line-height: .95; letter-spacing: -.01em">{{d.name}}</h2>
+<h2 class="serif" style="margin: 0; font-weight: 300; font-size: clamp(52px, 5.4vw, 88px); line-height: .95; letter-spacing: -.01em">{{d.name}}</h2>
 <span class="cap" style="color: #8E8676">{{d.place}}</span>
-<p class="serif" style="margin: 0; font-size: 26px; line-height: 1.45; font-style: italic; color: #E4D9C3">{{d.story}}</p>
-<div style="display: flex; flex-direction: column; padding-top: 10px">
+<p class="serif" style="margin: 0; font-size: 25px; line-height: 1.45; font-style: italic; color: #E4D9C3">{{d.story}}</p>
+
+<sc-if value="{{d.gated}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 22px; padding: 30px 28px; border: 1px solid rgba(201,181,142,.35); border-radius: 22px">
+<span class="cap" style="color: #C9B58E"><span class="lx">{{t.gateTitle}}</span></span>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #B7AF9F"><span class="lx">{{t.gateText}}</span></p>
+<form style="display: flex; flex-direction: column; align-items: center; gap: 22px" onSubmit="{{submit}}">
+<label for="alcove-gate-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{t.letterPh}}</label>
+<input id="alcove-gate-email" class="field" type="email" required="required" placeholder="{{t.letterPh}}" autocomplete="email">
+<button type="submit" class="sub">{{t.gateBtn}}</button>
+</form>
+</div>
+</sc-if>
+
+<sc-if value="{{d.open}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; padding-top: 6px">
 <span class="cap" style="color: #C9B58E; padding-bottom: 18px">{{t.factsTitle}}</span>
 <sc-for list="{{d.facts}}" as="f" hint-placeholder-count="5">
 <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 16px 0; border-top: 1px solid rgba(239,233,221,.14); font-size: 15px">
@@ -273,6 +317,7 @@ a:hover{color:inherit}
 </div>
 </sc-for>
 </div>
+</sc-if>
 <div style="display: flex; gap: 12px; padding-top: 8px">
 <button type="button" class="d-btn" onClick="{{nextHouse}}">{{t.nextHouse}} <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></button>
 </div>
@@ -294,7 +339,7 @@ a:hover{color:inherit}
 <span class="ln" style="max-width: 34%"><span class="t1"><span class="lx">{{t.h1a}}</span></span></span>
 <span class="ln" style="max-width: 34%; text-align: right; font-style: italic; color: #E4D9C3"><span class="t2"><span class="lx">{{t.h1b}}</span></span></span>
 </h1>
-<div class="fu hide-m" style="position: absolute; left: 56px; bottom: 56px; max-width: 340px; display: flex; flex-direction: column; gap: 18px">
+<div class="fu hide-m" style="position: absolute; left: 56px; bottom: 56px; max-width: 360px; display: flex; flex-direction: column; gap: 18px">
 <span class="cap" style="color: #C9B58E"><span class="lx">{{t.issue}}</span></span>
 <p style="margin: 0; font-size: 15px; line-height: 1.75; color: #CFC6B8"><span class="lx">{{t.heroSub}}</span></p>
 </div>
@@ -325,7 +370,7 @@ a:hover{color:inherit}
 <p class="rv" style="margin: 0; max-width: 560px; font-size: 18px; line-height: 1.85; color: #2E2A25"><span class="lx">{{t.mP}}</span></p>
 </section>
 
-<!-- DESTINATION: TWO DOORS -->
+<!-- DESTINATION: ONE ICON, ONE HIDDEN DOOR -->
 <section id="houses" class="pad-m" style="background: #E6DFD2; color: #080807; padding: 200px 72px 240px; display: flex; flex-direction: column; gap: 120px">
 <div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; align-items: end">
 <div style="grid-column: 1 / span 7; display: flex; flex-direction: column; gap: 28px">
@@ -340,7 +385,7 @@ a:hover{color:inherit}
 <div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 100px; align-items: start">
 <button type="button" class="door rv" style="grid-column: 1 / span 5" onClick="{{openSacred}}" aria-label="{{t.openDossier}} · Sacred House">
 <span class="door-frame">
-<span class="ph p-sacred" style="position: absolute; inset: 0; display: block"></span>
+<span class="door-photo ph p-sacred"></span>
 <span class="leaf l"></span><span class="leaf r"></span>
 </span>
 <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
@@ -351,18 +396,21 @@ a:hover{color:inherit}
 <span class="serif" style="display: block; font-size: 22px; font-style: italic; line-height: 1.4; color: #3A352E; max-width: 460px"><span class="lx">{{t.sLine}}</span></span>
 <span class="go cap"><span class="lx">{{t.openDossier}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></span>
 </button>
-<button type="button" class="door rv" style="grid-column: 8 / span 5; margin-top: 220px" onClick="{{openGamirasu}}" aria-label="{{t.openDossier}} · Gamirasu Cave Hotel">
+<button type="button" class="door rv {{lockedCls}}" style="grid-column: 8 / span 5; margin-top: 220px" onClick="{{openGamirasu}}" aria-label="{{t.openDossier}} · {{gName}}">
 <span class="door-frame">
-<span class="ph p-gam" style="position: absolute; inset: 0; display: block"></span>
+<span class="door-photo ph p-gam"></span>
 <span class="leaf l"></span><span class="leaf r"></span>
+<sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
+<span class="lock-badge"><svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg></span>
+</sc-if>
 </span>
 <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
-<span class="cap" style="color: #7A6A48">02 · <span class="lx">{{t.heritage}}</span></span>
-<span class="cap" style="color: #5E5850"><span class="lx">{{t.gPlace}}</span></span>
+<span class="cap" style="color: #7A6A48">02 · <span class="lx">{{gTag}}</span></span>
+<span class="cap" style="color: #5E5850"><span class="lx">{{gPlaceShown}}</span></span>
 </span>
-<span class="serif" style="display: block; font-size: 56px; font-weight: 300; line-height: 1">Gamirasu</span>
-<span class="serif" style="display: block; font-size: 22px; font-style: italic; line-height: 1.4; color: #3A352E; max-width: 460px"><span class="lx">{{t.gLine}}</span></span>
-<span class="go cap"><span class="lx">{{t.openDossier}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></span>
+<span class="serif" style="display: block; font-size: 56px; font-weight: 300; line-height: 1"><span class="lx">{{gName}}</span></span>
+<span class="serif" style="display: block; font-size: 22px; font-style: italic; line-height: 1.4; color: #3A352E; max-width: 460px"><span class="lx">{{gLineShown}}</span></span>
+<span class="go cap"><span class="lx">{{gCta}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></span>
 </button>
 </div>
 </section>
@@ -377,6 +425,7 @@ a:hover{color:inherit}
 </h2>
 </div>
 
+<!-- chapter i: open to everyone -->
 <article class="chapter stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: center">
 <div style="grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 24px">
 <span class="serif rv" style="font-size: 150px; font-weight: 300; font-style: italic; line-height: .7; color: transparent; -webkit-text-stroke: 1px rgba(201,181,142,.6)">i</span>
@@ -384,77 +433,66 @@ a:hover{color:inherit}
 <span class="cap rv" style="color: #8E8676">Sacred House · Ürgüp</span>
 <span class="draw" style="width: 100px; height: 1px; background: #C9B58E"></span>
 </div>
-<div class="s-arch" style="grid-column: 6 / span 6">
-<p class="serif s-text" style="position: relative; z-index: 1; margin: 0; max-width: 400px; padding: 60px 24px 0; text-align: center; font-size: 25px; line-height: 1.5; font-style: italic; color: #E4D9C3"><span class="lx">{{t.ch1p}}</span></p>
+<div class="s-arch" style="grid-column: 6 / span 7">
+<div class="s-full p-room"></div>
+<p class="serif s-text" style="margin: 0; max-width: 440px; padding: 0 24px; text-align: center; font-size: 25px; line-height: 1.5; font-style: italic; color: #EFE9DD"><span class="lx">{{t.ch1p}}</span></p>
 <span class="s-leaf l"><span class="s-img p-room"></span></span><span class="s-leaf r"><span class="s-img p-room"></span></span>
 </div>
 </article>
 
+<!-- chapter ii: subscribers -->
 <article class="chapter stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: center">
-<div class="s-arch" style="grid-column: 2 / span 6; order: 1">
-<p class="serif s-text" style="position: relative; z-index: 1; margin: 0; max-width: 400px; padding: 60px 24px 0; text-align: center; font-size: 25px; line-height: 1.5; font-style: italic; color: #E4D9C3"><span class="lx">{{t.ch2p}}</span></p>
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<div class="s-arch" style="grid-column: 1 / span 7; order: 1">
+<div class="s-full p-church"></div>
+<p class="serif s-text" style="margin: 0; max-width: 440px; padding: 0 24px; text-align: center; font-size: 25px; line-height: 1.5; font-style: italic; color: #EFE9DD"><span class="lx">{{t.ch2p}}</span></p>
 <span class="s-leaf l"><span class="s-img p-church"></span></span><span class="s-leaf r"><span class="s-img p-church"></span></span>
 </div>
+</sc-if>
+<sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
+<div class="s-arch lockedarch" style="grid-column: 1 / span 7; order: 1">
+<div class="s-full p-church"></div>
+<div class="lock-center">
+<svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg>
+<span class="cap"><span class="lx">{{t.lockTag}}</span></span>
+<a href="#letter" class="d-btn"><span class="lx">{{t.lockCta}}</span></a>
+</div>
+</div>
+</sc-if>
 <div style="grid-column: 9 / span 4; order: 2; display: flex; flex-direction: column; gap: 24px">
 <span class="serif rv" style="font-size: 150px; font-weight: 300; font-style: italic; line-height: .7; color: transparent; -webkit-text-stroke: 1px rgba(201,181,142,.6)">ii</span>
-<h3 class="serif rv" style="margin: 0; font-weight: 300; font-size: 60px; line-height: 1"><span class="lx">{{t.ch2t}}</span></h3>
-<span class="cap rv" style="color: #8E8676">Gamirasu · Ayvalı</span>
+<h3 class="serif rv" style="margin: 0; font-weight: 300; font-size: 60px; line-height: 1"><span class="lx">{{c2title}}</span></h3>
+<span class="cap rv" style="color: #8E8676"><span class="lx">{{c2sub}}</span></span>
 <span class="draw" style="width: 100px; height: 1px; background: #C9B58E"></span>
 </div>
 </article>
 
+<!-- chapter iii: subscribers -->
 <article class="chapter stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: center">
 <div style="grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 24px">
 <span class="serif rv" style="font-size: 150px; font-weight: 300; font-style: italic; line-height: .7; color: transparent; -webkit-text-stroke: 1px rgba(201,181,142,.6)">iii</span>
-<h3 class="serif rv" style="margin: 0; font-weight: 300; font-size: 60px; line-height: 1"><span class="lx">{{t.ch3t}}</span></h3>
-<span class="cap rv" style="color: #8E8676">Ayvalı · <span class="lx">{{t.region}}</span></span>
+<h3 class="serif rv" style="margin: 0; font-weight: 300; font-size: 60px; line-height: 1"><span class="lx">{{c3title}}</span></h3>
+<span class="cap rv" style="color: #8E8676"><span class="lx">{{c3sub}}</span></span>
 <span class="draw" style="width: 100px; height: 1px; background: #C9B58E"></span>
 </div>
-<div class="s-arch" style="grid-column: 6 / span 6">
-<p class="serif s-text" style="position: relative; z-index: 1; margin: 0; max-width: 400px; padding: 60px 24px 0; text-align: center; font-size: 25px; line-height: 1.5; font-style: italic; color: #E4D9C3"><span class="lx">{{t.ch3p}}</span></p>
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<div class="s-arch" style="grid-column: 6 / span 7">
+<div class="s-full p-valley"></div>
+<p class="serif s-text" style="margin: 0; max-width: 440px; padding: 0 24px; text-align: center; font-size: 25px; line-height: 1.5; font-style: italic; color: #EFE9DD"><span class="lx">{{t.ch3p}}</span></p>
 <span class="s-leaf l"><span class="s-img p-valley"></span></span><span class="s-leaf r"><span class="s-img p-valley"></span></span>
 </div>
+</sc-if>
+<sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
+<div class="s-arch lockedarch" style="grid-column: 6 / span 7">
+<div class="s-full p-valley"></div>
+<div class="lock-center">
+<svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg>
+<span class="cap"><span class="lx">{{t.lockTag}}</span></span>
+<a href="#letter" class="d-btn"><span class="lx">{{t.lockCta}}</span></a>
+</div>
+</div>
+</sc-if>
 </article>
-</section>
-
-<!-- INDEX: COMING NEXT -->
-<section id="index" class="pad-m" style="background: #EFE9DD; color: #080807; padding: 200px 72px 220px; display: flex; flex-direction: column; gap: 80px">
-<div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; align-items: end">
-<div style="grid-column: 1 / span 7; display: flex; flex-direction: column; gap: 28px">
-<span class="cap rv" style="color: #7A6A48"><span class="lx">{{t.nLabel}}</span></span>
-<h2 class="serif lr" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6vw, 100px); line-height: .95; font-style: italic"><span class="lx">{{t.nT}}</span></h2>
-</div>
-</div>
-<div style="display: flex; flex-direction: column; border-bottom: 1px solid rgba(8,8,7,.16)">
-<a href="#letter" class="row rv r-nara">
-<span class="cap" style="color: #7A6A48">03</span>
-<span class="serif r-name" style="font-size: clamp(30px, 3.4vw, 52px); font-weight: 300; line-height: 1">Hoshinoya Nara Prison</span>
-<span class="cap r-hide" style="color: #5E5850"><span class="lx">{{t.n1loc}}</span></span>
-<span class="serif r-hide" style="font-size: 20px; font-style: italic; line-height: 1.35"><span class="lx">{{t.n1line}}</span></span>
-<svg class="r-arrow" width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg>
-</a>
-<a href="#letter" class="row rv r-fogo">
-<span class="cap" style="color: #7A6A48">04</span>
-<span class="serif r-name" style="font-size: clamp(30px, 3.4vw, 52px); font-weight: 300; line-height: 1">Fogo Island Inn</span>
-<span class="cap r-hide" style="color: #5E5850"><span class="lx">{{t.n2loc}}</span></span>
-<span class="serif r-hide" style="font-size: 20px; font-style: italic; line-height: 1.35"><span class="lx">{{t.n2line}}</span></span>
-<svg class="r-arrow" width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg>
-</a>
-<a href="#letter" class="row rv r-deplar">
-<span class="cap" style="color: #7A6A48">05</span>
-<span class="serif r-name" style="font-size: clamp(30px, 3.4vw, 52px); font-weight: 300; line-height: 1">Deplar Farm</span>
-<span class="cap r-hide" style="color: #5E5850"><span class="lx">{{t.n3loc}}</span></span>
-<span class="serif r-hide" style="font-size: 20px; font-style: italic; line-height: 1.35"><span class="lx">{{t.n3line}}</span></span>
-<svg class="r-arrow" width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg>
-</a>
-<a href="#letter" class="row rv r-khiva">
-<span class="cap" style="color: #7A6A48">06</span>
-<span class="serif r-name" style="font-size: clamp(30px, 3.4vw, 52px); font-weight: 300; line-height: 1">New Star</span>
-<span class="cap r-hide" style="color: #5E5850"><span class="lx">{{t.n4loc}}</span></span>
-<span class="serif r-hide" style="font-size: 20px; font-style: italic; line-height: 1.35"><span class="lx">{{t.n4line}}</span></span>
-<svg class="r-arrow" width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg>
-</a>
-</div>
 </section>
 
 <!-- PHILOSOPHY -->
@@ -490,13 +528,13 @@ a:hover{color:inherit}
 </div>
 </section>
 
-<!-- LETTER: inside an arch -->
+<!-- LETTER: inside an arch. Subscribing opens the hidden addresses -->
 <section id="letter" class="pad-m" style="background: #080807; color: #EFE9DD; padding: 200px 56px; display: flex; justify-content: center">
 <div class="grow" style="width: 100%; max-width: 640px; min-height: 760px; border: 1px solid rgba(201,181,142,.4); border-radius: 999px 999px 0 0; padding: 200px 56px 72px; display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center">
 <span class="cap" style="color: #C9B58E"><span class="lx">{{t.letterLabel}}</span></span>
 <h2 class="serif" style="margin: 0; font-weight: 300; font-size: clamp(40px, 4.6vw, 68px); line-height: 1"><span class="lx">{{t.letterH}}</span></h2>
 <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #B7AF9F; max-width: 380px"><span class="lx">{{t.letterSub}}</span></p>
-<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
 <form style="width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; gap: 28px; padding-top: 12px" onSubmit="{{submit}}">
 <label for="alcove-v3-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{t.letterPh}}</label>
 <input id="alcove-v3-email" class="field" type="email" required="required" placeholder="{{t.letterPh}}" autocomplete="email">
@@ -504,8 +542,9 @@ a:hover{color:inherit}
 </form>
 <span class="cap" style="font-size: 9px; color: #8E8676"><span class="lx">{{t.letterFine}}</span></span>
 </sc-if>
-<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
-<p class="serif" style="margin: 0; padding-top: 12px; font-size: 28px; font-style: italic; color: #C9B58E">{{t.letterThanks}}</p>
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<p class="serif" style="margin: 0; padding-top: 12px; font-size: 28px; font-style: italic; color: #C9B58E"><span class="lx">{{t.letterThanks}}</span></p>
+<a href="#houses" class="d-btn"><span class="lx">{{t.thanksCta}}</span></a>
 </sc-if>
 </div>
 </section>
@@ -520,9 +559,8 @@ a:hover{color:inherit}
 <a href="#stories" class="flink"><span class="lx">{{t.nav3}}</span></a>
 </div>
 <div style="grid-column: 10 / span 3; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
-<a href="#index" class="flink"><span class="lx">{{t.nav4}}</span></a>
-<a href="#why" class="flink"><span class="lx">{{t.nav5}}</span></a>
-<a href="#letter" class="flink"><span class="lx">{{t.nav6}}</span></a>
+<a href="#why" class="flink"><span class="lx">{{t.nav4}}</span></a>
+<a href="#letter" class="flink"><span class="lx">{{t.nav5}}</span></a>
 </div>
 </div>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; font-size: 12px; color: #8E8676">
@@ -536,24 +574,31 @@ a:hover{color:inherit}
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C9B58E","options":["#C9B58E","#A88B57","#CFC6B8","#9AA6C8"]},"startLang":{"editor":"enum","default":"en","options":["en","fr"]},"$preview":{"width":1440,"height":10800}}'>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C9B58E","options":["#C9B58E","#A88B57","#CFC6B8","#9AA6C8"]},"startLang":{"editor":"enum","default":"en","options":["en","fr"]},"subscriberPreview":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":9800}}'>
 class Component extends DCLogic {
   dict() {
     return {
       en: {
-        region: 'Cappadocia', issue: 'N° 01 · Cappadocia', menu: 'Menu', close: 'Close',
-        nav1: 'Manifesto', nav2: 'Destination', nav3: 'Stories', nav4: 'Index', nav5: 'Philosophy', nav6: 'The Letter',
+        region: 'Cappadocia', issue: 'N° 01 · Cappadocia', menu: 'Menu', close: 'Close', member: 'Subscriber',
+        nav1: 'Manifesto', nav2: 'Destination', nav3: 'Stories', nav4: 'Philosophy', nav5: 'The Letter',
         h1a: 'Where stone', h1b: 'keeps its secrets.',
-        heroSub: 'A journal of places with a soul. It opens in Cappadocia, with two houses chosen for what they make you feel.',
+        heroSub: 'A journal of places with a soul. Each destination opens with one icon, visible to all. The hidden addresses are for subscribers.',
         scrollHint: 'Scroll to open', icon: 'Icon', heritage: 'Heritage reinvented', enter: 'Push the door',
-        pending: 'Official photograph to come', stand: 'Provisional photographs, rights to be confirmed.',
+        menuNote: 'One icon in the open. The rest, for subscribers.',
         mLabel: 'Manifesto', m1: 'We do not collect addresses.', m2: 'We collect atmospheres.',
         mP: 'Alcove keeps only the houses worth changing a journey for, just to sleep there once. Each one is researched in depth, discussed with its hosts, and written about the way one would describe a work of art.',
-        hLabel: 'Destination N° 01', hT1: 'Cappadocia.', hT2: 'Two doors, two stories.',
-        hIntro: 'In a land of fairy chimneys and cave dwellings, we kept only two addresses. Not the most famous. The ones with a story no one else can tell. Push a door.',
+        hLabel: 'Destination N° 01', hT1: 'Cappadocia.', hT2: 'One icon. The rest is hidden.',
+        hIntro: 'Every destination opens with one icon, in plain sight. The hidden addresses are reserved for our subscribers. Push a door.',
         openDossier: 'Open the dossier',
         sPlace: 'Ürgüp', sLine: 'A 250-year-old Greek mansion, once a church, where each room tells a different story.',
         gPlace: 'Ayvalı', gLine: 'A Byzantine monastic retreat in a silent valley, with a 12th-century church on its grounds.',
+        gLineLocked: 'A retreat in a silent valley, with an old church on its grounds.',
+        hiddenName: 'Hidden address', hiddenStory: 'A hidden story',
+        lockTag: 'Subscribers only', lockCta: 'Unlock',
+        gateTitle: 'Reserved for subscribers',
+        gateText: 'Enter your email address to open this dossier. It is free, and we write once a month.',
+        gateBtn: 'Open the dossier',
+        prevPhoto: 'Previous photograph', nextPhoto: 'Next photograph',
         factsTitle: 'The dossier', nextHouse: 'Next house',
         houses: [
           { name: 'Sacred House', num: '01', tag: 'Icon', place: 'Ürgüp, Cappadocia',
@@ -579,37 +624,40 @@ class Component extends DCLogic {
         ch1t: 'The Church', ch1p: 'Sacred House was a Greek mansion, and for a time a church. Its restoration kept the stone walls and gave each room a story: the Harem, the Byzantine Treasury, Lilith.',
         ch2t: 'The Monastery', ch2p: 'Gamirasu occupies a former Byzantine monastic retreat. On its grounds, a 12th-century church keeps its frescoes. Until recently, monks still lived in part of the house.',
         ch3t: 'The Valley', ch3p: 'Ayvalı has been inhabited for more than five thousand years. Stone Age obsidian, Assyrian pottery, a Hittite bronze furnace: the valley kept stories long before anyone came here to sleep.',
-        nLabel: 'Coming next in the journal', nT: 'The index.',
-        n1loc: 'Nara, Japan', n1line: 'A 1908 imperial prison, reborn as a hotel.',
-        n2loc: 'Newfoundland, Canada', n2line: 'An island, an inn, and a culture impossible to reproduce.',
-        n3loc: 'Iceland', n3line: 'A black farm, alone at the end of a mountain valley.',
-        n4loc: 'Khiva, Uzbekistan', n4line: 'A former madrasa at the heart of Itchan Kala.',
         wLabel: 'Why Alcove', wT1: 'A place with a soul cannot be manufactured.', wT2: 'It can only be found.',
         w1t: 'Soul over stars', w1p: 'We choose houses for what they make you feel, never for the length of their list of amenities.',
         w2t: 'Emotional authenticity', w2p: 'No staged luxury. Original stone, inherited stories, and hosts who know the place by heart.',
         w3t: 'Worth the detour', w3p: 'If a region has only two exceptional houses, we keep two. Never a catalogue, always a choice.',
         w4t: 'Curated with the hosts', w4p: 'Every address is researched in depth and discussed directly with its hosts before it enters the journal. Most never do.',
-        letterLabel: 'The Letter', letterH: 'One house, once a month.',
-        letterSub: 'A single story, delivered quietly. No offers, no noise.',
+        letterLabel: 'The Letter', letterH: 'Open the hidden addresses.',
+        letterSub: 'Free. One letter a month, with the hidden addresses of each destination. Nothing else.',
         letterPh: 'Your email address', letterBtn: 'Subscribe', letterFine: 'Unsubscribe at any time',
-        letterThanks: 'Thank you. The next letter will find you.',
+        letterThanks: 'Welcome. The hidden addresses are now open to you.', thanksCta: 'See the hidden address',
         tagline: 'A curated journal of places with a soul.',
-        rights: 'All rights reserved.', privacy: 'Privacy', terms: 'Terms'
+        rights: 'All rights reserved.', privacy: 'Privacy', terms: 'Terms',
+        stand: 'Provisional photographs, rights to be confirmed.'
       },
       fr: {
-        region: 'Cappadoce', issue: 'N° 01 · Cappadoce', menu: 'Menu', close: 'Fermer',
-        nav1: 'Manifeste', nav2: 'Destination', nav3: 'Récits', nav4: 'Index', nav5: 'Philosophie', nav6: 'La Lettre',
+        region: 'Cappadoce', issue: 'N° 01 · Cappadoce', menu: 'Menu', close: 'Fermer', member: 'Abonné',
+        nav1: 'Manifeste', nav2: 'Destination', nav3: 'Récits', nav4: 'Philosophie', nav5: 'La Lettre',
         h1a: 'Là où la pierre', h1b: 'garde ses secrets.',
-        heroSub: 'Un journal des lieux qui ont une âme. Il s’ouvre en Cappadoce, avec deux maisons choisies pour ce qu’elles font ressentir.',
+        heroSub: 'Un journal des lieux qui ont une âme. Chaque destination s’ouvre sur une icône, visible de tous. Les adresses cachées sont réservées aux abonnés.',
         scrollHint: 'Défiler pour ouvrir', icon: 'Icône', heritage: 'Patrimoine réinventé', enter: 'Pousser la porte',
-        pending: 'Photo officielle à venir', stand: 'Photos provisoires, droits à confirmer.',
+        menuNote: 'Une icône à découvert. Le reste, pour les abonnés.',
         mLabel: 'Manifeste', m1: 'Nous ne collectionnons pas des adresses.', m2: 'Nous collectionnons des atmosphères.',
         mP: 'Alcove ne garde que les maisons qui méritent de modifier un voyage, juste pour y dormir une fois. Chacune est étudiée en profondeur, racontée avec ses hôtes et décrite comme on décrirait une œuvre d’art.',
-        hLabel: 'Destination N° 01', hT1: 'La Cappadoce.', hT2: 'Deux portes, deux histoires.',
-        hIntro: 'Au pays des cheminées de fée et des habitats troglodytes, nous n’avons gardé que deux adresses. Pas les plus célèbres. Celles qui ont une histoire que personne d’autre ne peut raconter. Poussez une porte.',
+        hLabel: 'Destination N° 01', hT1: 'La Cappadoce.', hT2: 'Une icône. Le reste est caché.',
+        hIntro: 'Chaque destination s’ouvre sur une icône, visible de tous. Les adresses cachées sont réservées à nos abonnés. Poussez une porte.',
         openDossier: 'Ouvrir le dossier',
         sPlace: 'Ürgüp', sLine: 'Une demeure grecque de 250 ans, un temps église, où chaque chambre raconte une histoire différente.',
         gPlace: 'Ayvalı', gLine: 'Une retraite monastique byzantine dans une vallée silencieuse, avec une église du XIIe siècle sur son domaine.',
+        gLineLocked: 'Une retraite dans une vallée silencieuse, avec une vieille église sur son domaine.',
+        hiddenName: 'Adresse cachée', hiddenStory: 'Un récit caché',
+        lockTag: 'Réservé aux abonnés', lockCta: 'Débloquer',
+        gateTitle: 'Réservé aux abonnés',
+        gateText: 'Saisissez votre adresse e-mail pour ouvrir ce dossier. C’est gratuit, et nous écrivons une fois par mois.',
+        gateBtn: 'Ouvrir le dossier',
+        prevPhoto: 'Photographie précédente', nextPhoto: 'Photographie suivante',
         factsTitle: 'Le dossier', nextHouse: 'Maison suivante',
         houses: [
           { name: 'Sacred House', num: '01', tag: 'Icône', place: 'Ürgüp, Cappadoce',
@@ -635,22 +683,18 @@ class Component extends DCLogic {
         ch1t: 'L’Église', ch1p: 'Sacred House était une demeure grecque, et un temps une église. Sa restauration a gardé les murs de pierre et donné à chaque chambre un récit : le Harem, le Trésor byzantin, Lilith.',
         ch2t: 'Le Monastère', ch2p: 'Gamirasu occupe une ancienne retraite monastique byzantine. Sur son domaine, une église du XIIe siècle garde ses fresques. Jusqu’à récemment, des moines vivaient encore dans une partie de la maison.',
         ch3t: 'La Vallée', ch3p: 'Ayvalı est habité depuis plus de cinq mille ans. Obsidienne de l’âge de pierre, céramiques assyriennes, four à bronze hittite : la vallée gardait des histoires bien avant qu’on vienne y dormir.',
-        nLabel: 'Prochainement dans le journal', nT: 'L’index.',
-        n1loc: 'Nara, Japon', n1line: 'Une prison impériale de 1908, devenue hôtel.',
-        n2loc: 'Terre-Neuve, Canada', n2line: 'Une île, une auberge, et une culture impossible à reproduire.',
-        n3loc: 'Islande', n3line: 'Une ferme noire, isolée au fond d’une vallée de montagne.',
-        n4loc: 'Khiva, Ouzbékistan', n4line: 'Une ancienne madrasa au cœur d’Itchan Kala.',
         wLabel: 'Pourquoi Alcove', wT1: 'Un lieu qui a une âme ne se fabrique pas.', wT2: 'Il se trouve.',
         w1t: 'L’âme avant les étoiles', w1p: 'Nous choisissons les maisons pour ce qu’elles font ressentir, jamais pour la longueur de leur liste de services.',
         w2t: 'L’authenticité émotionnelle', w2p: 'Aucun luxe mis en scène. La pierre d’origine, des histoires transmises, des hôtes qui connaissent le lieu par cœur.',
         w3t: 'Valoir le détour', w3p: 'Si une région n’a que deux maisons exceptionnelles, nous en gardons deux. Jamais un catalogue, toujours un choix.',
         w4t: 'Choisi avec les hôtes', w4p: 'Chaque adresse est étudiée en profondeur et discutée directement avec ses hôtes avant d’entrer dans le journal. La plupart n’y entrent jamais.',
-        letterLabel: 'La Lettre', letterH: 'Une maison, une fois par mois.',
-        letterSub: 'Un seul récit, livré en silence. Ni offres, ni bruit.',
+        letterLabel: 'La Lettre', letterH: 'Ouvrez les adresses cachées.',
+        letterSub: 'Gratuit. Une lettre par mois, avec les adresses cachées de chaque destination. Rien d’autre.',
         letterPh: 'Votre adresse e-mail', letterBtn: 'S’abonner', letterFine: 'Désinscription à tout moment',
-        letterThanks: 'Merci. La prochaine lettre saura vous trouver.',
+        letterThanks: 'Bienvenue. Les adresses cachées vous sont ouvertes.', thanksCta: 'Voir l’adresse cachée',
         tagline: 'Un journal choisi des lieux qui ont une âme.',
-        rights: 'Tous droits réservés.', privacy: 'Confidentialité', terms: 'Mentions légales'
+        rights: 'Tous droits réservés.', privacy: 'Confidentialité', terms: 'Mentions légales',
+        stand: 'Photos provisoires, droits à confirmer.'
       }
     };
   }
@@ -661,16 +705,27 @@ class Component extends DCLogic {
     const start = codes.indexOf(this.props.startLang) >= 0 ? this.props.startLang : 'en';
     const lang = s.lang || start;
     const t = this.dict()[lang];
-    const house = s.house || 0;
+    const unlocked = !!s.unlocked || !!this.props.subscriberPreview;
+    const hi = s.house || 0;
     const open = !!s.open;
     const menu = !!s.menu;
-    const sent = !!s.sent;
-    const anchors = ['#manifesto', '#houses', '#stories', '#index', '#why', '#letter'];
-    const labels = [t.nav1, t.nav2, t.nav3, t.nav4, t.nav5, t.nav6];
+    const gated = hi === 1 && !unlocked;
+    const photos = [['p-sacred', 'p-room'], ['p-gam', 'p-church', 'p-valley']][hi];
+    const n = photos.length;
+    const sl = (s.slide || 0) % n;
+    const h = t.houses[hi];
+    const d = gated
+      ? { name: t.hiddenName, num: '02', tag: t.lockTag, place: t.region + ', Türkiye', story: t.gLineLocked, facts: [], gated: true, open: false }
+      : { name: h.name, num: h.num, tag: h.tag, place: h.place, story: h.story, facts: h.facts, gated: false, open: true };
+    const anchors = ['#manifesto', '#houses', '#stories', '#why', '#letter'];
+    const labels = [t.nav1, t.nav2, t.nav3, t.nav4, t.nav5];
+    const reset = { slide: 0 };
     return {
       lang: lang,
       t: t,
       accent: this.props.accent ?? '#C9B58E',
+      unlocked: unlocked,
+      locked: !unlocked,
       langs: codes.map((c) => ({
         code: c.toUpperCase(), name: names[c],
         on: c === lang ? 'true' : 'false', cls: c === lang ? 'on' : '',
@@ -682,21 +737,33 @@ class Component extends DCLogic {
       menuHidden: menu ? 'false' : 'true',
       menuExpanded: menu ? 'true' : 'false',
       toggleMenu: () => this.setState({ menu: !menu, open: false }),
-      navItems: anchors.map((h, i) => ({
-        n: '0' + (i + 1), label: labels[i], href: h,
+      navItems: anchors.map((a, i) => ({
+        n: '0' + (i + 1), label: labels[i], href: a,
         go: () => this.setState({ menu: false })
       })),
-      d: t.houses[house],
-      dImg: house === 0 ? 'p-sacred' : 'p-gam',
+      d: d,
+      slides: photos.map((c, i) => ({ cls: c, on: i === sl ? 'on' : '' })),
+      counter: '0' + (sl + 1) + ' / 0' + n,
+      gatedCls: gated ? 'gated' : '',
+      prevSlide: () => this.setState({ slide: (sl - 1 + n) % n }),
+      nextSlide: () => this.setState({ slide: (sl + 1) % n }),
       dosCls: open ? 'open' : '',
       dosHidden: open ? 'false' : 'true',
-      openSacred: () => this.setState({ house: 0, open: true, menu: false }),
-      openGamirasu: () => this.setState({ house: 1, open: true, menu: false }),
+      openSacred: () => this.setState({ house: 0, slide: 0, open: true, menu: false }),
+      openGamirasu: () => this.setState({ house: 1, slide: 0, open: true, menu: false }),
       closeDossier: () => this.setState({ open: false }),
-      nextHouse: () => this.setState({ house: (house + 1) % 2 }),
-      sent: sent,
-      notSent: !sent,
-      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sent: true }); }
+      nextHouse: () => this.setState({ house: (hi + 1) % 2, slide: 0 }),
+      lockedCls: unlocked ? '' : 'locked',
+      gName: unlocked ? t.houses[1].name.replace(' Cave Hotel', '') : t.hiddenName,
+      gTag: unlocked ? t.heritage : t.lockTag,
+      gPlaceShown: unlocked ? t.gPlace : t.region,
+      gLineShown: unlocked ? t.gLine : t.gLineLocked,
+      gCta: unlocked ? t.openDossier : t.lockCta,
+      c2title: unlocked ? t.ch2t : t.hiddenStory,
+      c2sub: unlocked ? 'Gamirasu · Ayvalı' : t.lockTag,
+      c3title: unlocked ? t.ch3t : t.hiddenStory,
+      c3sub: unlocked ? 'Ayvalı · ' + t.region : t.lockTag,
+      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ unlocked: true }); }
     };
   }
 }

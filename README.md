@@ -9,11 +9,18 @@ Journal numérique des lieux qui ont une âme. Maquette du site (projet "Hôtels
 
 | Fichier | Rôle |
 |---|---|
-| `V3.dc.html` | Version premium en cours, **FR/EN**. Rideau d'entrée, arche du hero qui s'ouvre au défilement, deux portes qui ouvrent un dossier par maison, menu plein écran, index éditorial. |
+| `V3.dc.html` | Version premium en cours, **FR/EN**. Rideau d'entrée, arche du hero qui s'ouvre au défilement, deux portes (l'icône en libre accès, l'adresse cachée réservée aux abonnés), dossier avec galerie à flèches sous une légère brume, menu plein écran. Cappadoce uniquement (le Japon viendra plus tard). |
 | `Main.dc.html` | V2 conservée (3 langues EN/FR/RU). |
 | `plates/`, `cappadoce/` | Illustrations de remplacement et scripts qui les génèrent (plus utilisées). |
 
 Les fichiers `.dc.html` sont au format Design du canvas Claude. Les images pointent vers les assets du canvas (`/_blob/...`) : ils ne s'ouvrent pas tels quels dans un navigateur. Les photos ne sont pas dans ce dépôt.
+
+## Modèle éditorial
+
+- **Une icône par destination, en libre accès** (Sacred House pour la Cappadoce).
+- **Les adresses cachées sont réservées aux abonnés** (lettre gratuite, une par mois). S'abonner débloque le dossier, la galerie et les récits cachés.
+- Dans la maquette, l'abonnement est simulé (aucun e-mail n'est enregistré). Le réglage « Aperçu abonné » du canvas montre le site débloqué.
+- Le paiement viendra plus tard (phase 2).
 
 ## Avant toute mise en ligne
 
