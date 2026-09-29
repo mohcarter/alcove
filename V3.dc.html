@@ -29,7 +29,9 @@ a:hover{color:inherit}
 .p-gam{background-image:url(/_blob/63d8a64736543c7b862d6798332b4593)}
 .p-church{background-image:url(/_blob/77692793af1869b08e0abe819dc8ca44)}
 .p-valley{background-image:url(/_blob/04452432db7c8a893ddef34cb2ce756f)}
-.p-sacred,.p-room,.p-gam,.p-church,.p-valley{background-size:cover;background-position:center;background-repeat:no-repeat}
+.p-none{background-image:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(201,181,142,.22),rgba(201,181,142,0) 70%),radial-gradient(ellipse 80% 50% at 50% 100%,rgba(201,181,142,.14),rgba(201,181,142,0) 70%)}
+.p-sacred,.p-room,.p-gam,.p-church,.p-valley,.p-none{background-size:cover;background-position:center;background-repeat:no-repeat}
+.ph-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;pointer-events:none;color:#8E8676}
 
 /* intro curtain */
 @keyframes lineIn{from{transform:scaleY(0)}to{transform:scaleY(1)}}
@@ -93,16 +95,15 @@ a:hover{color:inherit}
 .door:hover .door-frame,.door:focus-visible .door-frame{outline-offset:24px;outline-color:#A88B57}
 .door-photo{position:absolute;inset:0;display:block;transform:scale(1.02);transition:transform 2.4s cubic-bezier(.2,.7,.1,1),filter 1.2s}
 .door:hover .door-photo,.door:focus-visible .door-photo{transform:scale(1.08)}
-.door.locked .door-photo{filter:blur(16px) brightness(.6) saturate(.8);transform:scale(1.12)}
 .leaf{position:absolute;top:0;bottom:0;width:50%;background:#16130F;transition:transform 1.6s cubic-bezier(.2,.7,.1,1)}
-.leaf.l{left:0;transform-origin:left center;border-right:1px solid rgba(201,181,142,.35)}
-.leaf.r{right:0;transform-origin:right center}
+.leaf.l{left:0;transform-origin:left center;transform:rotateY(-32deg);border-right:1px solid rgba(201,181,142,.35)}
+.leaf.r{right:0;transform-origin:right center;transform:rotateY(32deg)}
 .leaf::before{content:"";position:absolute;inset:26px 22px;border:1px solid rgba(201,181,142,.22)}
 .leaf::after{content:"";position:absolute;top:56%;width:7px;height:7px;border-radius:999px;background:#C9B58E}
 .leaf.l::after{right:14px}.leaf.r::after{left:14px}
 .door:hover .leaf.l,.door:focus-visible .leaf.l{transform:rotateY(-58deg)}
 .door:hover .leaf.r,.door:focus-visible .leaf.r{transform:rotateY(58deg)}
-.lock-badge{position:absolute;z-index:3;left:50%;top:44%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:999px;border:1px solid rgba(239,233,221,.5);background:rgba(8,8,7,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#EFE9DD}
+.door.sm .door-frame{height:560px}
 .door .go{display:inline-flex;align-items:center;gap:14px;color:#7A6A48;transition:gap .6s}
 .door:hover .go{gap:24px}
 
@@ -118,35 +119,38 @@ a:hover{color:inherit}
 .d-btn{height:52px;padding:0 26px;border-radius:999px;border:1px solid rgba(239,233,221,.35);background:transparent;color:#EFE9DD;font:400 11px Jost,sans-serif;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:14px;transition:background .5s,color .5s,border-color .5s}
 .d-btn:hover{background:#EFE9DD;color:#080807;border-color:#EFE9DD}
 
-/* dossier viewer: photographs under a light mist, browsed with arrows */
+/* dossier viewer: photographs browsed with arrows, clouds drifting only at the top and bottom edges */
 .d-view{position:relative;height:640px;border-radius:340px 340px 0 0;overflow:hidden;background:#110F0D;outline:1px solid rgba(201,181,142,.3);outline-offset:14px}
-.slide{position:absolute;inset:0;opacity:0;transform:scale(1.07);transition:opacity 1.5s ease,transform 8s cubic-bezier(.2,.7,.1,1),filter .8s;filter:saturate(.8) contrast(.94) brightness(.9)}
+.slide{position:absolute;inset:0;opacity:0;transform:scale(1.07);transition:opacity 1.5s ease,transform 8s cubic-bezier(.2,.7,.1,1)}
 .slide.on{opacity:1;transform:scale(1)}
-.d-view.gated .slide{filter:blur(18px) brightness(.55) saturate(.7)}
 .mist{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.mist i{position:absolute;left:-35%;width:170%;height:58%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(239,233,221,.34),rgba(239,233,221,0) 66%);filter:blur(28px);mix-blend-mode:screen;animation:mistDrift 26s ease-in-out infinite alternate}
-.mist i:nth-child(1){top:-12%}
-.mist i:nth-child(2){top:34%;opacity:.7;animation-duration:34s;animation-direction:alternate-reverse}
-.mist i:nth-child(3){top:auto;bottom:-16%;opacity:.95;animation-duration:40s}
-.mist::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,19,32,.28),rgba(239,233,221,.09) 52%,rgba(8,8,7,.5))}
-@keyframes mistDrift{from{transform:translateX(-9%) scale(1)}to{transform:translateX(11%) scale(1.12)}}
+.cloud{position:absolute;left:-18%;width:136%;height:36%;filter:blur(18px);background:
+radial-gradient(ellipse 22% 48% at 10% 50%,rgba(250,247,240,.98),rgba(244,240,232,0) 72%),
+radial-gradient(ellipse 27% 60% at 34% 58%,rgba(250,247,240,.9),rgba(244,240,232,0) 72%),
+radial-gradient(ellipse 21% 44% at 60% 46%,rgba(250,247,240,.96),rgba(244,240,232,0) 72%),
+radial-gradient(ellipse 25% 54% at 86% 56%,rgba(250,247,240,.92),rgba(244,240,232,0) 72%);
+animation:cloudDrift 30s ease-in-out infinite alternate}
+.cloud.top{top:-12%;-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent);mask-image:linear-gradient(180deg,#000 45%,transparent)}
+.cloud.top.b{top:-17%;opacity:.8;animation-duration:44s;animation-direction:alternate-reverse}
+.cloud.bot{top:auto;bottom:-12%;-webkit-mask-image:linear-gradient(0deg,#000 45%,transparent);mask-image:linear-gradient(0deg,#000 45%,transparent);animation-duration:36s;animation-direction:alternate-reverse}
+.cloud.bot.b{bottom:-17%;opacity:.8;animation-duration:50s;animation-direction:alternate}
+@keyframes cloudDrift{from{transform:translateX(-7%)}to{transform:translateX(8%)}}
 .arrow{width:54px;height:54px;border-radius:999px;border:1px solid rgba(239,233,221,.4);background:rgba(8,8,7,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#EFE9DD;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .5s,color .5s,border-color .5s}
 .arrow:hover{background:#EFE9DD;color:#080807;border-color:#EFE9DD}
-.gate-badge{position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#EFE9DD;pointer-events:none}
 
 /* story arches: photograph splits, text appears, then the whole photograph settles behind it */
 .chapter{view-timeline:--ch block}
 .s-arch{position:relative;aspect-ratio:3/2;border-radius:180px 180px 0 0;overflow:hidden;background:#0E0C0A;display:flex;align-items:center;justify-content:center}
-.s-full{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.85) contrast(.95) brightness(.9)}
+.s-full{position:absolute;inset:0;background-size:cover;background-position:center}
 .s-full::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,7,.5),rgba(8,8,7,.72))}
-.s-arch.lockedarch .s-full{filter:blur(16px) brightness(.55) saturate(.75)}
+.s-arch.lockedarch .s-full::after{background:linear-gradient(180deg,rgba(8,8,7,.04) 45%,rgba(8,8,7,.82))}
 .s-leaf{position:absolute;top:0;bottom:0;width:50%;background:#1A1714;z-index:2;overflow:hidden}
 .s-img{position:absolute;top:0;bottom:0;width:200%;background-size:cover;background-position:center}
 .s-leaf.l .s-img{left:0}.s-leaf.r .s-img{right:0}
 .s-leaf.l{left:0;transform:translateX(-100%);border-right:1px solid rgba(201,181,142,.4)}
 .s-leaf.r{right:0;transform:translateX(100%)}
 .s-text{position:relative;z-index:1;text-shadow:0 2px 24px rgba(8,8,7,.7)}
-.lock-center{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#EFE9DD;text-align:center;padding:24px}
+.lock-center{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:18px;color:#EFE9DD;text-align:center;padding:24px 24px 40px}
 
 /* newsletter */
 .field{width:100%;height:58px;border:0;border-bottom:1px solid rgba(239,233,221,.3);background:transparent;font:300 22px Cormorant,Georgia,serif;color:#EFE9DD;outline:none;text-align:center;transition:border-color .5s}
@@ -201,6 +205,7 @@ a:hover{color:inherit}
   .hero-cap>a{display:none!important}
   .hero-title{padding:0!important}
   .door-frame{height:520px}
+  .door.sm .door-frame{height:440px}
   .d-body.pad-m{padding-top:96px!important;padding-bottom:60px!important}
   .d-view{height:460px}
   .s-arch{aspect-ratio:4/3;border-radius:120px 120px 0 0}
@@ -267,23 +272,19 @@ a:hover{color:inherit}
 <div class="stack-m" style="max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: 72px; align-items: start">
 
 <div style="grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 44px">
-<div class="d-view {{gatedCls}}">
+<div class="d-view">
 <sc-for list="{{slides}}" as="sl" hint-placeholder-count="2">
-<div class="slide bg {{sl.cls}} {{sl.on}}"></div>
+<div class="slide bg {{sl.cls}} {{sl.on}}"><sc-if value="{{sl.ph}}" hint-placeholder-val="{{ false }}"><span class="ph-lbl serif" style="font-size: 20px; font-style: italic"><span class="lx">{{sl.lbl}}</span></span></sc-if></div>
 </sc-for>
-<div class="mist" aria-hidden="true"><i></i><i></i><i></i></div>
-<sc-if value="{{d.gated}}" hint-placeholder-val="{{ false }}">
-<div class="gate-badge">
-<svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg>
-<span class="cap"><span class="lx">{{t.lockTag}}</span></span>
+<div class="mist" aria-hidden="true"><i class="cloud top"></i><i class="cloud top b"></i><i class="cloud bot"></i><i class="cloud bot b"></i></div>
 </div>
-</sc-if>
-</div>
+<sc-if value="{{multi}}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; align-items: center; justify-content: center; gap: 28px">
 <button type="button" class="arrow" onClick="{{prevSlide}}" aria-label="{{t.prevPhoto}}"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1"></path></svg></button>
 <span class="cap" style="min-width: 90px; text-align: center; color: #CFC6B8">{{counter}}</span>
 <button type="button" class="arrow" onClick="{{nextSlide}}" aria-label="{{t.nextPhoto}}"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></button>
 </div>
+</sc-if>
 </div>
 
 <div style="grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 28px">
@@ -383,7 +384,7 @@ a:hover{color:inherit}
 <p class="rv" style="grid-column: 9 / span 4; margin: 0; font-size: 16px; line-height: 1.8; color: #3A352E"><span class="lx">{{t.hIntro}}</span></p>
 </div>
 <div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 100px; align-items: start">
-<button type="button" class="door rv" style="grid-column: 1 / span 5" onClick="{{openSacred}}" aria-label="{{t.openDossier}} · Sacred House">
+<button type="button" class="door rv" style="grid-column: 1 / span 6" onClick="{{openSacred}}" aria-label="{{t.openDossier}} · Sacred House">
 <span class="door-frame">
 <span class="door-photo ph p-sacred"></span>
 <span class="leaf l"></span><span class="leaf r"></span>
@@ -396,22 +397,34 @@ a:hover{color:inherit}
 <span class="serif" style="display: block; font-size: 22px; font-style: italic; line-height: 1.4; color: #3A352E; max-width: 460px"><span class="lx">{{t.sLine}}</span></span>
 <span class="go cap"><span class="lx">{{t.openDossier}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></span>
 </button>
-<button type="button" class="door rv {{lockedCls}}" style="grid-column: 8 / span 5; margin-top: 220px" onClick="{{openGamirasu}}" aria-label="{{t.openDossier}} · {{gName}}">
-<span class="door-frame">
-<span class="door-photo ph p-gam"></span>
-<span class="leaf l"></span><span class="leaf r"></span>
+<div class="rv" style="grid-column: 8 / span 5; padding-top: 160px; display: flex; flex-direction: column; gap: 28px">
+<span class="cap" style="color: #7A6A48"><span class="lx">{{t.hiddenLabel}}</span></span>
+<h3 class="serif" style="margin: 0; font-weight: 300; font-size: clamp(40px, 4vw, 64px); line-height: 1"><span class="lx">{{t.hiddenT}}</span></h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #3A352E; max-width: 420px"><span class="lx">{{t.hiddenP}}</span></p>
 <sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
-<span class="lock-badge"><svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg></span>
+<a href="#letter" class="d-btn" style="align-self: flex-start; color: #080807; border-color: rgba(8,8,7,.4)"><span class="lx">{{t.lockCta}}</span></a>
 </sc-if>
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<span class="cap" style="color: #7A6A48"><span class="lx">{{t.unlockedNote}}</span></span>
+</sc-if>
+</div>
+</div>
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; row-gap: 100px; align-items: start">
+<sc-for list="{{hiddenDoors}}" as="hd" hint-placeholder-count="3">
+<button type="button" class="door sm rv" style="margin-top: {{hd.mt}}" onClick="{{hd.open}}" aria-label="{{hd.aria}}">
+<span class="door-frame">
+<span class="door-photo ph {{hd.cls}}"></span>
+<span class="leaf l"></span><span class="leaf r"></span>
 </span>
 <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
-<span class="cap" style="color: #7A6A48">02 · <span class="lx">{{gTag}}</span></span>
-<span class="cap" style="color: #5E5850"><span class="lx">{{gPlaceShown}}</span></span>
+<span class="cap" style="color: #7A6A48">{{hd.num}} · <span class="lx">{{hd.tag}}</span></span>
+<span class="cap" style="color: #5E5850"><span class="lx">{{hd.place}}</span></span>
 </span>
-<span class="serif" style="display: block; font-size: 56px; font-weight: 300; line-height: 1"><span class="lx">{{gName}}</span></span>
-<span class="serif" style="display: block; font-size: 22px; font-style: italic; line-height: 1.4; color: #3A352E; max-width: 460px"><span class="lx">{{gLineShown}}</span></span>
-<span class="go cap"><span class="lx">{{gCta}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></span>
+<span class="serif" style="display: block; font-size: 44px; font-weight: 300; line-height: 1.02"><span class="lx">{{hd.name}}</span></span>
+<span class="serif" style="display: block; font-size: 20px; font-style: italic; line-height: 1.4; color: #3A352E; max-width: 400px"><span class="lx">{{hd.line}}</span></span>
+<span class="go cap"><span class="lx">{{hd.cta}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1"></path></svg></span>
 </button>
+</sc-for>
 </div>
 </section>
 
@@ -453,7 +466,6 @@ a:hover{color:inherit}
 <div class="s-arch lockedarch" style="grid-column: 1 / span 7; order: 1">
 <div class="s-full p-church"></div>
 <div class="lock-center">
-<svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg>
 <span class="cap"><span class="lx">{{t.lockTag}}</span></span>
 <a href="#letter" class="d-btn"><span class="lx">{{t.lockCta}}</span></a>
 </div>
@@ -486,7 +498,6 @@ a:hover{color:inherit}
 <div class="s-arch lockedarch" style="grid-column: 6 / span 7">
 <div class="s-full p-valley"></div>
 <div class="lock-center">
-<svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true"><rect x="2" y="12" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M7 12V8a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="1.2"></path></svg>
 <span class="cap"><span class="lx">{{t.lockTag}}</span></span>
 <a href="#letter" class="d-btn"><span class="lx">{{t.lockCta}}</span></a>
 </div>
@@ -583,25 +594,27 @@ class Component extends DCLogic {
         nav1: 'Manifesto', nav2: 'Destination', nav3: 'Stories', nav4: 'Philosophy', nav5: 'The Letter',
         h1a: 'Where stone', h1b: 'keeps its secrets.',
         heroSub: 'A journal of places with a soul. Each destination opens with one icon, visible to all. The hidden addresses are for subscribers.',
-        scrollHint: 'Scroll to open', icon: 'Icon', heritage: 'Heritage reinvented', enter: 'Push the door',
+        scrollHint: 'Scroll to open', icon: 'Icon', enter: 'Push the door',
         menuNote: 'One icon in the open. The rest, for subscribers.',
         mLabel: 'Manifesto', m1: 'We do not collect addresses.', m2: 'We collect atmospheres.',
         mP: 'Alcove keeps only the houses worth changing a journey for, just to sleep there once. Each one is researched in depth, discussed with its hosts, and written about the way one would describe a work of art.',
         hLabel: 'Destination N° 01', hT1: 'Cappadocia.', hT2: 'One icon. The rest is hidden.',
         hIntro: 'Every destination opens with one icon, in plain sight. The hidden addresses are reserved for our subscribers. Push a door.',
-        openDossier: 'Open the dossier',
-        sPlace: 'Ürgüp', sLine: 'A 250-year-old Greek mansion, once a church, where each room tells a different story.',
-        gPlace: 'Ayvalı', gLine: 'A Byzantine monastic retreat in a silent valley, with a 12th-century church on its grounds.',
-        gLineLocked: 'A retreat in a silent valley, with an old church on its grounds.',
+        hiddenLabel: 'The hidden addresses', hiddenT: 'Three doors, for subscribers.',
+        hiddenP: 'Their photographs are yours to see. Their names, their stories and their dossiers open with a free subscription.',
+        unlockedNote: 'Subscriber access unlocked',
+        openDossier: 'Open the dossier', sPlace: 'Ürgüp',
+        sLine: 'A 250-year-old Greek mansion, once a church, where each room tells a different story.',
         hiddenName: 'Hidden address', hiddenStory: 'A hidden story',
-        lockTag: 'Subscribers only', lockCta: 'Unlock',
+        lockTag: 'Subscribers only', lockCta: 'Unlock', phSoon: 'Photograph to come',
         gateTitle: 'Reserved for subscribers',
         gateText: 'Enter your email address to open this dossier. It is free, and we write once a month.',
         gateBtn: 'Open the dossier',
         prevPhoto: 'Previous photograph', nextPhoto: 'Next photograph',
         factsTitle: 'The dossier', nextHouse: 'Next house',
         houses: [
-          { name: 'Sacred House', num: '01', tag: 'Icon', place: 'Ürgüp, Cappadocia',
+          { name: 'Sacred House', num: '01', tag: 'Icon', place: 'Ürgüp, Cappadocia', placeShort: 'Ürgüp',
+            lineOpen: 'A 250-year-old Greek mansion, once a church.', lineLocked: 'A 250-year-old Greek mansion, once a church.',
             story: 'Before it was a hotel, Sacred House was a Greek mansion, and for a time a church. The restoration by Turan Gülcüoğlu kept its stone walls and gave each room a story of its own. Beneath the house, the spa is called Inferno, lined with fiery red mosaics.',
             facts: [
               { k: 'Origin', v: 'Greek mansion, about 250 years old' },
@@ -610,7 +623,9 @@ class Component extends DCLogic {
               { k: 'Rooms', v: 'Each one themed: Harem, Byzantine Treasury, Lilith' },
               { k: 'Recognition', v: 'Best Renovation and Design, International Hotel Awards 2014' }
             ] },
-          { name: 'Gamirasu Cave Hotel', num: '02', tag: 'Heritage reinvented', place: 'Ayvalı, near Ürgüp',
+          { name: 'Gamirasu', num: '02', tag: 'Heritage reinvented', place: 'Ayvalı, near Ürgüp', placeShort: 'Ayvalı',
+            lineOpen: 'A Byzantine monastic retreat in a silent valley, with a 12th-century church on its grounds.',
+            lineLocked: 'A retreat in a silent valley, with an old church on its grounds.',
             story: 'Gamirasu occupies a former Byzantine monastic retreat in the village of Ayvalı. On its grounds stands a 12th-century church and its frescoes, and until recently part of the house was still used by monks. The valley around it has been inhabited for more than five thousand years.',
             facts: [
               { k: 'Origin', v: 'Byzantine monastic retreat' },
@@ -618,6 +633,28 @@ class Component extends DCLogic {
               { k: 'Hotel since', v: '1999' },
               { k: 'Rooms', v: '35 cave rooms and suites' },
               { k: 'Valley', v: 'Inhabited for more than 5,000 years' }
+            ] },
+          { name: 'Esbelli Evi', num: '03', tag: 'The pioneer', place: 'Esbelli, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Often called the first hotel in Cappadocia, born from abandoned cave houses.',
+            lineLocked: 'Abandoned cave houses, and the man who spent seven years bringing them back.',
+            story: 'Süha Ersöz bought abandoned cave houses in 1987 and spent seven years restoring them. Esbelli Evi opened in 1990, often described as the first hotel in Cappadocia, and its owner has always refused to enlarge it, to keep the warmth of a private house.',
+            facts: [
+              { k: 'Origin', v: 'Abandoned cave houses, with caves of the 5th and 6th centuries behind them' },
+              { k: 'Bought', v: '1987, by Süha Ersöz' },
+              { k: 'Restoration', v: 'Seven years' },
+              { k: 'Opened', v: '1990' },
+              { k: 'Rooms', v: '10 suites and 4 rooms, never enlarged' }
+            ] },
+          { name: 'Yunak Evleri', num: '04', tag: 'Carved in rock', place: 'Yunak quarter, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Cave houses of the 5th century, crowned by a Greek marble mansion.',
+            lineLocked: 'Six cave houses from the fifth century, crowned by a marble mansion.',
+            story: 'In 2000, six empty cave houses from the 5th and 6th centuries became Yunak Evleri. Its reception and dining room sit in a 19th-century Greek mansion of white marble and wood, and every suite keeps the medallions, niches and arches carved into the rock. The name comes from the yunak, the village fountain.',
+            facts: [
+              { k: 'Origin', v: 'Six cave houses, 5th and 6th centuries' },
+              { k: 'Crown', v: '19th-century Greek mansion, white marble and wood' },
+              { k: 'Completed', v: '2000' },
+              { k: 'Rooms', v: '30 rooms, carved details in every suite' },
+              { k: 'Name', v: 'From the yunak, the village fountain' }
             ] }
         ],
         stLabel: 'Stories', stT1: 'Every threshold', stT2: 'is a first sentence.',
@@ -627,12 +664,12 @@ class Component extends DCLogic {
         wLabel: 'Why Alcove', wT1: 'A place with a soul cannot be manufactured.', wT2: 'It can only be found.',
         w1t: 'Soul over stars', w1p: 'We choose houses for what they make you feel, never for the length of their list of amenities.',
         w2t: 'Emotional authenticity', w2p: 'No staged luxury. Original stone, inherited stories, and hosts who know the place by heart.',
-        w3t: 'Worth the detour', w3p: 'If a region has only two exceptional houses, we keep two. Never a catalogue, always a choice.',
+        w3t: 'Worth the detour', w3p: 'If a region has only a few exceptional houses, we keep those few. Never a catalogue, always a choice.',
         w4t: 'Curated with the hosts', w4p: 'Every address is researched in depth and discussed directly with its hosts before it enters the journal. Most never do.',
         letterLabel: 'The Letter', letterH: 'Open the hidden addresses.',
         letterSub: 'Free. One letter a month, with the hidden addresses of each destination. Nothing else.',
         letterPh: 'Your email address', letterBtn: 'Subscribe', letterFine: 'Unsubscribe at any time',
-        letterThanks: 'Welcome. The hidden addresses are now open to you.', thanksCta: 'See the hidden address',
+        letterThanks: 'Welcome. The hidden addresses are now open to you.', thanksCta: 'See the hidden addresses',
         tagline: 'A curated journal of places with a soul.',
         rights: 'All rights reserved.', privacy: 'Privacy', terms: 'Terms',
         stand: 'Provisional photographs, rights to be confirmed.'
@@ -642,25 +679,27 @@ class Component extends DCLogic {
         nav1: 'Manifeste', nav2: 'Destination', nav3: 'Récits', nav4: 'Philosophie', nav5: 'La Lettre',
         h1a: 'Là où la pierre', h1b: 'garde ses secrets.',
         heroSub: 'Un journal des lieux qui ont une âme. Chaque destination s’ouvre sur une icône, visible de tous. Les adresses cachées sont réservées aux abonnés.',
-        scrollHint: 'Défiler pour ouvrir', icon: 'Icône', heritage: 'Patrimoine réinventé', enter: 'Pousser la porte',
+        scrollHint: 'Défiler pour ouvrir', icon: 'Icône', enter: 'Pousser la porte',
         menuNote: 'Une icône à découvert. Le reste, pour les abonnés.',
         mLabel: 'Manifeste', m1: 'Nous ne collectionnons pas des adresses.', m2: 'Nous collectionnons des atmosphères.',
         mP: 'Alcove ne garde que les maisons qui méritent de modifier un voyage, juste pour y dormir une fois. Chacune est étudiée en profondeur, racontée avec ses hôtes et décrite comme on décrirait une œuvre d’art.',
         hLabel: 'Destination N° 01', hT1: 'La Cappadoce.', hT2: 'Une icône. Le reste est caché.',
         hIntro: 'Chaque destination s’ouvre sur une icône, visible de tous. Les adresses cachées sont réservées à nos abonnés. Poussez une porte.',
-        openDossier: 'Ouvrir le dossier',
-        sPlace: 'Ürgüp', sLine: 'Une demeure grecque de 250 ans, un temps église, où chaque chambre raconte une histoire différente.',
-        gPlace: 'Ayvalı', gLine: 'Une retraite monastique byzantine dans une vallée silencieuse, avec une église du XIIe siècle sur son domaine.',
-        gLineLocked: 'Une retraite dans une vallée silencieuse, avec une vieille église sur son domaine.',
+        hiddenLabel: 'Les adresses cachées', hiddenT: 'Trois portes, pour les abonnés.',
+        hiddenP: 'Leurs photographies sont à voir. Leurs noms, leurs histoires et leurs dossiers s’ouvrent avec un abonnement gratuit.',
+        unlockedNote: 'Accès abonné débloqué',
+        openDossier: 'Ouvrir le dossier', sPlace: 'Ürgüp',
+        sLine: 'Une demeure grecque de 250 ans, un temps église, où chaque chambre raconte une histoire différente.',
         hiddenName: 'Adresse cachée', hiddenStory: 'Un récit caché',
-        lockTag: 'Réservé aux abonnés', lockCta: 'Débloquer',
+        lockTag: 'Réservé aux abonnés', lockCta: 'Débloquer', phSoon: 'Photographie à venir',
         gateTitle: 'Réservé aux abonnés',
         gateText: 'Saisissez votre adresse e-mail pour ouvrir ce dossier. C’est gratuit, et nous écrivons une fois par mois.',
         gateBtn: 'Ouvrir le dossier',
         prevPhoto: 'Photographie précédente', nextPhoto: 'Photographie suivante',
         factsTitle: 'Le dossier', nextHouse: 'Maison suivante',
         houses: [
-          { name: 'Sacred House', num: '01', tag: 'Icône', place: 'Ürgüp, Cappadoce',
+          { name: 'Sacred House', num: '01', tag: 'Icône', place: 'Ürgüp, Cappadoce', placeShort: 'Ürgüp',
+            lineOpen: 'Une demeure grecque de 250 ans, un temps église.', lineLocked: 'Une demeure grecque de 250 ans, un temps église.',
             story: 'Avant d’être un hôtel, Sacred House était une demeure grecque, et un temps une église. La restauration de Turan Gülcüoğlu a gardé ses murs de pierre et donné à chaque chambre son propre récit. Sous la maison, le spa s’appelle Inferno, tapissé de mosaïques rouge feu.',
             facts: [
               { k: 'Origine', v: 'Demeure grecque d’environ 250 ans' },
@@ -669,7 +708,9 @@ class Component extends DCLogic {
               { k: 'Chambres', v: 'Chacune a son thème : Harem, Trésor byzantin, Lilith' },
               { k: 'Distinction', v: 'Best Renovation and Design, International Hotel Awards 2014' }
             ] },
-          { name: 'Gamirasu Cave Hotel', num: '02', tag: 'Patrimoine réinventé', place: 'Ayvalı, près d’Ürgüp',
+          { name: 'Gamirasu', num: '02', tag: 'Patrimoine réinventé', place: 'Ayvalı, près d’Ürgüp', placeShort: 'Ayvalı',
+            lineOpen: 'Une retraite monastique byzantine dans une vallée silencieuse, avec une église du XIIe siècle sur son domaine.',
+            lineLocked: 'Une retraite dans une vallée silencieuse, avec une vieille église sur son domaine.',
             story: 'Gamirasu occupe une ancienne retraite monastique byzantine dans le village d’Ayvalı. Sur son domaine se dresse une église du XIIe siècle et ses fresques, et jusqu’à récemment une partie de la maison était encore occupée par des moines. La vallée alentour est habitée depuis plus de cinq mille ans.',
             facts: [
               { k: 'Origine', v: 'Retraite monastique byzantine' },
@@ -677,6 +718,28 @@ class Component extends DCLogic {
               { k: 'Hôtel depuis', v: '1999' },
               { k: 'Chambres', v: '35 chambres et suites troglodytes' },
               { k: 'Vallée', v: 'Habitée depuis plus de 5 000 ans' }
+            ] },
+          { name: 'Esbelli Evi', num: '03', tag: 'Le pionnier', place: 'Esbelli, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Souvent présenté comme le premier hôtel de Cappadoce, né de maisons troglodytes abandonnées.',
+            lineLocked: 'Des maisons troglodytes abandonnées, et l’homme qui a passé sept ans à les ranimer.',
+            story: 'Süha Ersöz a acheté des maisons troglodytes abandonnées en 1987 et a passé sept ans à les restaurer. Esbelli Evi a ouvert en 1990, souvent présenté comme le premier hôtel de Cappadoce, et son propriétaire a toujours refusé de l’agrandir, pour garder la chaleur d’une maison privée.',
+            facts: [
+              { k: 'Origine', v: 'Maisons troglodytes abandonnées, avec des grottes des Ve et VIe siècles derrière' },
+              { k: 'Achat', v: '1987, par Süha Ersöz' },
+              { k: 'Restauration', v: 'Sept ans' },
+              { k: 'Ouverture', v: '1990' },
+              { k: 'Chambres', v: '10 suites et 4 chambres, jamais agrandi' }
+            ] },
+          { name: 'Yunak Evleri', num: '04', tag: 'Taillé dans la roche', place: 'Quartier de Yunak, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Des maisons troglodytes du Ve siècle, couronnées par un manoir grec en marbre.',
+            lineLocked: 'Six maisons troglodytes du Ve siècle, couronnées par un manoir de marbre.',
+            story: 'En 2000, six maisons troglodytes vides des Ve et VIe siècles sont devenues Yunak Evleri. La réception et la salle à manger occupent un manoir grec du XIXe siècle en marbre blanc et bois, et chaque suite garde ses médaillons, ses niches et ses arches taillés dans la roche. Le nom vient du yunak, la fontaine du village.',
+            facts: [
+              { k: 'Origine', v: 'Six maisons troglodytes, Ve et VIe siècles' },
+              { k: 'Couronnement', v: 'Manoir grec du XIXe siècle, marbre blanc et bois' },
+              { k: 'Achevé', v: '2000' },
+              { k: 'Chambres', v: '30 chambres, des détails sculptés dans chaque suite' },
+              { k: 'Nom', v: 'Du yunak, la fontaine du village' }
             ] }
         ],
         stLabel: 'Récits', stT1: 'Chaque seuil est', stT2: 'une première phrase.',
@@ -686,12 +749,12 @@ class Component extends DCLogic {
         wLabel: 'Pourquoi Alcove', wT1: 'Un lieu qui a une âme ne se fabrique pas.', wT2: 'Il se trouve.',
         w1t: 'L’âme avant les étoiles', w1p: 'Nous choisissons les maisons pour ce qu’elles font ressentir, jamais pour la longueur de leur liste de services.',
         w2t: 'L’authenticité émotionnelle', w2p: 'Aucun luxe mis en scène. La pierre d’origine, des histoires transmises, des hôtes qui connaissent le lieu par cœur.',
-        w3t: 'Valoir le détour', w3p: 'Si une région n’a que deux maisons exceptionnelles, nous en gardons deux. Jamais un catalogue, toujours un choix.',
+        w3t: 'Valoir le détour', w3p: 'Si une région n’a que quelques maisons exceptionnelles, nous ne gardons que celles-là. Jamais un catalogue, toujours un choix.',
         w4t: 'Choisi avec les hôtes', w4p: 'Chaque adresse est étudiée en profondeur et discutée directement avec ses hôtes avant d’entrer dans le journal. La plupart n’y entrent jamais.',
         letterLabel: 'La Lettre', letterH: 'Ouvrez les adresses cachées.',
         letterSub: 'Gratuit. Une lettre par mois, avec les adresses cachées de chaque destination. Rien d’autre.',
         letterPh: 'Votre adresse e-mail', letterBtn: 'S’abonner', letterFine: 'Désinscription à tout moment',
-        letterThanks: 'Bienvenue. Les adresses cachées vous sont ouvertes.', thanksCta: 'Voir l’adresse cachée',
+        letterThanks: 'Bienvenue. Les adresses cachées vous sont ouvertes.', thanksCta: 'Voir les adresses cachées',
         tagline: 'Un journal choisi des lieux qui ont une âme.',
         rights: 'Tous droits réservés.', privacy: 'Confidentialité', terms: 'Mentions légales',
         stand: 'Photos provisoires, droits à confirmer.'
@@ -706,20 +769,22 @@ class Component extends DCLogic {
     const lang = s.lang || start;
     const t = this.dict()[lang];
     const unlocked = !!s.unlocked || !!this.props.subscriberPreview;
+    const houses = t.houses;
     const hi = s.house || 0;
     const open = !!s.open;
     const menu = !!s.menu;
-    const gated = hi === 1 && !unlocked;
-    const photos = [['p-sacred', 'p-room'], ['p-gam', 'p-church', 'p-valley']][hi];
-    const n = photos.length;
+    const gated = hi > 0 && !unlocked;
+    const photos = [['p-sacred', 'p-room'], ['p-gam', 'p-church', 'p-valley'], ['p-none'], ['p-none']];
+    const ph = photos[hi];
+    const n = ph.length;
     const sl = (s.slide || 0) % n;
-    const h = t.houses[hi];
+    const h = houses[hi];
     const d = gated
-      ? { name: t.hiddenName, num: '02', tag: t.lockTag, place: t.region + ', Türkiye', story: t.gLineLocked, facts: [], gated: true, open: false }
+      ? { name: t.hiddenName, num: h.num, tag: t.lockTag, place: t.region + ', Türkiye', story: h.lineLocked, facts: [], gated: true, open: false }
       : { name: h.name, num: h.num, tag: h.tag, place: h.place, story: h.story, facts: h.facts, gated: false, open: true };
     const anchors = ['#manifesto', '#houses', '#stories', '#why', '#letter'];
     const labels = [t.nav1, t.nav2, t.nav3, t.nav4, t.nav5];
-    const reset = { slide: 0 };
+    const go = (i) => () => this.setState({ house: i, slide: 0, open: true, menu: false });
     return {
       lang: lang,
       t: t,
@@ -742,23 +807,32 @@ class Component extends DCLogic {
         go: () => this.setState({ menu: false })
       })),
       d: d,
-      slides: photos.map((c, i) => ({ cls: c, on: i === sl ? 'on' : '' })),
+      slides: ph.map((c, i) => ({ cls: c, on: i === sl ? 'on' : '', ph: c === 'p-none', lbl: t.phSoon })),
+      multi: n > 1,
       counter: '0' + (sl + 1) + ' / 0' + n,
-      gatedCls: gated ? 'gated' : '',
       prevSlide: () => this.setState({ slide: (sl - 1 + n) % n }),
       nextSlide: () => this.setState({ slide: (sl + 1) % n }),
       dosCls: open ? 'open' : '',
       dosHidden: open ? 'false' : 'true',
-      openSacred: () => this.setState({ house: 0, slide: 0, open: true, menu: false }),
-      openGamirasu: () => this.setState({ house: 1, slide: 0, open: true, menu: false }),
+      openSacred: go(0),
       closeDossier: () => this.setState({ open: false }),
-      nextHouse: () => this.setState({ house: (hi + 1) % 2, slide: 0 }),
-      lockedCls: unlocked ? '' : 'locked',
-      gName: unlocked ? t.houses[1].name.replace(' Cave Hotel', '') : t.hiddenName,
-      gTag: unlocked ? t.heritage : t.lockTag,
-      gPlaceShown: unlocked ? t.gPlace : t.region,
-      gLineShown: unlocked ? t.gLine : t.gLineLocked,
-      gCta: unlocked ? t.openDossier : t.lockCta,
+      nextHouse: () => this.setState({ house: (hi + 1) % houses.length, slide: 0 }),
+      hiddenDoors: [1, 2, 3].map((i) => {
+        const x = houses[i];
+        return {
+          num: x.num,
+          name: unlocked ? x.name : t.hiddenName,
+          tag: unlocked ? x.tag : t.lockTag,
+          place: unlocked ? x.placeShort : t.region,
+          line: unlocked ? x.lineOpen : x.lineLocked,
+          cta: unlocked ? t.openDossier : t.lockCta,
+          cls: photos[i][0],
+          ph: photos[i][0] === 'p-none',
+          mt: ['0px', '90px', '40px'][i - 1],
+          aria: t.openDossier + ' · ' + (unlocked ? x.name : t.hiddenName + ' ' + x.num),
+          open: go(i)
+        };
+      }),
       c2title: unlocked ? t.ch2t : t.hiddenStory,
       c2sub: unlocked ? 'Gamirasu · Ayvalı' : t.lockTag,
       c3title: unlocked ? t.ch3t : t.hiddenStory,
