@@ -18,7 +18,7 @@ Les fichiers `.dc.html` sont au format Design du canvas Claude. Les images point
 ## Modèle éditorial
 
 - **Une icône par destination, en libre accès** (Sacred House pour la Cappadoce).
-- **Adresses cachées de la Cappadoce :** Gamirasu, Esbelli Evi, Yunak Evleri. Photos visibles pour tous, nom et dossier réservés aux abonnés. Photos encore manquantes pour Esbelli Evi et Yunak Evleri (emplacements prévus).
+- **Adresses cachées de la Cappadoce :** Gamirasu, Esbelli Evi, Yunak Evleri. Photos visibles pour tous, nom et dossier réservés aux abonnés. Photos encore manquantes pour Esbelli Evi et Yunak Evleri (emplacements prévus) : aucune photo libre de droits n'existe, voir [`PHOTOS.md`](PHOTOS.md) pour les sources officielles.
 - **Les adresses cachées sont réservées aux abonnés** (lettre gratuite, une par mois). S'abonner débloque le dossier, la galerie et les récits cachés.
 - Dans la maquette, l'abonnement est simulé (aucun e-mail n'est enregistré). Le réglage « Aperçu abonné » du canvas montre le site débloqué.
 - Le paiement viendra plus tard (phase 2).
