@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alcove · Cappadocia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Manrope:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@300;400&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C;color:#F3EEE4;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:#E4D3AE}
+*{box-sizing:border-box}
+::selection{background:#C9B58E;color:#0B0B0C}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
+
+/* photo slots: architectural placeholder until the official photographs arrive.
+   To place a photo, add e.g. .img-sacred{background-image:url(/_blob/...)} below and remove the slot's .ph-label */
+.ph{background-color:#1A1712;background-image:repeating-linear-gradient(90deg,rgba(201,181,142,.07) 0 1px,transparent 1px 72px),repeating-linear-gradient(0deg,rgba(201,181,142,.07) 0 1px,transparent 1px 72px)}
+.ph-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;pointer-events:none}
+.bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+
+/* working photos, sourced from each hotel's own site (or Wikimedia Commons for the generic Cappadocia shots) for this private draft.
+   Swap every url() below for our own royalty-free photography before anything here goes public. */
+.img-sacred{background-image:url(/_blob/f2d1801f926ae8b1a8367a7b4b39c10a)}
+.img-sacred-room{background-image:url(/_blob/a74ab4f622ec636e955e541fe8191e15)}
+.img-gamirasu{background-image:url(/_blob/63d8a64736543c7b862d6798332b4593)}
+.img-church{background-image:url(/_blob/77692793af1869b08e0abe819dc8ca44)}
+.img-valley{background-image:url(/_blob/04452432db7c8a893ddef34cb2ce756f)}
+.img-nara{background-image:url(/_blob/760a5279aeccfedb1fa59eea80a0f188)}
+.img-fogo{background-image:url(/_blob/3fccf4e50f5659ed36b55ff19e50495d)}
+.img-deplar{background-image:url(/_blob/fd5c857aa2f36a89f4f24eec68266b33)}
+.img-khiva{background-image:url(/_blob/6ea5de4cc528425fb3baab1fdafe21ae)}
+
+/* header */
+.glass{background:rgba(16,16,18,.42);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(201,181,142,.22)}
+.nav a{padding:10px 18px;border-radius:999px;transition:background .5s,color .5s}
+.nav a:hover{background:rgba(243,238,228,.08);color:#F3EEE4}
+.langbtn{position:relative;z-index:1;width:48px;height:36px;border:0;background:transparent;color:#CFC6B8;font:400 11px "JetBrains Mono",monospace;letter-spacing:.14em;cursor:pointer;border-radius:999px;transition:color .5s}
+.langbtn:hover{color:#F3EEE4}
+.langbtn.on{color:#0B0B0C}
+.langpill{position:absolute;top:4px;left:4px;width:48px;height:36px;border-radius:999px;background:var(--acc);transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.btn-ivory{display:inline-flex;align-items:center;gap:14px;height:56px;padding:0 10px 0 28px;border-radius:999px;background:#F3EEE4;color:#0B0B0C;font-size:13px;font-weight:500;letter-spacing:.06em;transition:background .6s,gap .6s}
+.btn-ivory:hover{background:var(--acc);color:#0B0B0C;gap:22px}
+.btn-ivory .dot{width:38px;height:38px;border-radius:999px;background:#0B0B0C;color:#F3EEE4;display:flex;align-items:center;justify-content:center}
+.btn-ghost{display:inline-flex;align-items:center;gap:14px;height:56px;padding:0 24px 0 8px;border-radius:999px;font-size:13px;letter-spacing:.06em}
+.btn-ghost .ring{width:40px;height:40px;border-radius:999px;border:1px solid rgba(243,238,228,.45);display:flex;align-items:center;justify-content:center;transition:transform .6s,border-color .6s}
+.btn-ghost:hover .ring{transform:scale(1.12);border-color:var(--acc)}
+
+/* hero load choreography */
+@keyframes shL{to{transform:translateX(-101%)}}
+@keyframes shR{to{transform:translateX(101%)}}
+@keyframes seam{0%{opacity:0;transform:scaleY(0)}40%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+@keyframes zoom{from{transform:scale(1.16)}to{transform:scale(1)}}
+@keyframes rise{from{transform:translateY(110%)}to{transform:translateY(0)}}
+@keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.sh-l{animation:shL 1.9s cubic-bezier(.77,0,.18,1) .5s both}
+.sh-r{animation:shR 1.9s cubic-bezier(.77,0,.18,1) .5s both}
+.seam{animation:seam 1.2s ease .1s both;transform-origin:center}
+.hero-img{animation:zoom 3.2s cubic-bezier(.2,.7,.1,1) .4s both}
+.ln{display:block;overflow:hidden;padding-bottom:.06em}
+.ln>span{display:block;animation:rise 1.5s cubic-bezier(.2,.7,.1,1) both}
+.d1{animation-delay:1.35s!important}.d2{animation-delay:1.5s!important}
+.fi{animation:fade 1.2s cubic-bezier(.2,.7,.1,1) both}
+.f1{animation-delay:1.7s}.f2{animation-delay:1.9s}.f3{animation-delay:2.1s}
+.cue{animation:drip 2.4s cubic-bezier(.6,0,.3,1) 2.4s infinite both}
+
+/* language swap */
+@keyframes swapA{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:none}}
+@keyframes swapB{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:none}}
+@keyframes swapC{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:none}}
+.lang-en .lx{animation:swapA .9s ease both}
+.lang-fr .lx{animation:swapB .9s ease both}
+.lang-ru .lx{animation:swapC .9s ease both}
+
+/* cards */
+.card{position:relative;display:block;border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:#141312;isolation:isolate}
+.card.small{aspect-ratio:3/4;border-radius:18px}
+.card-img{position:absolute;inset:0;transition:transform 1.6s cubic-bezier(.2,.7,.1,1),filter 1.2s}
+.card:hover .card-img,.card:focus-visible .card-img{transform:scale(1.07);filter:brightness(1.12)}
+.card-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,.35) 0%,rgba(11,11,12,0) 30%,rgba(11,11,12,0) 50%,rgba(11,11,12,.85) 100%)}
+.cn{position:absolute;width:22px;height:22px;border-color:rgba(243,238,228,.55);border-style:solid;border-width:0;transition:all .9s cubic-bezier(.2,.7,.1,1)}
+.cn.a{top:28px;left:28px;border-top-width:1px;border-left-width:1px}
+.cn.b{top:28px;right:28px;border-top-width:1px;border-right-width:1px}
+.cn.c{bottom:28px;left:28px;border-bottom-width:1px;border-left-width:1px;opacity:0}
+.cn.d{bottom:28px;right:28px;border-bottom-width:1px;border-right-width:1px;opacity:0}
+.card:hover .cn,.card:focus-visible .cn{width:34px;height:34px;border-color:var(--acc)}
+.card:hover .cn.a,.card:hover .cn.b{top:14px}.card:hover .cn.a,.card:hover .cn.c{left:14px}
+.card:hover .cn.b,.card:hover .cn.d{right:14px}.card:hover .cn.c,.card:hover .cn.d{bottom:14px;opacity:1}
+.card-body{position:absolute;left:16px;right:16px;bottom:16px;padding:22px 24px;border-radius:16px;border:1px solid transparent;transition:background .8s,border-color .8s}
+.card:hover .card-body,.card:focus-visible .card-body{background:rgba(16,16,18,.55);border-color:rgba(201,181,142,.35)}
+.more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .9s cubic-bezier(.2,.7,.1,1),opacity .7s;opacity:0}
+.more>div{overflow:hidden}
+.card:hover .more,.card:focus-visible .more{grid-template-rows:1fr;opacity:1}
+
+/* story split */
+.chapter{view-timeline:--ch block}
+.half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;z-index:2}
+.half.l{left:0;transform:translateX(-82%)}
+.half.r{right:0;transform:translateX(82%)}
+.half>div{position:absolute;top:0;bottom:0;width:200%}
+.half.l>div{left:0}.half.r>div{right:0}
+.half.l::after,.half.r::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:rgba(201,181,142,.6)}
+.half.l::after{right:0}.half.r::after{left:0}
+
+.pr-line{height:1px;background:rgba(201,181,142,.4);transform-origin:left}
+
+/* newsletter */
+.field{flex-grow:1;height:60px;border:0;border-bottom:1px solid rgba(11,11,12,.35);background:transparent;font:300 22px "Cormorant Garamond",Georgia,serif;color:#0B0B0C;outline:none;transition:border-color .5s}
+.field:focus{border-color:#0B0B0C}
+.field::placeholder{color:#6B645A}
+.sub-btn{height:60px;padding:0 30px;border-radius:999px;border:1px solid #0B0B0C;background:#0B0B0C;color:#F3EEE4;font:500 13px Manrope,sans-serif;letter-spacing:.08em;cursor:pointer;transition:background .5s,color .5s}
+.sub-btn:hover{background:transparent;color:#0B0B0C}
+
+.flink{color:#9C958A;transition:color .4s}
+.flink:hover{color:#F3EEE4}
+.wordmark{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;line-height:.8;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1px rgba(201,181,142,.4)}
+
+@supports (animation-timeline: view()){
+  @keyframes rv{from{opacity:0;transform:translateY(56px)}to{opacity:1;transform:none}}
+  @keyframes mk{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes mkx{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes unzoom{from{transform:scale(1.25)}to{transform:scale(1)}}
+  @keyframes px{from{transform:translateY(70px)}to{transform:translateY(-70px)}}
+  @keyframes px2{from{transform:translateY(160px)}to{transform:translateY(-160px)}}
+  @keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes splitL{from{transform:translateX(0)}to{transform:translateX(-82%)}}
+  @keyframes splitR{from{transform:translateX(0)}to{transform:translateX(82%)}}
+  @keyframes tin{from{opacity:0;filter:blur(10px);transform:scale(.96)}to{opacity:1;filter:none;transform:none}}
+  @keyframes heroPar{to{transform:translateY(200px) scale(1.04)}}
+  @keyframes heroOut{to{opacity:0;transform:translateY(-80px)}}
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+  .mk{animation:mk linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+  .mkx{animation:mkx linear both;animation-timeline:view();animation-range:entry 10% cover 50%}
+  .unzoom{animation:unzoom linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+  .px{animation:px linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  .px2{animation:px2 linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  .pr-line{animation:draw linear both;animation-timeline:view();animation-range:entry 20% cover 45%}
+  .half.l{animation:splitL linear both;animation-timeline:--ch;animation-range:cover 28% cover 58%}
+  .half.r{animation:splitR linear both;animation-timeline:--ch;animation-range:cover 28% cover 58%}
+  .story-text{animation:tin linear both;animation-timeline:--ch;animation-range:cover 40% cover 62%}
+  .hero-par{animation:heroPar linear both;animation-timeline:scroll(root);animation-range:0px 900px}
+  .hero-out{animation:heroOut linear both;animation-timeline:scroll(root);animation-range:0px 640px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+@media (max-width: 900px){
+  .hide-m{display:none!important}
+  .stack-m{grid-template-columns:minmax(0,1fr)!important}
+  .stack-m>*{grid-column:auto!important;order:0!important;margin-top:0!important}
+  .pad-m{padding-left:20px!important;padding-right:20px!important}
+}
+</style>
+</helmet>
+<div class="root lang-{{lang}}" lang="{{lang}}" style="--acc: {{accent}}; width: 100%; min-width: 360px; background: #0B0B0C; overflow-x: clip">
+
+<!-- HEADER -->
+<header style="position: fixed; z-index: 50; top: 26px; left: 0; right: 0; padding: 0 44px; display: flex; align-items: center; justify-content: space-between; gap: 24px" class="pad-m">
+<a href="#top" style="display: flex; align-items: center; gap: 14px; height: 48px; padding: 0 22px; border-radius: 999px" class="glass" aria-label="Alcove, home">
+<svg width="18" height="22" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#C9B58E" stroke-width="1.2"></path><path d="M5 21v-9a4 4 0 0 1 8 0v9" stroke="#C9B58E" stroke-width="1.2" opacity=".6"></path></svg>
+<span style="font-size: 13px; font-weight: 500; letter-spacing: .5em; color: #F3EEE4">ALCOVE</span>
+</a>
+<nav class="glass nav hide-m" style="display: flex; align-items: center; gap: 2px; padding: 5px; border-radius: 999px; font-size: 13px; letter-spacing: .04em; color: #E7E0D2">
+<a href="#journal"><span class="lx">{{t.nav1}}</span></a>
+<a href="#places"><span class="lx">{{t.nav2}}</span></a>
+<a href="#stories"><span class="lx">{{t.nav3}}</span></a>
+<a href="#why"><span class="lx">{{t.nav4}}</span></a>
+</nav>
+<div style="display: flex; align-items: center; gap: 10px">
+<div class="glass" role="group" aria-label="Language" style="position: relative; display: flex; padding: 4px; border-radius: 999px">
+<span class="langpill" style="transform: translateX({{pillX}}px)"></span>
+<sc-for list="{{langs}}" as="l" hint-placeholder-count="3">
+<button type="button" class="langbtn {{l.cls}}" onClick="{{l.pick}}" aria-label="{{l.name}}" aria-pressed="{{l.on}}">{{l.code}}</button>
+</sc-for>
+</div>
+<a href="#letter" class="glass hide-m" style="height: 46px; display: flex; align-items: center; padding: 0 22px; border-radius: 999px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #F3EEE4"><span class="lx">{{t.access}}</span></a>
+</div>
+</header>
+
+<!-- HERO -->
+<section id="top" style="padding: 14px; background: #0B0B0C">
+<div style="position: relative; height: 900px; border-radius: 30px; overflow: hidden; background: #07080B">
+<div class="hero-par" style="position: absolute; inset: 0">
+<div class="hero-img img-sacred bg ph" style="position: absolute; inset: -2% -2% -8% -2%"></div>
+</div>
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,8,11,.55) 0%, rgba(7,8,11,0) 28%, rgba(7,8,11,.1) 55%, rgba(7,8,11,.92) 100%)"></div>
+
+<div class="hero-out pad-m" style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 56px 56px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end">
+<div class="stack-m" style="grid-column: span 8; display: flex; flex-direction: column; gap: 28px">
+<div class="mono fi f1" style="font-size: 11px; color: var(--acc)"><span class="lx">{{t.eyebrow}}</span></div>
+<h1 class="serif" style="margin: 0; font-weight: 300; font-size: clamp(64px, 9vw, 140px); line-height: .9; letter-spacing: -.02em; color: #F3EEE4">
+<span class="ln"><span class="d1"><span class="lx">{{t.h1a}}</span></span></span>
+<span class="ln"><span class="d2" style="font-style: italic; color: #E9DDC2; padding-left: .9em"><span class="lx">{{t.h1b}}</span></span></span>
+</h1>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 36px">
+<p class="fi f2" style="margin: 0; max-width: 500px; font-size: 16px; line-height: 1.7; font-weight: 300; color: #D8D0C2"><span class="lx">{{t.heroSub}}</span></p>
+<div class="fi f3" style="display: flex; align-items: center; gap: 12px">
+<a href="#places" class="btn-ivory"><span class="lx">{{t.cta1}}</span><span class="dot"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"></path></svg></span></a>
+<a href="#stories" class="btn-ghost" style="color: #F3EEE4"><span class="ring"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1v12M2 8l5 5 5-5" stroke="#F3EEE4" stroke-width="1.2"></path></svg></span><span class="lx">{{t.cta2}}</span></a>
+</div>
+</div>
+</div>
+<div class="hide-m fi f3" style="grid-column: 10 / span 3">
+<div class="glass" style="border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="mono" style="font-size: 10px; color: #B8AF9F"><span class="lx">{{t.nowReading}}</span></span>
+<span style="width: 8px; height: 8px; border-radius: 999px; background: var(--acc); box-shadow: 0 0 14px var(--acc)"></span>
+</div>
+<div class="serif" style="font-size: 30px; font-weight: 400; line-height: 1.05">Sacred House</div>
+<div style="height: 1px; background: rgba(243,238,228,.18)"></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; font-size: 12px; color: #D8D0C2">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 9px; color: #9C958A"><span class="lx">{{t.specPlace}}</span></span><span class="lx">{{t.p1loc}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 9px; color: #9C958A"><span class="lx">{{t.specType}}</span></span><span class="lx">{{t.p1spec}}</span></div>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<span class="mono" style="font-size: 10px; color: #9C958A">01</span>
+<span style="position: relative; flex-grow: 1; height: 1px; background: rgba(243,238,228,.18)"><span style="position: absolute; left: 0; top: 0; width: 50%; height: 1px; background: var(--acc)"></span></span>
+<span class="mono" style="font-size: 10px; color: #9C958A">02</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="hide-m fi f3" style="position: absolute; right: 56px; top: 50%; display: flex; flex-direction: column; align-items: center; gap: 14px">
+<span class="mono" style="font-size: 10px; color: #CFC6B8; writing-mode: vertical-rl"><span class="lx">{{t.scroll}}</span></span>
+<span style="position: relative; width: 1px; height: 70px; background: rgba(243,238,228,.18); overflow: hidden"><span class="cue" style="position: absolute; inset: 0; background: var(--acc)"></span></span>
+</div>
+
+<div class="sh-l" aria-hidden="true" style="position: absolute; z-index: 5; top: 0; bottom: 0; left: 0; width: 50%; background: #0B0B0C; display: flex; align-items: center; justify-content: flex-end; padding-right: 28px; border-right: 1px solid rgba(201,181,142,.35)">
+<span class="mono" style="font-size: 11px; color: var(--acc)">ALC</span>
+</div>
+<div class="sh-r" aria-hidden="true" style="position: absolute; z-index: 5; top: 0; bottom: 0; right: 0; width: 50%; background: #0B0B0C; display: flex; align-items: center; padding-left: 28px">
+<span class="mono" style="font-size: 11px; color: var(--acc)">OVE · N° 01</span>
+</div>
+<div class="seam" aria-hidden="true" style="position: absolute; z-index: 6; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--acc)"></div>
+</div>
+</section>
+
+<!-- VISION -->
+<section id="journal" class="pad-m" style="background: #F3EEE4; color: #0B0B0C; padding: 190px 80px 200px; display: flex; flex-direction: column; gap: 120px">
+<div class="rv" style="display: flex; align-items: center; gap: 18px">
+<span class="mono" style="font-size: 11px; color: #7A6A48"><span class="lx">{{t.visionLabel}}</span></span>
+<span style="flex-grow: 1; height: 1px; background: rgba(11,11,12,.15)"></span>
+<span class="mono" style="font-size: 11px; color: #7A6A48">01 / 04</span>
+</div>
+<h2 class="serif rv" style="margin: -40px 0 0; font-weight: 300; font-size: clamp(44px, 5.6vw, 88px); line-height: 1.02; letter-spacing: -.015em; max-width: 1180px">
+<span class="lx">{{t.visionH1}}</span><br>
+<span class="lx" style="font-style: italic; color: #7A6A48">{{t.visionH2}}</span>
+</h2>
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 80px; align-items: start">
+<div style="grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 28px; padding-top: 120px">
+<p class="rv" style="margin: 0; font-size: 17px; line-height: 1.85; font-weight: 300; color: #2A2723"><span class="lx">{{t.visionP1}}</span></p>
+<p class="rv" style="margin: 0; font-size: 17px; line-height: 1.85; font-weight: 300; color: #2A2723"><span class="lx">{{t.visionP2}}</span></p>
+<div class="rv" style="display: flex; align-items: center; gap: 16px; padding-top: 12px">
+<span style="width: 48px; height: 1px; background: #7A6A48"></span>
+<span class="serif" style="font-style: italic; font-size: 22px; color: #3A352E"><span class="lx">{{t.visionSign}}</span></span>
+</div>
+</div>
+<div style="grid-column: 6 / span 7; position: relative; height: 900px">
+<div class="px" aria-hidden="true" style="position: absolute; top: 60px; right: -30px; width: 62%; height: 780px; border: 1px solid rgba(122,106,72,.45); border-radius: 300px 300px 0 0"></div>
+<figure style="position: absolute; top: 0; right: 40px; width: 58%; height: 780px; margin: 0; display: flex; flex-direction: column; gap: 14px">
+<div class="mk" style="position: relative; flex-grow: 1; overflow: hidden; border-radius: 300px 300px 0 0">
+<div class="unzoom img-gamirasu bg ph" style="position: absolute; inset: 0"></div>
+</div>
+<figcaption class="mono" style="font-size: 10px; color: #7A6A48"><span class="lx">{{t.cap1}}</span></figcaption>
+</figure>
+<figure class="px2" style="position: absolute; left: 0; bottom: -40px; width: 44%; height: 440px; margin: 0; display: flex; flex-direction: column; gap: 14px">
+<div class="mk" style="position: relative; flex-grow: 1; overflow: hidden; border-radius: 18px; border: 10px solid #F3EEE4; box-shadow: 0 40px 80px -30px rgba(11,11,12,.45)">
+<div class="unzoom img-sacred-room bg ph" style="position: absolute; inset: 0"></div>
+</div>
+<figcaption class="mono" style="font-size: 10px; color: #7A6A48; padding-left: 10px"><span class="lx">{{t.cap2}}</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- DESTINATION N°01 : CAPPADOCIA -->
+<section id="places" class="pad-m" style="background: #0B0B0C; padding: 190px 56px 220px; display: flex; flex-direction: column; gap: 96px">
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; align-items: end">
+<div style="grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 28px">
+<span class="mono rv" style="font-size: 11px; color: var(--acc)"><span class="lx">{{t.placesLabel}}</span></span>
+<h2 class="serif rv" style="margin: 0; font-weight: 300; font-size: clamp(44px, 5.6vw, 88px); line-height: 1; letter-spacing: -.015em; color: #F3EEE4">
+<span class="lx">{{t.placesH1}}</span><br>
+<span class="lx" style="font-style: italic; color: #D9C9A4">{{t.placesH2}}</span>
+</h2>
+</div>
+<p class="rv" style="grid-column: 9 / span 4; margin: 0; font-size: 15px; line-height: 1.75; font-weight: 300; color: #BDB5A7"><span class="lx">{{t.placesIntro}}</span></p>
+</div>
+
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; align-items: start">
+<a href="#stories" class="card rv">
+<div class="card-img img-sacred bg ph"></div>
+<div class="card-scrim"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
+<div style="position: absolute; top: 26px; left: 30px; right: 30px; display: flex; justify-content: space-between; align-items: center; padding-left: 16px">
+<span class="glass mono" style="font-size: 9px; padding: 8px 12px; border-radius: 999px; color: #F3EEE4"><span class="lx">{{t.p1tag}}</span></span>
+<span class="mono" style="font-size: 10px; color: #E7E0D2; padding-right: 16px">01</span>
+</div>
+<div class="card-body" style="display: flex; flex-direction: column; gap: 10px">
+<div class="serif" style="font-size: 46px; font-weight: 400; line-height: 1">Sacred House</div>
+<div class="mono" style="font-size: 10px; color: #CFC6B8"><span class="lx">{{t.p1loc}}</span></div>
+<div class="more"><div><div style="padding-top: 16px; display: flex; flex-direction: column; gap: 16px">
+<p class="serif" style="margin: 0; font-style: italic; font-size: 22px; line-height: 1.35; color: #E9DDC2"><span class="lx">{{t.p1line}}</span></p>
+<span style="display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc)"><span class="lx">{{t.discover}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"></path></svg></span>
+</div></div></div>
+</div>
+</a>
+
+<a href="#stories" class="card rv" style="margin-top: 160px">
+<div class="card-img img-gamirasu bg ph"></div>
+<div class="card-scrim"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
+<div style="position: absolute; top: 26px; left: 30px; right: 30px; display: flex; justify-content: space-between; align-items: center; padding-left: 16px">
+<span class="glass mono" style="font-size: 9px; padding: 8px 12px; border-radius: 999px; color: #F3EEE4"><span class="lx">{{t.p2tag}}</span></span>
+<span class="mono" style="font-size: 10px; color: #E7E0D2; padding-right: 16px">02</span>
+</div>
+<div class="card-body" style="display: flex; flex-direction: column; gap: 10px">
+<div class="serif" style="font-size: 46px; font-weight: 400; line-height: 1">Gamirasu Cave Hotel</div>
+<div class="mono" style="font-size: 10px; color: #CFC6B8"><span class="lx">{{t.p2loc}}</span></div>
+<div class="more"><div><div style="padding-top: 16px; display: flex; flex-direction: column; gap: 16px">
+<p class="serif" style="margin: 0; font-style: italic; font-size: 22px; line-height: 1.35; color: #E9DDC2"><span class="lx">{{t.p2line}}</span></p>
+<span style="display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc)"><span class="lx">{{t.discover}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.2"></path></svg></span>
+</div></div></div>
+</div>
+</a>
+</div>
+
+<!-- coming next -->
+<div style="display: flex; flex-direction: column; gap: 40px; padding-top: 60px">
+<div class="rv" style="display: flex; align-items: center; gap: 18px">
+<span class="mono" style="font-size: 11px; color: var(--acc)"><span class="lx">{{t.nextLabel}}</span></span>
+<span style="flex-grow: 1; height: 1px; background: rgba(243,238,228,.14)"></span>
+</div>
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px">
+<a href="#letter" class="card small rv">
+<div class="card-img img-nara bg ph"></div><div class="card-scrim"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
+<div class="card-body" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<div class="serif" style="font-size: 28px; font-weight: 400; line-height: 1">Hoshinoya Nara Prison</div>
+<div class="mono" style="font-size: 9px; color: #CFC6B8"><span class="lx">{{t.n1loc}}</span></div>
+<div class="more"><div><p class="serif" style="margin: 0; padding-top: 10px; font-style: italic; font-size: 18px; line-height: 1.35; color: #E9DDC2"><span class="lx">{{t.n1line}}</span></p></div></div>
+</div>
+</a>
+<a href="#letter" class="card small rv">
+<div class="card-img img-fogo bg ph"></div><div class="card-scrim"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
+<div class="card-body" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<div class="serif" style="font-size: 28px; font-weight: 400; line-height: 1">Fogo Island Inn</div>
+<div class="mono" style="font-size: 9px; color: #CFC6B8"><span class="lx">{{t.n2loc}}</span></div>
+<div class="more"><div><p class="serif" style="margin: 0; padding-top: 10px; font-style: italic; font-size: 18px; line-height: 1.35; color: #E9DDC2"><span class="lx">{{t.n2line}}</span></p></div></div>
+</div>
+</a>
+<a href="#letter" class="card small rv">
+<div class="card-img img-deplar bg ph"></div><div class="card-scrim"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
+<div class="card-body" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<div class="serif" style="font-size: 28px; font-weight: 400; line-height: 1">Deplar Farm</div>
+<div class="mono" style="font-size: 9px; color: #CFC6B8"><span class="lx">{{t.n3loc}}</span></div>
+<div class="more"><div><p class="serif" style="margin: 0; padding-top: 10px; font-style: italic; font-size: 18px; line-height: 1.35; color: #E9DDC2"><span class="lx">{{t.n3line}}</span></p></div></div>
+</div>
+</a>
+<a href="#letter" class="card small rv">
+<div class="card-img img-khiva bg ph"></div><div class="card-scrim"></div>
+<span class="cn a"></span><span class="cn b"></span><span class="cn c"></span><span class="cn d"></span>
+<div class="card-body" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<div class="serif" style="font-size: 28px; font-weight: 400; line-height: 1">New Star</div>
+<div class="mono" style="font-size: 9px; color: #CFC6B8"><span class="lx">{{t.n4loc}}</span></div>
+<div class="more"><div><p class="serif" style="margin: 0; padding-top: 10px; font-style: italic; font-size: 18px; line-height: 1.35; color: #E9DDC2"><span class="lx">{{t.n4line}}</span></p></div></div>
+</div>
+</a>
+</div>
+</div>
+</section>
+
+<!-- STORIES -->
+<section id="stories" class="pad-m" style="background: #E9E3D7; color: #0B0B0C; padding: 190px 80px 220px; display: flex; flex-direction: column; gap: 150px; border-radius: 40px 40px 0 0; margin-top: -40px; position: relative">
+<div style="display: flex; flex-direction: column; gap: 28px; align-items: center; text-align: center">
+<span class="mono rv" style="font-size: 11px; color: #7A6A48"><span class="lx">{{t.storiesLabel}}</span></span>
+<h2 class="serif rv" style="margin: 0; font-weight: 300; font-size: clamp(44px, 5.6vw, 88px); line-height: 1; letter-spacing: -.015em">
+<span class="lx">{{t.storiesH1}}</span><br>
+<span class="lx" style="font-style: italic; color: #7A6A48">{{t.storiesH2}}</span>
+</h2>
+</div>
+
+<article class="chapter stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; align-items: center">
+<div style="grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 22px">
+<span class="serif rv" style="font-size: 120px; font-weight: 300; line-height: .8; color: transparent; -webkit-text-stroke: 1px #7A6A48">01</span>
+<h3 class="serif rv" style="margin: 0; font-weight: 400; font-size: 52px; line-height: 1"><span class="lx">{{t.ch1t}}</span></h3>
+<span class="mono rv" style="font-size: 10px; color: #6B5B3C">Sacred House · Ürgüp</span>
+<span class="pr-line" style="width: 120px; background: #7A6A48"></span>
+</div>
+<div style="grid-column: 6 / span 7; position: relative; height: 640px; border-radius: 26px; overflow: hidden; background: #121110; display: flex; align-items: center; justify-content: center">
+<div class="story-text" style="position: relative; z-index: 1; max-width: 480px; padding: 0 12px; display: flex; flex-direction: column; gap: 22px; text-align: center; align-items: center">
+<svg width="22" height="28" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#C9B58E" stroke-width="1"></path></svg>
+<p class="serif" style="margin: 0; font-size: 24px; line-height: 1.45; font-weight: 300; font-style: italic; color: #EDE5D6"><span class="lx">{{t.ch1p}}</span></p>
+</div>
+<div class="half l"><div class="img-sacred-room bg ph"></div></div>
+<div class="half r"><div class="img-sacred-room bg ph"></div></div>
+</div>
+</article>
+
+<article class="chapter stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; align-items: center">
+<div style="grid-column: 1 / span 7; order: 1; position: relative; height: 640px; border-radius: 26px; overflow: hidden; background: #121110; display: flex; align-items: center; justify-content: center">
+<div class="story-text" style="position: relative; z-index: 1; max-width: 480px; padding: 0 12px; display: flex; flex-direction: column; gap: 22px; text-align: center; align-items: center">
+<svg width="22" height="28" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#C9B58E" stroke-width="1"></path></svg>
+<p class="serif" style="margin: 0; font-size: 24px; line-height: 1.45; font-weight: 300; font-style: italic; color: #EDE5D6"><span class="lx">{{t.ch2p}}</span></p>
+</div>
+<div class="half l"><div class="img-church bg ph"></div></div>
+<div class="half r"><div class="img-church bg ph"></div></div>
+</div>
+<div style="grid-column: 9 / span 4; order: 2; display: flex; flex-direction: column; gap: 22px">
+<span class="serif rv" style="font-size: 120px; font-weight: 300; line-height: .8; color: transparent; -webkit-text-stroke: 1px #7A6A48">02</span>
+<h3 class="serif rv" style="margin: 0; font-weight: 400; font-size: 52px; line-height: 1"><span class="lx">{{t.ch2t}}</span></h3>
+<span class="mono rv" style="font-size: 10px; color: #6B5B3C">Gamirasu · Ayvalı</span>
+<span class="pr-line" style="width: 120px; background: #7A6A48"></span>
+</div>
+</article>
+
+<article class="chapter stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; align-items: center">
+<div style="grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 22px">
+<span class="serif rv" style="font-size: 120px; font-weight: 300; line-height: .8; color: transparent; -webkit-text-stroke: 1px #7A6A48">03</span>
+<h3 class="serif rv" style="margin: 0; font-weight: 400; font-size: 52px; line-height: 1"><span class="lx">{{t.ch3t}}</span></h3>
+<span class="mono rv" style="font-size: 10px; color: #6B5B3C">Ayvalı · <span class="lx">{{t.region}}</span></span>
+<span class="pr-line" style="width: 120px; background: #7A6A48"></span>
+</div>
+<div style="grid-column: 6 / span 7; position: relative; height: 640px; border-radius: 26px; overflow: hidden; background: #121110; display: flex; align-items: center; justify-content: center">
+<div class="story-text" style="position: relative; z-index: 1; max-width: 480px; padding: 0 12px; display: flex; flex-direction: column; gap: 22px; text-align: center; align-items: center">
+<svg width="22" height="28" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#C9B58E" stroke-width="1"></path></svg>
+<p class="serif" style="margin: 0; font-size: 24px; line-height: 1.45; font-weight: 300; font-style: italic; color: #EDE5D6"><span class="lx">{{t.ch3p}}</span></p>
+</div>
+<div class="half l"><div class="img-valley bg ph"></div></div>
+<div class="half r"><div class="img-valley bg ph"></div></div>
+</div>
+</article>
+</section>
+
+<!-- WHY ALCOVE -->
+<section id="why" class="pad-m" style="background: #10141F; color: #F3EEE4; padding: 200px 80px 220px">
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 80px; align-items: start">
+<div style="grid-column: 1 / span 5; position: relative">
+<div class="mkx" style="position: relative; height: 760px; border-radius: 999px 999px 0 0; overflow: hidden; border: 1px solid rgba(201,181,142,.35)">
+<div class="unzoom img-church bg ph" style="position: absolute; inset: 14px; border-radius: 999px 999px 0 0"></div>
+</div>
+<div class="glass" style="position: absolute; left: 32px; bottom: 32px; padding: 16px 20px; border-radius: 14px; display: flex; flex-direction: column; gap: 6px">
+<span class="mono" style="font-size: 9px; color: #B8AF9F"><span class="lx">{{t.cap3}}</span></span>
+<span class="serif" style="font-size: 22px">Gamirasu · Ayvalı</span>
+</div>
+</div>
+<div style="grid-column: 7 / span 6; display: flex; flex-direction: column; gap: 72px; padding-top: 40px">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<span class="mono rv" style="font-size: 11px; color: var(--acc)"><span class="lx">{{t.whyLabel}}</span></span>
+<h2 class="serif rv" style="margin: 0; font-weight: 300; font-size: clamp(40px, 4.4vw, 68px); line-height: 1.04; letter-spacing: -.01em">
+<span class="lx">{{t.whyH1}}</span><br>
+<span class="lx" style="font-style: italic; color: #D9C9A4">{{t.whyH2}}</span>
+</h2>
+</div>
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; row-gap: 56px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px">
+<div class="pr-line"></div>
+<span class="mono" style="font-size: 10px; color: var(--acc)">01</span>
+<h3 class="serif" style="margin: 0; font-weight: 400; font-size: 30px; line-height: 1.1"><span class="lx">{{t.w1t}}</span></h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; font-weight: 300; color: #BDB5A7"><span class="lx">{{t.w1p}}</span></p>
+</div>
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px">
+<div class="pr-line"></div>
+<span class="mono" style="font-size: 10px; color: var(--acc)">02</span>
+<h3 class="serif" style="margin: 0; font-weight: 400; font-size: 30px; line-height: 1.1"><span class="lx">{{t.w2t}}</span></h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; font-weight: 300; color: #BDB5A7"><span class="lx">{{t.w2p}}</span></p>
+</div>
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px">
+<div class="pr-line"></div>
+<span class="mono" style="font-size: 10px; color: var(--acc)">03</span>
+<h3 class="serif" style="margin: 0; font-weight: 400; font-size: 30px; line-height: 1.1"><span class="lx">{{t.w3t}}</span></h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; font-weight: 300; color: #BDB5A7"><span class="lx">{{t.w3p}}</span></p>
+</div>
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px">
+<div class="pr-line"></div>
+<span class="mono" style="font-size: 10px; color: var(--acc)">04</span>
+<h3 class="serif" style="margin: 0; font-weight: 400; font-size: 30px; line-height: 1.1"><span class="lx">{{t.w4t}}</span></h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; font-weight: 300; color: #BDB5A7"><span class="lx">{{t.w4p}}</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="letter" class="pad-m" style="background: #F3EEE4; color: #0B0B0C; padding: 170px 80px">
+<div class="rv" style="max-width: 1040px; margin: 0 auto; padding: 14px; border: 1px solid rgba(122,106,72,.45); border-radius: 32px">
+<div style="border: 1px solid rgba(122,106,72,.25); border-radius: 22px; padding: 96px 72px; display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center" class="pad-m">
+<span class="mono" style="font-size: 11px; color: #7A6A48"><span class="lx">{{t.letterLabel}}</span></span>
+<h2 class="serif" style="margin: 0; font-weight: 300; font-size: clamp(40px, 4.8vw, 72px); line-height: 1"><span class="lx">{{t.letterH}}</span></h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; font-weight: 300; color: #4A443C; max-width: 440px"><span class="lx">{{t.letterSub}}</span></p>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<form style="width: 100%; max-width: 620px; display: flex; align-items: flex-end; gap: 20px; padding-top: 16px" onSubmit="{{submit}}">
+<label for="alcove-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{t.letterPh}}</label>
+<input id="alcove-email" class="field" type="email" required="required" placeholder="{{t.letterPh}}" autocomplete="email">
+<button type="submit" class="sub-btn">{{t.letterBtn}}</button>
+</form>
+<span class="mono" style="font-size: 9px; color: #6B645A"><span class="lx">{{t.letterFine}}</span></span>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<p class="serif" style="margin: 0; padding-top: 16px; font-size: 28px; font-style: italic; color: #7A6A48">{{t.letterThanks}}</p>
+</sc-if>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="pad-m" style="background: #0B0B0C; color: #F3EEE4; padding: 140px 56px 40px; display: flex; flex-direction: column; gap: 100px; overflow: hidden">
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 56px">
+<div style="grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; align-items: center; gap: 14px">
+<svg width="22" height="28" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#C9B58E" stroke-width="1"></path><path d="M5 21v-9a4 4 0 0 1 8 0v9" stroke="#C9B58E" stroke-width="1" opacity=".6"></path></svg>
+<span style="font-size: 14px; font-weight: 500; letter-spacing: .5em">ALCOVE</span>
+</div>
+<p class="serif" style="margin: 0; font-size: 26px; font-style: italic; font-weight: 300; line-height: 1.3; color: #D9C9A4; max-width: 340px"><span class="lx">{{t.tagline}}</span></p>
+</div>
+<div style="grid-column: 6 / span 2; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span class="mono" style="font-size: 10px; color: var(--acc); padding-bottom: 8px"><span class="lx">{{t.fh1}}</span></span>
+<a href="#stories" class="flink"><span class="lx">{{t.fl1}}</span></a>
+<a href="#places" class="flink"><span class="lx">{{t.fl2}}</span></a>
+<a href="#journal" class="flink"><span class="lx">{{t.fl3}}</span></a>
+</div>
+<div style="grid-column: 8 / span 2; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span class="mono" style="font-size: 10px; color: var(--acc); padding-bottom: 8px"><span class="lx">{{t.fh2}}</span></span>
+<a href="#places" class="flink"><span class="lx">{{t.fl4}}</span></a>
+<a href="#places" class="flink"><span class="lx">{{t.fl5}}</span></a>
+<a href="#places" class="flink"><span class="lx">{{t.fl6}}</span></a>
+</div>
+<div style="grid-column: 10 / span 3; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
+<span class="mono" style="font-size: 10px; color: var(--acc); padding-bottom: 8px"><span class="lx">{{t.fh3}}</span></span>
+<a href="#why" class="flink"><span class="lx">{{t.fl7}}</span></a>
+<a href="#letter" class="flink"><span class="lx">{{t.fl8}}</span></a>
+<a href="#letter" class="flink"><span class="lx">{{t.fl9}}</span></a>
+</div>
+</div>
+<div class="wordmark rv" aria-hidden="true" style="font-size: clamp(120px, 23vw, 340px); text-align: center; white-space: nowrap">ALCOVE</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-top: 28px; border-top: 1px solid rgba(243,238,228,.12); font-size: 12px; color: #8A8378">
+<span>© 2026 Alcove. <span class="lx">{{t.rights}}</span></span>
+<span class="mono" style="font-size: 10px">Ürgüp · Ayvalı · Nara · Fogo · Khiva</span>
+<div style="display: flex; gap: 24px">
+<a href="#top" class="flink"><span class="lx">{{t.privacy}}</span></a>
+<a href="#top" class="flink"><span class="lx">{{t.terms}}</span></a>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C9B58E","options":["#C9B58E","#A88B57","#CFC6B8","#9AA6C8"]},"startLang":{"editor":"enum","default":"en","options":["en","fr","ru"]},"$preview":{"width":1440,"height":9400}}'>
+class Component extends DCLogic {
+  dict() {
+    return {
+      en: {
+        nav1: 'Journal', nav2: 'Places', nav3: 'Stories', nav4: 'Philosophy', access: 'Request access',
+        eyebrow: 'Destination N° 01 · Cappadocia, Türkiye',
+        h1a: 'Where stone', h1b: 'keeps its secrets.',
+        heroSub: 'Alcove opens its journal in Cappadocia: a Greek mansion that was once a church, and a Byzantine monastic retreat in a silent valley. Two houses, chosen for what they make you feel.',
+        cta1: 'Discover the houses', cta2: 'Read the stories',
+        nowReading: 'Now reading', specPlace: 'Place', specType: 'Character', scroll: 'Scroll',
+        phPending: 'Official photograph to come', region: 'Cappadocia',
+        visionLabel: 'I · Vision',
+        visionH1: 'We do not collect addresses.', visionH2: 'We collect atmospheres.',
+        visionP1: 'Some places are simply beautiful. Others change the way you breathe. Alcove exists for the second kind: houses worth changing a journey for, just to sleep there once.',
+        visionP2: 'Each house in our journal is researched in depth, discussed with its hosts and written about the way one would describe a work of art. Slowly, and with respect for what cannot be reproduced.',
+        visionSign: 'The Alcove editors',
+        cap1: 'Gamirasu · Ayvalı', cap2: 'Sacred House · Ürgüp', cap3: 'A 12th-century church',
+        placesLabel: 'II · Destination N° 01', placesH1: 'Cappadocia,', placesH2: 'two houses worth the detour.',
+        placesIntro: 'In a region of fairy chimneys and cave dwellings, we kept only two addresses. Not the most famous. The ones with a story no one else can tell.',
+        discover: 'Read the story',
+        p1tag: 'Icon', p1loc: 'Ürgüp, Cappadocia', p1spec: 'Greek mansion, 250 years',
+        p1line: 'A 250-year-old Greek mansion, once a church, where each room tells a different story.',
+        p2tag: 'Heritage reinvented', p2loc: 'Ayvalı, Cappadocia',
+        p2line: 'A Byzantine monastic retreat in a silent valley, with a 12th-century frescoed church on its grounds.',
+        nextLabel: 'Coming next in the journal',
+        n1loc: 'Nara, Japan', n1line: 'A 1908 imperial prison, reborn as a hotel.',
+        n2loc: 'Newfoundland, Canada', n2line: 'An island, an inn, and a culture impossible to reproduce.',
+        n3loc: 'Iceland', n3line: 'A black farm, alone at the end of a mountain valley.',
+        n4loc: 'Khiva, Uzbekistan', n4line: 'A former madrasa at the heart of Itchan Kala.',
+        storiesLabel: 'III · Stories', storiesH1: 'Every threshold', storiesH2: 'is a first sentence.',
+        ch1t: 'The Church',
+        ch1p: 'Before it was a hotel, Sacred House was a Greek mansion, and for a time a church. Its restoration, led by Turan Gülcüoğlu, kept the stone walls and gave each room its own story: the Harem, the Byzantine Treasury, Lilith.',
+        ch2t: 'The Monastery',
+        ch2p: 'In Ayvalı, Gamirasu occupies a former Byzantine monastic retreat. On its grounds stands a 12th-century church and its frescoes. Until recently, part of the house was still used by monks.',
+        ch3t: 'The Valley',
+        ch3p: 'The village of Ayvalı has been inhabited for more than five thousand years. Stone Age obsidian, Assyrian pottery, a Hittite bronze furnace: the valley was keeping stories long before anyone came here to sleep.',
+        whyLabel: 'IV · Why Alcove',
+        whyH1: 'A place with a soul cannot be manufactured.', whyH2: 'It can only be found.',
+        w1t: 'Soul over stars', w1p: 'We choose houses for what they make you feel, never for the length of their list of amenities.',
+        w2t: 'Emotional authenticity', w2p: 'No staged luxury. Original stone, inherited stories, and hosts who know the history by heart.',
+        w3t: 'Worth the detour', w3p: 'If a region has only two exceptional houses, we keep two. Never a catalogue, always a choice.',
+        w4t: 'Curated with the hosts', w4p: 'Every address is researched in depth and discussed directly with its hosts before it enters the journal. Most never do.',
+        letterLabel: 'The Letter', letterH: 'One house, once a month.',
+        letterSub: 'A single story, delivered quietly. No offers, no noise.',
+        letterPh: 'Your email address', letterBtn: 'Subscribe', letterFine: 'Unsubscribe at any time',
+        letterThanks: 'Thank you. The next letter will find you.',
+        tagline: 'A curated journal of places with a soul.',
+        fh1: 'Journal', fl1: 'Stories', fl2: 'Cappadocia', fl3: 'Our vision',
+        fh2: 'Places', fl4: 'Icons', fl5: 'Hidden', fl6: 'Watchlist',
+        fh3: 'The House', fl7: 'Our philosophy', fl8: 'Propose a house', fl9: 'Contact',
+        rights: 'All rights reserved.', privacy: 'Privacy', terms: 'Terms'
+      },
+      fr: {
+        nav1: 'Journal', nav2: 'Lieux', nav3: 'Récits', nav4: 'Philosophie', access: 'Demander un accès',
+        eyebrow: 'Destination N° 01 · Cappadoce, Turquie',
+        h1a: 'Là où la pierre', h1b: 'garde ses secrets.',
+        heroSub: 'Alcove ouvre son journal en Cappadoce : une demeure grecque qui fut un temps une église, et une retraite monastique byzantine au fond d’une vallée silencieuse. Deux maisons, choisies pour ce qu’elles font ressentir.',
+        cta1: 'Découvrir les maisons', cta2: 'Lire les récits',
+        nowReading: 'En ce moment', specPlace: 'Lieu', specType: 'Caractère', scroll: 'Défiler',
+        phPending: 'Photo officielle à venir', region: 'Cappadoce',
+        visionLabel: 'I · Vision',
+        visionH1: 'Nous ne collectionnons pas des adresses.', visionH2: 'Nous collectionnons des atmosphères.',
+        visionP1: 'Certains lieux sont simplement beaux. D’autres changent votre façon de respirer. Alcove existe pour les seconds : des maisons qui méritent de modifier un voyage, juste pour y dormir une fois.',
+        visionP2: 'Chaque maison de notre journal est étudiée en profondeur, racontée avec ses hôtes et décrite comme on décrirait une œuvre d’art. Lentement, et avec respect pour ce qui ne se reproduit pas.',
+        visionSign: 'La rédaction d’Alcove',
+        cap1: 'Gamirasu · Ayvalı', cap2: 'Sacred House · Ürgüp', cap3: 'Une église du XIIe siècle',
+        placesLabel: 'II · Destination N° 01', placesH1: 'La Cappadoce,', placesH2: 'deux maisons qui valent le détour.',
+        placesIntro: 'Dans une région de cheminées de fée et d’habitats troglodytes, nous n’avons gardé que deux adresses. Pas les plus célèbres. Celles qui ont une histoire que personne d’autre ne peut raconter.',
+        discover: 'Lire le récit',
+        p1tag: 'Icône', p1loc: 'Ürgüp, Cappadoce', p1spec: 'Demeure grecque, 250 ans',
+        p1line: 'Une demeure grecque de 250 ans, un temps église, où chaque chambre raconte une histoire différente.',
+        p2tag: 'Patrimoine réinventé', p2loc: 'Ayvalı, Cappadoce',
+        p2line: 'Une retraite monastique byzantine dans une vallée silencieuse, avec une église à fresques du XIIe siècle sur son domaine.',
+        nextLabel: 'Prochainement dans le journal',
+        n1loc: 'Nara, Japon', n1line: 'Une prison impériale de 1908, devenue hôtel.',
+        n2loc: 'Terre-Neuve, Canada', n2line: 'Une île, une auberge, et une culture impossible à reproduire.',
+        n3loc: 'Islande', n3line: 'Une ferme noire, isolée au fond d’une vallée de montagne.',
+        n4loc: 'Khiva, Ouzbékistan', n4line: 'Une ancienne madrasa au cœur d’Itchan Kala.',
+        storiesLabel: 'III · Récits', storiesH1: 'Chaque seuil est', storiesH2: 'une première phrase.',
+        ch1t: 'L’Église',
+        ch1p: 'Avant d’être un hôtel, Sacred House était une demeure grecque, et un temps une église. Sa restauration, menée par Turan Gülcüoğlu, a gardé les murs de pierre et donné à chaque chambre son propre récit : le Harem, le Trésor byzantin, Lilith.',
+        ch2t: 'Le Monastère',
+        ch2p: 'À Ayvalı, Gamirasu occupe une ancienne retraite monastique byzantine. Sur son domaine se dresse une église du XIIe siècle et ses fresques. Jusqu’à récemment, une partie de la maison était encore occupée par des moines.',
+        ch3t: 'La Vallée',
+        ch3p: 'Le village d’Ayvalı est habité depuis plus de cinq mille ans. Obsidienne de l’âge de pierre, céramiques assyriennes, four à bronze hittite : la vallée gardait des histoires bien avant qu’on vienne y dormir.',
+        whyLabel: 'IV · Pourquoi Alcove',
+        whyH1: 'Un lieu qui a une âme ne se fabrique pas.', whyH2: 'Il se trouve.',
+        w1t: 'L’âme avant les étoiles', w1p: 'Nous choisissons les maisons pour ce qu’elles font ressentir, jamais pour la longueur de leur liste de services.',
+        w2t: 'L’authenticité émotionnelle', w2p: 'Aucun luxe mis en scène. La pierre d’origine, des histoires transmises, des hôtes qui connaissent le lieu par cœur.',
+        w3t: 'Valoir le détour', w3p: 'Si une région n’a que deux maisons exceptionnelles, nous en gardons deux. Jamais un catalogue, toujours un choix.',
+        w4t: 'Choisi avec les hôtes', w4p: 'Chaque adresse est étudiée en profondeur et discutée directement avec ses hôtes avant d’entrer dans le journal. La plupart n’y entrent jamais.',
+        letterLabel: 'La Lettre', letterH: 'Une maison, une fois par mois.',
+        letterSub: 'Un seul récit, livré en silence. Ni offres, ni bruit.',
+        letterPh: 'Votre adresse e-mail', letterBtn: 'S’abonner', letterFine: 'Désinscription à tout moment',
+        letterThanks: 'Merci. La prochaine lettre saura vous trouver.',
+        tagline: 'Un journal choisi des lieux qui ont une âme.',
+        fh1: 'Journal', fl1: 'Récits', fl2: 'Cappadoce', fl3: 'Notre vision',
+        fh2: 'Lieux', fl4: 'Icônes', fl5: 'Secrets', fl6: 'À suivre',
+        fh3: 'La Maison', fl7: 'Notre philosophie', fl8: 'Proposer une demeure', fl9: 'Contact',
+        rights: 'Tous droits réservés.', privacy: 'Confidentialité', terms: 'Mentions légales'
+      },
+      ru: {
+        nav1: 'Журнал', nav2: 'Места', nav3: 'Истории', nav4: 'Философия', access: 'Запросить доступ',
+        eyebrow: 'Направление N° 01 · Каппадокия, Турция',
+        h1a: 'Там, где камень', h1b: 'хранит тайны.',
+        heroSub: 'Alcove открывает свой журнал в Каппадокии: греческий особняк, когда-то бывший церковью, и византийская монашеская обитель в тихой долине. Два дома, выбранные за то, что они заставляют почувствовать.',
+        cta1: 'Открыть дома', cta2: 'Читать истории',
+        nowReading: 'Сейчас в журнале', specPlace: 'Место', specType: 'Характер', scroll: 'Листайте',
+        phPending: 'Официальное фото скоро', region: 'Каппадокия',
+        visionLabel: 'I · Видение',
+        visionH1: 'Мы не собираем адреса.', visionH2: 'Мы собираем атмосферу.',
+        visionP1: 'Некоторые места просто красивы. Другие меняют то, как вы дышите. Alcove существует ради вторых: домов, ради которых стоит изменить маршрут, чтобы провести там хотя бы одну ночь.',
+        visionP2: 'Каждый дом в нашем журнале мы тщательно изучаем, обсуждаем с его хозяевами и описываем так, как описывают произведение искусства. Неспешно и с уважением к тому, что невозможно повторить.',
+        visionSign: 'Редакция Alcove',
+        cap1: 'Gamirasu · Айвалы', cap2: 'Sacred House · Ургюп', cap3: 'Церковь XII века',
+        placesLabel: 'II · Направление N° 01', placesH1: 'Каппадокия:', placesH2: 'два дома, ради которых стоит свернуть с пути.',
+        placesIntro: 'В краю каменных «печных труб» и пещерных жилищ мы оставили лишь два адреса. Не самые известные. Те, чью историю не расскажет никто другой.',
+        discover: 'Читать историю',
+        p1tag: 'Икона', p1loc: 'Ургюп, Каппадокия', p1spec: 'Греческий особняк, 250 лет',
+        p1line: 'Греческий особняк возрастом 250 лет, когда-то бывший церковью, где каждая комната рассказывает свою историю.',
+        p2tag: 'Переосмысленное наследие', p2loc: 'Айвалы, Каппадокия',
+        p2line: 'Византийская монашеская обитель в тихой долине, с расписанной фресками церковью XII века прямо на территории.',
+        nextLabel: 'Скоро в журнале',
+        n1loc: 'Нара, Япония', n1line: 'Императорская тюрьма 1908 года, ставшая отелем.',
+        n2loc: 'Ньюфаундленд, Канада', n2line: 'Остров, гостиница и культура, которую невозможно повторить.',
+        n3loc: 'Исландия', n3line: 'Чёрная ферма в глубине уединённой горной долины.',
+        n4loc: 'Хива, Узбекистан', n4line: 'Бывшее медресе в самом сердце Ичан-Калы.',
+        storiesLabel: 'III · Истории', storiesH1: 'Каждый порог', storiesH2: 'начинает рассказ.',
+        ch1t: 'Церковь',
+        ch1p: 'Прежде чем стать отелем, Sacred House был греческим особняком, а какое-то время и церковью. Реставрация под руководством Турана Гюльджюоглу сохранила каменные стены и подарила каждой комнате свою историю: Гарем, Византийская сокровищница, Лилит.',
+        ch2t: 'Монастырь',
+        ch2p: 'В Айвалы Gamirasu занимает бывшую византийскую монашескую обитель. На её территории стоит церковь XII века с фресками. Ещё недавно часть дома служила монахам.',
+        ch3t: 'Долина',
+        ch3p: 'Деревня Айвалы обитаема уже более пяти тысяч лет. Обсидиан каменного века, ассирийская керамика, хеттская печь для литья бронзы: долина хранила истории задолго до того, как сюда стали приезжать на ночлег.',
+        whyLabel: 'IV · Почему Alcove',
+        whyH1: 'Место с душой невозможно создать.', whyH2: 'Его можно только найти.',
+        w1t: 'Душа важнее звёзд', w1p: 'Мы выбираем дома за то, что они заставляют почувствовать, а не за длину списка удобств.',
+        w2t: 'Подлинность чувств', w2p: 'Никакой постановочной роскоши. Подлинный камень, живые истории и хозяева, знающие своё место наизусть.',
+        w3t: 'Стоит того', w3p: 'Если в регионе всего два исключительных дома, мы оставляем два. Никогда не каталог, всегда выбор.',
+        w4t: 'Отобрано вместе с хозяевами', w4p: 'Каждый адрес мы тщательно изучаем и обсуждаем напрямую с хозяевами, прежде чем он попадёт в журнал. Большинство так и не попадает.',
+        letterLabel: 'Письмо', letterH: 'Один дом, раз в месяц.',
+        letterSub: 'Одна история, доставленная без суеты. Без предложений, без шума.',
+        letterPh: 'Ваш адрес электронной почты', letterBtn: 'Подписаться', letterFine: 'Отписаться можно в любой момент',
+        letterThanks: 'Спасибо. Следующее письмо найдёт вас.',
+        tagline: 'Курируемый журнал мест с душой.',
+        fh1: 'Журнал', fl1: 'Истории', fl2: 'Каппадокия', fl3: 'Наше видение',
+        fh2: 'Места', fl4: 'Иконы', fl5: 'Тайные адреса', fl6: 'Под наблюдением',
+        fh3: 'Дом', fl7: 'Наша философия', fl8: 'Предложить дом', fl9: 'Контакты',
+        rights: 'Все права защищены.', privacy: 'Конфиденциальность', terms: 'Условия'
+      }
+    };
+  }
+  renderVals() {
+    const codes = ['en', 'fr', 'ru'];
+    const names = { en: 'English', fr: 'Français', ru: 'Русский' };
+    const start = codes.indexOf(this.props.startLang) >= 0 ? this.props.startLang : 'en';
+    const lang = (this.state && this.state.lang) || start;
+    const sent = !!(this.state && this.state.sent);
+    return {
+      lang: lang,
+      t: this.dict()[lang],
+      accent: this.props.accent ?? '#C9B58E',
+      pillX: codes.indexOf(lang) * 48,
+      langs: codes.map((c) => ({
+        code: c.toUpperCase(),
+        name: names[c],
+        on: c === lang ? 'true' : 'false',
+        cls: c === lang ? 'on' : '',
+        pick: () => this.setState({ lang: c })
+      })),
+      sent: sent,
+      notSent: !sent,
+      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
