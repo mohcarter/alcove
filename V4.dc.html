@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alcove · V4</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&amp;display=swap">
+<style>
+body{margin:0;background:#050505;color:#F4F2EE;font-family:"Open Sans",system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+::selection{background:#E23D32;color:#050505}
+
+
+/* photographs (provisional, rights to be confirmed) */
+.ph{background-color:#15130F}
+.bg{background-size:cover;background-position:center}
+.p-sacred{background-image:url(/_blob/f2d1801f926ae8b1a8367a7b4b39c10a)}
+.p-room{background-image:url(/_blob/a74ab4f622ec636e955e541fe8191e15)}
+.p-gam{background-image:url(/_blob/63d8a64736543c7b862d6798332b4593)}
+.p-church{background-image:url(/_blob/77692793af1869b08e0abe819dc8ca44)}
+.p-valley{background-image:url(/_blob/04452432db7c8a893ddef34cb2ce756f)}
+.p-esbelli{background-image:url(/_blob/855febc40bbd700199db065d97692940)}
+.p-esbelli2{background-image:url(/_blob/88ab0eb32676b3f00e2a5ca365a8e193)}
+.p-esbelli3{background-image:url(/_blob/8f5755ed9e8e2c4c94552bc6342b6904)}
+.p-yunak{background-image:url(/_blob/f4dea6e263bea7dc88b7bdd89530aa2b)}
+.p-yunak2{background-image:url(/_blob/40fdc9de1486e4c0ecbfc2d7daac8049)}
+.p-yunak3{background-image:url(/_blob/1a7d724aa2e69b17f15a1fa4cb9a8780)}
+.p-yunak4{background-image:url(/_blob/d10eafb541688a2a45486fc4b695f6ee)}
+.p-none{background-image:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(201,181,142,.22),rgba(201,181,142,0) 70%),radial-gradient(ellipse 80% 50% at 50% 100%,rgba(201,181,142,.14),rgba(201,181,142,0) 70%)}
+.p-sacred,.p-room,.p-gam,.p-church,.p-valley,.p-esbelli,.p-esbelli2,.p-esbelli3,.p-yunak,.p-yunak2,.p-yunak3,.p-yunak4,.p-none{background-size:cover;background-position:center;background-repeat:no-repeat}
+.ph-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;pointer-events:none;color:#8E8676}
+
+
+.root{--gut:clamp(20px,4.4vw,64px);--line:rgba(244,242,238,.28);--mute:#B4B0A8;--dim:#8D8981}
+.up{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.big{font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:48px;padding:0 26px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#F4F2EE;font:700 11px "Open Sans",sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .4s,color .4s,border-color .4s}
+.pill:hover{background:#F4F2EE;color:#050505;border-color:#F4F2EE}
+.pill.solid{background:var(--acc);border-color:var(--acc);color:#050505}
+.pill.solid:hover{background:#F4F2EE;border-color:#F4F2EE}
+.redline{display:block;width:56px;height:3px;background:var(--acc)}
+
+/* language swap */
+@keyframes swap{from{opacity:0;filter:blur(4px)}to{opacity:1;filter:none}}
+.lx{animation:swap .7s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.fu{animation:fadeUp 1.2s cubic-bezier(.2,.7,.1,1) 2.6s both}
+.fu2{animation:fadeUp 1.2s cubic-bezier(.2,.7,.1,1) 2.9s both}
+.fu3{animation:fadeUp 1.2s cubic-bezier(.2,.7,.1,1) 3.2s both}
+
+
+/* intro: two leaves open on the logo */
+@keyframes lineIn{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes lineOut{to{opacity:0}}
+@keyframes leafL{to{transform:translateX(-101%);visibility:hidden}}
+@keyframes leafR{to{transform:translateX(101%);visibility:hidden}}
+@keyframes wordIn{from{opacity:0;letter-spacing:.7em}to{opacity:1;letter-spacing:.3em}}
+@keyframes logoIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes logoDraw{from{stroke-dashoffset:120}to{stroke-dashoffset:0}}
+.curtain{position:fixed;inset:0;z-index:110;pointer-events:none}
+.c-leaf{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;background:#050505}
+.c-leaf.l{left:0;animation:leafL 1.7s cubic-bezier(.77,0,.18,1) 1.7s forwards}
+.c-leaf.r{right:0;animation:leafR 1.7s cubic-bezier(.77,0,.18,1) 1.7s forwards}
+.c-inner{position:absolute;top:0;bottom:0;width:200%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;color:#F4F2EE}
+.c-leaf.l .c-inner{left:0}.c-leaf.r .c-inner{right:0}
+.c-logo{animation:logoIn 1.1s cubic-bezier(.2,.7,.1,1) .1s both}
+.c-logo path{stroke-dasharray:120;animation:logoDraw 1.6s cubic-bezier(.5,0,.2,1) .2s both}
+.c-word{font-size:clamp(34px,6vw,64px);font-weight:800;letter-spacing:.3em;padding-left:.3em;animation:wordIn 1.4s cubic-bezier(.2,.7,.1,1) .3s both}
+.c-cap{color:#B4B0A8;animation:logoIn 1.1s ease .9s both}
+.c-line{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--acc);transform-origin:top;animation:lineIn 1.1s cubic-bezier(.7,0,.2,1) .4s both,lineOut .5s ease 1.75s forwards}
+.logo{flex:none}
+
+/* header: brand, tabs, language */
+.hdr{position:fixed;z-index:100;top:0;left:0;right:0;padding:22px var(--gut) 0;background:linear-gradient(180deg,rgba(5,5,5,.72),rgba(5,5,5,0))}
+.hdr-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.brand{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:800;letter-spacing:.24em;min-height:44px}
+.dot{width:10px;height:10px;border-radius:999px;background:var(--acc);display:block}
+.tabs{display:flex;gap:34px}
+.tab{position:relative;display:inline-flex;align-items:center;min-height:44px;font-size:12px;font-weight:600;letter-spacing:.06em;color:#E9E6E0}
+.tab::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.1,1)}
+.tab:hover::after{transform:scaleX(1)}
+.hdr-r{display:flex;justify-content:flex-end;align-items:center;gap:18px}
+.lang{border:0;background:transparent;color:inherit;font:700 11px "Open Sans",sans-serif;letter-spacing:.2em;min-width:44px;height:44px;cursor:pointer;position:relative;opacity:.6;transition:opacity .3s}
+.lang:hover,.lang.on{opacity:1}
+.lang.on::after{content:"";position:absolute;left:10px;right:10px;bottom:9px;height:2px;background:var(--acc)}
+.menubtn{display:none;border:1px solid var(--line);border-radius:999px;background:transparent;color:inherit;font:700 11px "Open Sans",sans-serif;letter-spacing:.2em;text-transform:uppercase;height:44px;padding:0 18px;cursor:pointer;align-items:center;gap:10px}
+
+/* menu (small screens) */
+.menu{position:fixed;inset:0;z-index:90;background:#050505;visibility:hidden;opacity:0;transition:opacity .5s ease,visibility 0s .5s;display:flex;flex-direction:column;justify-content:center;padding:96px var(--gut) 48px}
+.menu.open{visibility:visible;opacity:1;transition:opacity .5s ease,visibility 0s 0s}
+.m-link{display:flex;align-items:baseline;gap:18px;padding:10px 0;border-bottom:1px solid rgba(244,242,238,.14);font-size:clamp(28px,8vw,52px);font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.m-link span.n{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--acc);min-width:32px}
+
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#050505}
+.hero-bg{position:absolute;inset:0}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,.12) 28%,rgba(5,5,5,.3) 58%,#050505 100%)}
+.hero-in{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;gap:56px;padding:190px var(--gut) 44px}
+.hero-h1{margin:0;font-size:clamp(46px,7.2vw,116px);max-width:min(1000px,76%);text-wrap:balance;text-shadow:0 2px 30px rgba(5,5,5,.35)}
+.caps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,4vw,64px);max-width:1080px}
+.caps3 p{margin:0;font-size:12.5px;line-height:1.65;color:#DAD7D0;max-width:300px}
+.swipe{display:inline-flex;align-items:center;gap:14px;min-height:44px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.prog{height:1px;background:linear-gradient(90deg,var(--acc) 0,var(--acc) 16%,var(--line) 16%)}
+.rail{position:absolute;z-index:2;right:0;top:34%;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.rail a{display:flex;align-items:center;gap:18px;min-height:32px;font-size:15px;font-weight:600;color:#CFCBC4;transition:color .3s}
+.rail a:hover{color:#fff}
+.rail a.on{font-size:44px;font-weight:800;color:#fff;min-height:64px}
+.rail a.on::after{content:"";display:block;width:clamp(48px,7vw,96px);height:1px;background:#fff}
+.rail a:not(.on){padding-right:var(--gut)}
+.rail a.on{padding-right:0}
+
+/* manifesto */
+.mani{padding:clamp(96px,12vw,180px) var(--gut);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:48px;background:#050505;border-top:1px solid rgba(244,242,238,.12)}
+.mani h2{margin:0;font-size:clamp(34px,5.6vw,92px);text-wrap:balance;grid-column:1/span 9}
+.mani .sub2{color:var(--dim)}
+.mani .side{grid-column:1/span 5;display:flex;flex-direction:column;gap:22px;margin-top:8px}
+.mani .side p{margin:0;font-size:16px;line-height:1.8;color:var(--mute)}
+
+/* destination recommendations */
+.dest{padding:clamp(72px,9vw,140px) var(--gut) clamp(96px,11vw,160px);background:#0A0A0A;display:flex;flex-direction:column;gap:56px}
+.dest-head{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.dest-head h2{margin:0;font-size:clamp(26px,3.6vw,54px);text-wrap:balance;max-width:980px}
+.dest-head p{margin:6px 0 0;max-width:520px;font-size:15px;line-height:1.75;color:var(--mute)}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{position:relative;display:block;aspect-ratio:3/4.3;padding:0;border:0;overflow:hidden;text-align:left;color:#fff;background:#111;cursor:pointer;font:inherit}
+.card-photo{position:absolute;inset:0;display:block;transform:scale(1.01);transition:transform 1.6s cubic-bezier(.2,.7,.1,1),filter .8s}
+.card:hover .card-photo,.card:focus-visible .card-photo{transform:scale(1.07)}
+.card.opening .card-photo{transform:scale(1.6);transition:transform .9s cubic-bezier(.45,0,.2,1)}
+.card-shade{position:absolute;inset:0;display:block;background:linear-gradient(180deg,rgba(5,5,5,.35) 0%,rgba(5,5,5,0) 30%,rgba(5,5,5,.86) 100%)}
+.card-top{position:absolute;left:16px;right:16px;top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card-top .up{font-size:10px}
+.card-bot{position:absolute;left:18px;right:18px;bottom:20px;display:flex;flex-direction:column;gap:6px;text-align:center;align-items:center}
+.card-name{font-size:clamp(18px,1.6vw,24px);font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.1}
+.card-place{font-size:12px;color:#DAD7D0}
+.card-line{font-size:12.5px;line-height:1.55;color:#DAD7D0;max-width:260px;margin-top:6px}
+.card-go{display:inline-flex;align-items:center;gap:10px;margin-top:10px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+.card-go svg{transition:transform .5s}
+.card:hover .card-go svg{transform:translateX(6px)}
+.hid{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:32px}
+.hid .ln{height:1px;background:var(--line)}
+.hid-c{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;max-width:560px}
+.hid-c h3{margin:0;font-size:clamp(20px,2.2vw,30px)}
+.hid-c p{margin:0;font-size:14.5px;line-height:1.7;color:var(--mute)}
+
+/* stories: one full-bleed chapter at a time */
+.tour{position:relative;min-height:860px;display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding:clamp(72px,8vw,120px) var(--gut) 56px;overflow:hidden;background:#050505}
+.tl{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.tl.on{opacity:1}
+.tour-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.86) 0%,rgba(5,5,5,.5) 45%,rgba(5,5,5,.2) 100%),linear-gradient(180deg,#0A0A0A 0%,rgba(5,5,5,0) 22%,rgba(5,5,5,0) 60%,rgba(5,5,5,.8) 100%)}
+.tour>*{position:relative}
+.tour h2{margin:0;font-size:clamp(38px,5.4vw,88px);max-width:760px;text-wrap:balance}
+.ctabs{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:34px}
+.ctab{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:0;border:0;background:transparent;color:#DAD7D0;font:600 15px "Open Sans",sans-serif;cursor:pointer}
+.ctab .c{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(244,242,238,.6);font-size:11px;font-weight:700;transition:background .4s,border-color .4s,color .4s}
+.ctab:hover .c{border-color:#fff}
+.ctab.on{color:#fff}
+.ctab.on .c{background:var(--acc);border-color:var(--acc);color:#050505}
+.tour-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.tour-txt{display:flex;flex-direction:column;gap:18px;max-width:460px;min-width:0}
+.tour-txt p{margin:0;font-size:14px;line-height:1.8;color:#E4E1DA}
+.thumbs{display:flex;gap:14px}
+.thumb{position:relative;width:clamp(150px,17vw,250px);aspect-ratio:16/9;padding:0;border:1px solid rgba(244,242,238,.25);overflow:hidden;cursor:pointer;background:#111}
+.thumb .bg{position:absolute;inset:0;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
+.thumb:hover .bg{transform:scale(1.08)}
+.thumb i{position:absolute;inset:0;background:rgba(5,5,5,.3);display:block}
+.thumb svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.thumb .cap2{position:absolute;left:10px;bottom:8px;right:10px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-shadow:0 1px 8px rgba(5,5,5,.8);color:#fff}
+
+/* why */
+.why{padding:clamp(88px,10vw,150px) var(--gut);background:#0A0A0A;display:flex;flex-direction:column;gap:72px}
+.why h2{margin:0;font-size:clamp(30px,4.4vw,72px);max-width:1080px;text-wrap:balance}
+.why .sub2{color:var(--dim)}
+.pil{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.pil>div{display:flex;flex-direction:column;gap:18px;padding:28px 32px 8px 0;border-top:1px solid var(--line)}
+.pil>div+div{padding-left:32px;border-left:1px solid rgba(244,242,238,.12)}
+.pil h3{margin:0;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.15}
+.pil p{margin:0;font-size:14.5px;line-height:1.75;color:var(--mute)}
+
+/* letter */
+.letter{position:relative;overflow:hidden;padding:clamp(96px,11vw,170px) var(--gut);background:#050505;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:48px;align-items:center}
+.letter-bg{position:absolute;inset:0;opacity:.4}
+.letter-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.92),rgba(5,5,5,.6))}
+.letter>*{position:relative}
+.field{width:100%;height:56px;border:0;border-bottom:1px solid rgba(244,242,238,.5);background:transparent;font:400 18px "Open Sans",sans-serif;color:#F4F2EE;outline:none;transition:border-color .4s}
+.field:focus{border-color:var(--acc)}
+.field::placeholder{color:#A19D95}
+.flink{opacity:.65;transition:opacity .3s;display:inline-flex;align-items:center;min-height:32px}
+.flink:hover{opacity:1}
+
+/* dossier */
+.dossier{position:fixed;inset:0;z-index:95;visibility:hidden;pointer-events:none;background:#050505;opacity:0;transition:opacity .5s ease,visibility 0s .5s}
+.dossier.open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .6s ease,visibility 0s 0s}
+.d-body{position:absolute;inset:0;overflow-y:auto}
+.d-view{position:relative;height:min(680px,72vh);min-height:380px;overflow:hidden;background:#111}
+.slide{position:absolute;inset:0;opacity:0;transform:scale(1.06);transition:opacity 1.2s ease,transform 7s cubic-bezier(.2,.7,.1,1)}
+.slide.on{opacity:1;transform:scale(1)}
+.arrow{width:52px;height:52px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#F4F2EE;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .4s,color .4s,border-color .4s}
+.arrow:hover{background:#F4F2EE;color:#050505;border-color:#F4F2EE}
+.gate{display:flex;flex-direction:column;gap:20px;padding:28px;border:1px solid var(--line)}
+
+/* scroll reveals where the browser supports them */
+@supports (animation-timeline: view()){
+  @keyframes rv{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+  @keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes heroOut{to{opacity:0;transform:translateY(-40px)}}
+  @keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.12)}}
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+  .draw{transform-origin:left;animation:draw linear both;animation-timeline:view();animation-range:entry 20% cover 40%}
+  .hero-bg{animation:heroZoom linear both;animation-timeline:scroll(root);animation-range:0px 900px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .curtain{display:none}
+}
+@media (max-width: 900px){
+  .hide-m{display:none!important}
+  .hdr-row{grid-template-columns:1fr auto}
+  .tabs{display:none}
+  .menubtn{display:inline-flex}
+  .rail{display:none}
+  .hero-in{padding-top:150px}
+  .hero-h1{max-width:100%}
+  .caps3{grid-template-columns:minmax(0,1fr)}
+  .caps3 p:nth-child(n+2){display:none}
+  .mani{grid-template-columns:minmax(0,1fr)}
+  .mani>*{grid-column:1!important}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{aspect-ratio:3/4.6}
+  .card-line{display:none}
+  .hid{grid-template-columns:minmax(0,1fr)}
+  .hid .ln{display:none}
+  .tour{min-height:780px}
+  .tour-bot{flex-direction:column;align-items:flex-start}
+  .thumb{width:min(44vw,220px)}
+  .pil{grid-template-columns:minmax(0,1fr)}
+  .pil>div+div{padding-left:0;border-left:0}
+  .letter{grid-template-columns:minmax(0,1fr)}
+  .letter>*{grid-column:1!important}
+  .stack-m{grid-template-columns:minmax(0,1fr)!important}
+  .stack-m>*{grid-column:auto!important}
+  .d-body{padding:96px 20px 56px!important}
+  .d-view{height:52vh}
+}
+</style>
+</helmet>
+<div class="root lang-{{lang}}" lang="{{lang}}" style="--acc: {{accent}}; width: 100%; min-width: 360px; background: #050505; overflow-x: clip">
+
+<!-- INTRO CURTAIN -->
+<div class="curtain" aria-hidden="true">
+<div class="c-leaf l"><div class="c-inner"><svg class="c-logo" width="58" height="74" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#F4F2EE" stroke-width=".8"></path><path d="M5 21v-9a4 4 0 0 1 8 0v9" stroke="var(--acc)" stroke-width=".8"></path></svg><span class="c-word">ALCOVE</span><span class="up c-cap">N° 01 · <span class="lx">{{t.region}}</span></span></div></div>
+<div class="c-leaf r"><div class="c-inner"><svg class="c-logo" width="58" height="74" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="#F4F2EE" stroke-width=".8"></path><path d="M5 21v-9a4 4 0 0 1 8 0v9" stroke="var(--acc)" stroke-width=".8"></path></svg><span class="c-word">ALCOVE</span><span class="up c-cap">N° 01 · <span class="lx">{{t.region}}</span></span></div></div>
+<div class="c-line"></div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+<div class="hdr-row">
+<a href="#top" class="brand" aria-label="Alcove"><svg class="logo" width="22" height="28" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M1 21V9a8 8 0 0 1 16 0v12" stroke="currentColor" stroke-width="1.3"></path><path d="M5 21v-9a4 4 0 0 1 8 0v9" stroke="var(--acc)" stroke-width="1.3"></path></svg>ALCOVE</a>
+<nav class="tabs" aria-label="Main">
+<sc-for list="{{navItems}}" as="it" hint-placeholder-count="5">
+<a href="{{it.href}}" class="tab"><span class="lx">{{it.label}}</span></a>
+</sc-for>
+</nav>
+<div class="hdr-r">
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<span class="up hide-m" style="display: flex; align-items: center; gap: 10px; color: #F4F2EE"><span class="dot" style="width: 7px; height: 7px"></span><span class="lx">{{t.member}}</span></span>
+</sc-if>
+<div role="group" aria-label="Language" style="display: flex">
+<sc-for list="{{langs}}" as="l" hint-placeholder-count="2">
+<button type="button" class="lang {{l.cls}}" onClick="{{l.pick}}" aria-label="{{l.name}}" aria-pressed="{{l.on}}">{{l.code}}</button>
+</sc-for>
+</div>
+<button type="button" class="menubtn" onClick="{{toggleMenu}}" aria-expanded="{{menuExpanded}}" aria-controls="alcove-menu"><span class="lx">{{menuLabel}}</span></button>
+</div>
+</div>
+</header>
+
+<!-- MENU -->
+<div id="alcove-menu" class="menu {{menuCls}}" aria-hidden="{{menuHidden}}">
+<nav aria-label="Menu">
+<sc-for list="{{navItems}}" as="it" hint-placeholder-count="5">
+<a href="{{it.href}}" class="m-link" onClick="{{it.go}}"><span class="n">{{it.n}}</span><span class="lx">{{it.label}}</span></a>
+</sc-for>
+</nav>
+</div>
+
+<!-- DOSSIER -->
+<div class="dossier {{dosCls}}" aria-hidden="{{dosHidden}}" role="dialog" aria-label="{{d.name}}">
+<div class="d-body" style="padding: 130px var(--gut) 80px">
+<div class="stack-m" style="max-width: 1360px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: 56px; align-items: start">
+<div style="grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 32px">
+<div class="d-view">
+<sc-for list="{{slides}}" as="sl" hint-placeholder-count="2">
+<div class="slide bg {{sl.cls}} {{sl.on}}"></div>
+</sc-for>
+</div>
+<sc-if value="{{multi}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; justify-content: center; gap: 24px">
+<button type="button" class="arrow" onClick="{{prevSlide}}" aria-label="{{t.prevPhoto}}"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" stroke-width="1.4"></path></svg></button>
+<span class="up" style="min-width: 90px; text-align: center; color: #DAD7D0">{{counter}}</span>
+<button type="button" class="arrow" onClick="{{nextSlide}}" aria-label="{{t.nextPhoto}}"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.4"></path></svg></button>
+</div>
+</sc-if>
+</div>
+<div style="grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px">
+<span class="up" style="color: var(--acc)">{{d.num}} · {{d.tag}}</span>
+<button type="button" class="pill" onClick="{{closeDossier}}">{{t.close}} <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.4"></path></svg></button>
+</div>
+<h2 class="big" style="margin: 0; font-size: clamp(40px, 5vw, 80px); line-height: .98">{{d.name}}</h2>
+<span class="up" style="color: #B4B0A8">{{d.place}}</span>
+<p style="margin: 0; font-size: 17px; line-height: 1.75; color: #E4E1DA">{{d.story}}</p>
+<sc-if value="{{d.gated}}" hint-placeholder-val="{{ false }}">
+<div class="gate">
+<span class="up" style="color: var(--acc)"><span class="lx">{{t.gateTitle}}</span></span>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #B4B0A8"><span class="lx">{{t.gateText}}</span></p>
+<form style="display: flex; flex-direction: column; gap: 20px" onSubmit="{{submit}}">
+<label for="alcove-gate-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{t.letterPh}}</label>
+<input id="alcove-gate-email" class="field" type="email" required="required" placeholder="{{t.letterPh}}" autocomplete="email">
+<button type="submit" class="pill solid" style="align-self: flex-start">{{t.gateBtn}}</button>
+</form>
+</div>
+</sc-if>
+<sc-if value="{{d.open}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; padding-top: 6px">
+<span class="up" style="color: var(--acc); padding-bottom: 14px">{{t.factsTitle}}</span>
+<sc-for list="{{d.facts}}" as="f" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 15px 0; border-top: 1px solid rgba(244,242,238,.16); font-size: 14.5px">
+<span style="color: #B4B0A8">{{f.k}}</span>
+<span style="color: #F4F2EE">{{f.v}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: flex; gap: 12px; padding-top: 8px">
+<button type="button" class="pill" onClick="{{nextHouse}}">{{t.nextHouse}} <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.4"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- HERO -->
+<section id="top" class="hero">
+<div class="hero-bg ph bg p-sacred"></div>
+<div class="hero-shade"></div>
+<div class="hero-in">
+<h1 class="big hero-h1 fu"><span class="lx" style="display: block">{{t.h1a}}</span><span class="lx" style="display: block">{{t.h1b}}</span></h1>
+<div class="fu2" style="display: flex; flex-direction: column; gap: 26px">
+<div class="caps3">
+<p><span class="lx">{{t.heroSub}}</span></p>
+<p><span class="lx">{{t.sLine}}</span></p>
+<p><span class="lx">{{t.menuNote}}</span></p>
+</div>
+<a href="#manifesto" class="swipe" style="align-self: flex-start"><span class="lx">{{t.scrollHint}}</span> <span aria-hidden="true">&gt;&gt;</span></a>
+<div class="prog" aria-hidden="true"></div>
+</div>
+</div>
+<nav class="rail fu3" aria-label="Sections">
+<sc-for list="{{navItems}}" as="it" hint-placeholder-count="5">
+<a href="{{it.href}}" class="{{it.railCls}}" aria-label="{{it.label}}">{{it.n}}</a>
+</sc-for>
+</nav>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto" class="mani">
+<span class="up rv" style="grid-column: 1 / span 12; color: var(--acc)"><span class="lx">{{t.mLabel}}</span></span>
+<h2 class="big rv"><span class="lx" style="display: block">{{t.m1}}</span><span class="lx sub2" style="display: block">{{t.m2}}</span></h2>
+<div class="side rv">
+<span class="redline draw"></span>
+<p><span class="lx">{{t.mP}}</span></p>
+</div>
+</section>
+
+<!-- DESTINATION: ONE ICON, THREE HIDDEN ADDRESSES -->
+<section id="houses" class="dest">
+<div class="dest-head">
+<span class="up rv" style="color: var(--acc)"><span class="lx">{{t.hLabel}}</span></span>
+<h2 class="big rv"><span class="lx">{{t.hT1}} {{t.hT2}}</span></h2>
+<p class="rv"><span class="lx">{{t.hIntro}}</span></p>
+</div>
+<div class="cards rv">
+<sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+<button type="button" class="card {{c.doorCls}}" onClick="{{c.open}}" aria-label="{{c.aria}}">
+<span class="card-photo ph bg {{c.cls}}"></span>
+<span class="card-shade"></span>
+<span class="card-top">
+<span class="up">N° {{c.num}}</span>
+<span class="up" style="display: inline-flex; align-items: center; gap: 8px; color: #fff"><sc-if value="{{c.isLocked}}" hint-placeholder-val="{{ false }}"><svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"><rect x="1" y="5.5" width="9" height="7" stroke="currentColor" stroke-width="1.2"></rect><path d="M3 5.5V3.5a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.2"></path></svg></sc-if><span class="lx">{{c.tag}}</span></span>
+</span>
+<span class="card-bot">
+<span class="card-name lx">{{c.name}}</span>
+<span class="card-place lx">{{c.place}}</span>
+<span class="card-line lx">{{c.line}}</span>
+<span class="card-go"><span class="lx">{{c.cta}}</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.4"></path></svg></span>
+</span>
+</button>
+</sc-for>
+</div>
+<div class="hid rv">
+<span class="ln"></span>
+<div class="hid-c">
+<h3 class="big"><span class="lx">{{t.hiddenT}}</span></h3>
+<p><span class="lx">{{t.hiddenP}}</span></p>
+<sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
+<a href="#letter" class="pill solid"><span class="lx">{{t.lockCta}}</span></a>
+</sc-if>
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<span class="up" style="color: var(--acc)"><span class="lx">{{t.unlockedNote}}</span></span>
+</sc-if>
+</div>
+<span class="ln"></span>
+</div>
+</section>
+
+<!-- STORIES: one chapter fills the frame, the other two wait as thumbnails -->
+<section id="stories" class="tour">
+<sc-for list="{{layers}}" as="ly" hint-placeholder-count="3">
+<div class="tl ph bg {{ly.cls}} {{ly.on}}"></div>
+</sc-for>
+<div class="tour-shade"></div>
+<div>
+<span class="up rv" style="color: var(--acc)"><span class="lx">{{t.stLabel}}</span></span>
+<h2 class="big rv" style="margin-top: 18px"><span class="lx">{{t.stT1}} {{t.stT2}}</span></h2>
+<div class="ctabs" role="group" aria-label="{{t.chapLabel}}">
+<sc-for list="{{chapTabs}}" as="ct" hint-placeholder-count="3">
+<button type="button" class="ctab {{ct.cls}}" onClick="{{ct.pick}}" aria-pressed="{{ct.on}}"><span class="c">{{ct.n}}</span><span class="lx">{{ct.label}}</span></button>
+</sc-for>
+</div>
+</div>
+<div class="tour-bot">
+<div class="tour-txt">
+<span class="up" style="color: var(--acc)"><span class="lx">{{chapSub}}</span></span>
+<sc-if value="{{chapOpen}}" hint-placeholder-val="{{ true }}">
+<p><span class="lx">{{chapText}}</span></p>
+</sc-if>
+<sc-if value="{{chapLocked}}" hint-placeholder-val="{{ false }}">
+<p><span class="lx">{{t.gateText}}</span></p>
+<a href="#letter" class="pill solid" style="align-self: flex-start"><span class="lx">{{t.lockCta}}</span></a>
+</sc-if>
+</div>
+<div class="thumbs">
+<sc-for list="{{thumbs}}" as="th" hint-placeholder-count="2">
+<button type="button" class="thumb" onClick="{{th.pick}}" aria-label="{{th.aria}}"><span class="bg ph {{th.cls}}"></span><i></i><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="16" stroke="#fff" stroke-width="1.4"></circle><path d="M14 11.5l9 5.5-9 5.5z" fill="#fff"></path></svg><span class="cap2 lx">{{th.label}}</span></button>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="why" class="why">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<span class="up rv" style="color: var(--acc)"><span class="lx">{{t.wLabel}}</span></span>
+<h2 class="big rv"><span class="lx" style="display: block">{{t.wT1}}</span><span class="lx sub2" style="display: block">{{t.wT2}}</span></h2>
+</div>
+<div class="pil rv">
+<div><span class="redline"></span><h3><span class="lx">{{t.w1t}}</span></h3><p><span class="lx">{{t.w1p}}</span></p></div>
+<div><span class="redline"></span><h3><span class="lx">{{t.w2t}}</span></h3><p><span class="lx">{{t.w2p}}</span></p></div>
+<div><span class="redline"></span><h3><span class="lx">{{t.w3t}}</span></h3><p><span class="lx">{{t.w3p}}</span></p></div>
+<div><span class="redline"></span><h3><span class="lx">{{t.w4t}}</span></h3><p><span class="lx">{{t.w4p}}</span></p></div>
+</div>
+</section>
+
+<!-- LETTER -->
+<section id="letter" class="letter">
+<div class="letter-bg ph bg p-valley"></div>
+<div class="letter-shade"></div>
+<div style="grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 22px">
+<span class="up" style="color: var(--acc)"><span class="lx">{{t.letterLabel}}</span></span>
+<h2 class="big" style="margin: 0; font-size: clamp(36px, 5vw, 80px); text-wrap: balance"><span class="lx">{{t.letterH}}</span></h2>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.75; color: #C9C5BD; max-width: 420px"><span class="lx">{{t.letterSub}}</span></p>
+</div>
+<div style="grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 24px">
+<sc-if value="{{locked}}" hint-placeholder-val="{{ true }}">
+<form style="display: flex; flex-direction: column; gap: 26px" onSubmit="{{submit}}">
+<label for="alcove-v4-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{t.letterPh}}</label>
+<input id="alcove-v4-email" class="field" type="email" required="required" placeholder="{{t.letterPh}}" autocomplete="email">
+<button type="submit" class="pill solid" style="align-self: flex-start">{{t.letterBtn}}</button>
+</form>
+<span class="up" style="font-size: 10px; color: #B4B0A8"><span class="lx">{{t.letterFine}}</span></span>
+</sc-if>
+<sc-if value="{{unlocked}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 24px; font-weight: 700; line-height: 1.3; color: var(--acc)"><span class="lx">{{t.letterThanks}}</span></p>
+<a href="#houses" class="pill" style="align-self: flex-start"><span class="lx">{{t.thanksCta}}</span></a>
+</sc-if>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: #050505; padding: 72px var(--gut) 0; display: flex; flex-direction: column; gap: 56px; overflow: hidden; border-top: 1px solid rgba(244,242,238,.12)">
+<div class="stack-m" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; align-items: start">
+<p style="grid-column: 1 / span 5; margin: 0; font-size: 20px; font-weight: 700; line-height: 1.4; max-width: 420px"><span class="lx">{{t.tagline}}</span></p>
+<div style="grid-column: 7 / span 3; display: flex; flex-direction: column; gap: 4px; font-size: 14px">
+<a href="#manifesto" class="flink"><span class="lx">{{t.nav1}}</span></a>
+<a href="#houses" class="flink"><span class="lx">{{t.nav2}}</span></a>
+<a href="#stories" class="flink"><span class="lx">{{t.nav3}}</span></a>
+</div>
+<div style="grid-column: 10 / span 3; display: flex; flex-direction: column; gap: 4px; font-size: 14px">
+<a href="#why" class="flink"><span class="lx">{{t.nav4}}</span></a>
+<a href="#letter" class="flink"><span class="lx">{{t.nav5}}</span></a>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 12px; color: #A19D95">
+<span>© 2026 Alcove. <span class="lx">{{t.rights}}</span></span>
+<span class="up" style="font-size: 10px"><span class="lx">{{t.stand}}</span></span>
+<span style="display: flex; gap: 24px"><a href="#top" class="flink"><span class="lx">{{t.privacy}}</span></a><a href="#top" class="flink"><span class="lx">{{t.terms}}</span></a></span>
+</div>
+<div aria-hidden="true" style="height: 15vw; min-height: 80px; max-height: 230px; overflow: hidden; display: flex; justify-content: center">
+<span class="big" style="font-size: clamp(120px, 24vw, 360px); line-height: .82; letter-spacing: .01em; color: rgba(244,242,238,.09); white-space: nowrap">ALCOVE</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#E23D32","options":["#E23D32","#C9B58E","#4FA3C7","#8FBF6A"]},"startLang":{"editor":"enum","default":"en","options":["en","fr"]},"subscriberPreview":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":7600}}'>
+class Component extends DCLogic {
+  dict() {
+    return {
+      en: {
+        region: 'Cappadocia', issue: 'N° 01 · Cappadocia', menu: 'Menu', close: 'Close', member: 'Subscriber',
+        nav1: 'Manifesto', nav2: 'Destination', nav3: 'Stories', nav4: 'Philosophy', nav5: 'The Letter',
+        h1a: 'Where stone', h1b: 'keeps its secrets.',
+        heroSub: 'A journal of places with a soul. Each destination opens with one icon, visible to all. The hidden addresses are for subscribers.',
+        scrollHint: 'Scroll', icon: 'Icon', enter: 'Push the door',
+        menuNote: 'One icon in the open. The rest, for subscribers.',
+        mLabel: 'Manifesto', m1: 'We do not collect addresses.', m2: 'We collect atmospheres.',
+        mP: 'Alcove keeps only the houses worth changing a journey for, just to sleep there once. Each one is researched in depth, discussed with its hosts, and written about the way one would describe a work of art.',
+        hLabel: 'Destination N° 01', hT1: 'Cappadocia.', hT2: 'One icon. The rest is hidden.',
+        hIntro: 'Every destination opens with one icon, in plain sight. The hidden addresses are reserved for our subscribers. Push a door.',
+        hiddenLabel: 'The hidden addresses', hiddenT: 'Three doors, for subscribers.',
+        hiddenP: 'Their photographs are yours to see. Their names, their stories and their dossiers open with a free subscription.',
+        unlockedNote: 'Subscriber access unlocked',
+        openDossier: 'Open the dossier', sPlace: 'Ürgüp',
+        sLine: 'A 250-year-old Greek mansion, once a church, where each room tells a different story.',
+        hiddenName: 'Hidden address', hiddenStory: 'A hidden story',
+        lockTag: 'Subscribers only', lockCta: 'Unlock', phSoon: 'Photograph to come',
+        gateTitle: 'Reserved for subscribers',
+        gateText: 'Enter your email address to open this dossier. It is free, and we write once a month.',
+        gateBtn: 'Open the dossier',
+        prevPhoto: 'Previous photograph', nextPhoto: 'Next photograph',
+        factsTitle: 'The dossier', nextHouse: 'Next house', chapLabel: 'Choose a chapter',
+        houses: [
+          { name: 'Sacred House', num: '01', tag: 'Icon', place: 'Ürgüp, Cappadocia', placeShort: 'Ürgüp',
+            lineOpen: 'A 250-year-old Greek mansion, once a church.', lineLocked: 'A 250-year-old Greek mansion, once a church.',
+            story: 'Before it was a hotel, Sacred House was a Greek mansion, and for a time a church. The restoration by Turan Gülcüoğlu kept its stone walls and gave each room a story of its own. Beneath the house, the spa is called Inferno, lined with fiery red mosaics.',
+            facts: [
+              { k: 'Origin', v: 'Greek mansion, about 250 years old' },
+              { k: 'Former life', v: 'A church' },
+              { k: 'Restoration', v: 'Turan Gülcüoğlu' },
+              { k: 'Rooms', v: 'Each one themed: Harem, Byzantine Treasury, Lilith' },
+              { k: 'Recognition', v: 'Best Renovation and Design, International Hotel Awards 2014' }
+            ] },
+          { name: 'Gamirasu', num: '02', tag: 'Heritage reinvented', place: 'Ayvalı, near Ürgüp', placeShort: 'Ayvalı',
+            lineOpen: 'A Byzantine monastic retreat in a silent valley, with a 12th-century church on its grounds.',
+            lineLocked: 'A retreat in a silent valley, with an old church on its grounds.',
+            story: 'Gamirasu occupies a former Byzantine monastic retreat in the village of Ayvalı. On its grounds stands a 12th-century church and its frescoes, and until recently part of the house was still used by monks. The valley around it has been inhabited for more than five thousand years.',
+            facts: [
+              { k: 'Origin', v: 'Byzantine monastic retreat' },
+              { k: 'Church', v: '12th century, with frescoes' },
+              { k: 'Hotel since', v: '1999' },
+              { k: 'Rooms', v: '35 cave rooms and suites' },
+              { k: 'Valley', v: 'Inhabited for more than 5,000 years' }
+            ] },
+          { name: 'Esbelli Evi', num: '03', tag: 'The pioneer', place: 'Esbelli, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Often called the first hotel in Cappadocia, born from abandoned cave houses.',
+            lineLocked: 'Abandoned cave houses, and the man who spent seven years bringing them back.',
+            story: 'Süha Ersöz bought abandoned cave houses in 1987 and spent seven years restoring them. Esbelli Evi opened in 1990, often described as the first hotel in Cappadocia, and its owner has always refused to enlarge it, to keep the warmth of a private house.',
+            facts: [
+              { k: 'Origin', v: 'Abandoned cave houses, with caves of the 5th and 6th centuries behind them' },
+              { k: 'Bought', v: '1987, by Süha Ersöz' },
+              { k: 'Restoration', v: 'Seven years' },
+              { k: 'Opened', v: '1990' },
+              { k: 'Rooms', v: '10 suites and 4 rooms, never enlarged' }
+            ] },
+          { name: 'Yunak Evleri', num: '04', tag: 'Carved in rock', place: 'Yunak quarter, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Cave houses of the 5th century, crowned by a Greek marble mansion.',
+            lineLocked: 'Six cave houses from the fifth century, crowned by a marble mansion.',
+            story: 'In 2000, six empty cave houses from the 5th and 6th centuries became Yunak Evleri. Its reception and dining room sit in a 19th-century Greek mansion of white marble and wood, and every suite keeps the medallions, niches and arches carved into the rock. The name comes from the yunak, the village fountain.',
+            facts: [
+              { k: 'Origin', v: 'Six cave houses, 5th and 6th centuries' },
+              { k: 'Crown', v: '19th-century Greek mansion, white marble and wood' },
+              { k: 'Completed', v: '2000' },
+              { k: 'Rooms', v: '30 rooms, carved details in every suite' },
+              { k: 'Name', v: 'From the yunak, the village fountain' }
+            ] }
+        ],
+        stLabel: 'Stories', stT1: 'Every threshold', stT2: 'is a first sentence.',
+        ch1t: 'The Church', ch1p: 'Sacred House was a Greek mansion, and for a time a church. Its restoration kept the stone walls and gave each room a story: the Harem, the Byzantine Treasury, Lilith.',
+        ch2t: 'The Monastery', ch2p: 'Gamirasu occupies a former Byzantine monastic retreat. On its grounds, a 12th-century church keeps its frescoes. Until recently, monks still lived in part of the house.',
+        ch3t: 'The Valley', ch3p: 'Ayvalı has been inhabited for more than five thousand years. Stone Age obsidian, Assyrian pottery, a Hittite bronze furnace: the valley kept stories long before anyone came here to sleep.',
+        wLabel: 'Why Alcove', wT1: 'A place with a soul cannot be manufactured.', wT2: 'It can only be found.',
+        w1t: 'Soul over stars', w1p: 'We choose houses for what they make you feel, never for the length of their list of amenities.',
+        w2t: 'Emotional authenticity', w2p: 'No staged luxury. Original stone, inherited stories, and hosts who know the place by heart.',
+        w3t: 'Worth the detour', w3p: 'If a region has only a few exceptional houses, we keep those few. Never a catalogue, always a choice.',
+        w4t: 'Curated with the hosts', w4p: 'Every address is researched in depth and discussed directly with its hosts before it enters the journal. Most never do.',
+        letterLabel: 'The Letter', letterH: 'Open the hidden addresses.',
+        letterSub: 'Free. One letter a month, with the hidden addresses of each destination. Nothing else.',
+        letterPh: 'Your email address', letterBtn: 'Subscribe', letterFine: 'Unsubscribe at any time',
+        letterThanks: 'Welcome. The hidden addresses are now open to you.', thanksCta: 'See the hidden addresses',
+        tagline: 'A curated journal of places with a soul.',
+        rights: 'All rights reserved.', privacy: 'Privacy', terms: 'Terms',
+        stand: 'Provisional photographs, rights to be confirmed.'
+      },
+      fr: {
+        region: 'Cappadoce', issue: 'N° 01 · Cappadoce', menu: 'Menu', close: 'Fermer', member: 'Abonné',
+        nav1: 'Manifeste', nav2: 'Destination', nav3: 'Récits', nav4: 'Philosophie', nav5: 'La Lettre',
+        h1a: 'Là où la pierre', h1b: 'garde ses secrets.',
+        heroSub: 'Un journal des lieux qui ont une âme. Chaque destination s’ouvre sur une icône, visible de tous. Les adresses cachées sont réservées aux abonnés.',
+        scrollHint: 'Défiler', icon: 'Icône', enter: 'Pousser la porte',
+        menuNote: 'Une icône à découvert. Le reste, pour les abonnés.',
+        mLabel: 'Manifeste', m1: 'Nous ne collectionnons pas des adresses.', m2: 'Nous collectionnons des atmosphères.',
+        mP: 'Alcove ne garde que les maisons qui méritent de modifier un voyage, juste pour y dormir une fois. Chacune est étudiée en profondeur, racontée avec ses hôtes et décrite comme on décrirait une œuvre d’art.',
+        hLabel: 'Destination N° 01', hT1: 'La Cappadoce.', hT2: 'Une icône. Le reste est caché.',
+        hIntro: 'Chaque destination s’ouvre sur une icône, visible de tous. Les adresses cachées sont réservées à nos abonnés. Poussez une porte.',
+        hiddenLabel: 'Les adresses cachées', hiddenT: 'Trois portes, pour les abonnés.',
+        hiddenP: 'Leurs photographies sont à voir. Leurs noms, leurs histoires et leurs dossiers s’ouvrent avec un abonnement gratuit.',
+        unlockedNote: 'Accès abonné débloqué',
+        openDossier: 'Ouvrir le dossier', sPlace: 'Ürgüp',
+        sLine: 'Une demeure grecque de 250 ans, un temps église, où chaque chambre raconte une histoire différente.',
+        hiddenName: 'Adresse cachée', hiddenStory: 'Un récit caché',
+        lockTag: 'Réservé aux abonnés', lockCta: 'Débloquer', phSoon: 'Photographie à venir',
+        gateTitle: 'Réservé aux abonnés',
+        gateText: 'Saisissez votre adresse e-mail pour ouvrir ce dossier. C’est gratuit, et nous écrivons une fois par mois.',
+        gateBtn: 'Ouvrir le dossier',
+        prevPhoto: 'Photographie précédente', nextPhoto: 'Photographie suivante',
+        factsTitle: 'Le dossier', nextHouse: 'Maison suivante', chapLabel: 'Choisissez un chapitre',
+        houses: [
+          { name: 'Sacred House', num: '01', tag: 'Icône', place: 'Ürgüp, Cappadoce', placeShort: 'Ürgüp',
+            lineOpen: 'Une demeure grecque de 250 ans, un temps église.', lineLocked: 'Une demeure grecque de 250 ans, un temps église.',
+            story: 'Avant d’être un hôtel, Sacred House était une demeure grecque, et un temps une église. La restauration de Turan Gülcüoğlu a gardé ses murs de pierre et donné à chaque chambre son propre récit. Sous la maison, le spa s’appelle Inferno, tapissé de mosaïques rouge feu.',
+            facts: [
+              { k: 'Origine', v: 'Demeure grecque d’environ 250 ans' },
+              { k: 'Vie antérieure', v: 'Une église' },
+              { k: 'Restauration', v: 'Turan Gülcüoğlu' },
+              { k: 'Chambres', v: 'Chacune a son thème : Harem, Trésor byzantin, Lilith' },
+              { k: 'Distinction', v: 'Best Renovation and Design, International Hotel Awards 2014' }
+            ] },
+          { name: 'Gamirasu', num: '02', tag: 'Patrimoine réinventé', place: 'Ayvalı, près d’Ürgüp', placeShort: 'Ayvalı',
+            lineOpen: 'Une retraite monastique byzantine dans une vallée silencieuse, avec une église du XIIe siècle sur son domaine.',
+            lineLocked: 'Une retraite dans une vallée silencieuse, avec une vieille église sur son domaine.',
+            story: 'Gamirasu occupe une ancienne retraite monastique byzantine dans le village d’Ayvalı. Sur son domaine se dresse une église du XIIe siècle et ses fresques, et jusqu’à récemment une partie de la maison était encore occupée par des moines. La vallée alentour est habitée depuis plus de cinq mille ans.',
+            facts: [
+              { k: 'Origine', v: 'Retraite monastique byzantine' },
+              { k: 'Église', v: 'XIIe siècle, à fresques' },
+              { k: 'Hôtel depuis', v: '1999' },
+              { k: 'Chambres', v: '35 chambres et suites troglodytes' },
+              { k: 'Vallée', v: 'Habitée depuis plus de 5 000 ans' }
+            ] },
+          { name: 'Esbelli Evi', num: '03', tag: 'Le pionnier', place: 'Esbelli, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Souvent présenté comme le premier hôtel de Cappadoce, né de maisons troglodytes abandonnées.',
+            lineLocked: 'Des maisons troglodytes abandonnées, et l’homme qui a passé sept ans à les ranimer.',
+            story: 'Süha Ersöz a acheté des maisons troglodytes abandonnées en 1987 et a passé sept ans à les restaurer. Esbelli Evi a ouvert en 1990, souvent présenté comme le premier hôtel de Cappadoce, et son propriétaire a toujours refusé de l’agrandir, pour garder la chaleur d’une maison privée.',
+            facts: [
+              { k: 'Origine', v: 'Maisons troglodytes abandonnées, avec des grottes des Ve et VIe siècles derrière' },
+              { k: 'Achat', v: '1987, par Süha Ersöz' },
+              { k: 'Restauration', v: 'Sept ans' },
+              { k: 'Ouverture', v: '1990' },
+              { k: 'Chambres', v: '10 suites et 4 chambres, jamais agrandi' }
+            ] },
+          { name: 'Yunak Evleri', num: '04', tag: 'Taillé dans la roche', place: 'Quartier de Yunak, Ürgüp', placeShort: 'Ürgüp',
+            lineOpen: 'Des maisons troglodytes du Ve siècle, couronnées par un manoir grec en marbre.',
+            lineLocked: 'Six maisons troglodytes du Ve siècle, couronnées par un manoir de marbre.',
+            story: 'En 2000, six maisons troglodytes vides des Ve et VIe siècles sont devenues Yunak Evleri. La réception et la salle à manger occupent un manoir grec du XIXe siècle en marbre blanc et bois, et chaque suite garde ses médaillons, ses niches et ses arches taillés dans la roche. Le nom vient du yunak, la fontaine du village.',
+            facts: [
+              { k: 'Origine', v: 'Six maisons troglodytes, Ve et VIe siècles' },
+              { k: 'Couronnement', v: 'Manoir grec du XIXe siècle, marbre blanc et bois' },
+              { k: 'Achevé', v: '2000' },
+              { k: 'Chambres', v: '30 chambres, des détails sculptés dans chaque suite' },
+              { k: 'Nom', v: 'Du yunak, la fontaine du village' }
+            ] }
+        ],
+        stLabel: 'Récits', stT1: 'Chaque seuil est', stT2: 'une première phrase.',
+        ch1t: 'L’Église', ch1p: 'Sacred House était une demeure grecque, et un temps une église. Sa restauration a gardé les murs de pierre et donné à chaque chambre un récit : le Harem, le Trésor byzantin, Lilith.',
+        ch2t: 'Le Monastère', ch2p: 'Gamirasu occupe une ancienne retraite monastique byzantine. Sur son domaine, une église du XIIe siècle garde ses fresques. Jusqu’à récemment, des moines vivaient encore dans une partie de la maison.',
+        ch3t: 'La Vallée', ch3p: 'Ayvalı est habité depuis plus de cinq mille ans. Obsidienne de l’âge de pierre, céramiques assyriennes, four à bronze hittite : la vallée gardait des histoires bien avant qu’on vienne y dormir.',
+        wLabel: 'Pourquoi Alcove', wT1: 'Un lieu qui a une âme ne se fabrique pas.', wT2: 'Il se trouve.',
+        w1t: 'L’âme avant les étoiles', w1p: 'Nous choisissons les maisons pour ce qu’elles font ressentir, jamais pour la longueur de leur liste de services.',
+        w2t: 'L’authenticité émotionnelle', w2p: 'Aucun luxe mis en scène. La pierre d’origine, des histoires transmises, des hôtes qui connaissent le lieu par cœur.',
+        w3t: 'Valoir le détour', w3p: 'Si une région n’a que quelques maisons exceptionnelles, nous ne gardons que celles-là. Jamais un catalogue, toujours un choix.',
+        w4t: 'Choisi avec les hôtes', w4p: 'Chaque adresse est étudiée en profondeur et discutée directement avec ses hôtes avant d’entrer dans le journal. La plupart n’y entrent jamais.',
+        letterLabel: 'La Lettre', letterH: 'Ouvrez les adresses cachées.',
+        letterSub: 'Gratuit. Une lettre par mois, avec les adresses cachées de chaque destination. Rien d’autre.',
+        letterPh: 'Votre adresse e-mail', letterBtn: 'S’abonner', letterFine: 'Désinscription à tout moment',
+        letterThanks: 'Bienvenue. Les adresses cachées vous sont ouvertes.', thanksCta: 'Voir les adresses cachées',
+        tagline: 'Un journal choisi des lieux qui ont une âme.',
+        rights: 'Tous droits réservés.', privacy: 'Confidentialité', terms: 'Mentions légales',
+        stand: 'Photos provisoires, droits à confirmer.'
+      }
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const codes = ['en', 'fr'];
+    const names = { en: 'English', fr: 'Français' };
+    const start = codes.indexOf(this.props.startLang) >= 0 ? this.props.startLang : 'en';
+    const lang = s.lang || start;
+    const t = this.dict()[lang];
+    const unlocked = !!s.unlocked || !!this.props.subscriberPreview;
+    const houses = t.houses;
+    const hi = s.house || 0;
+    const open = !!s.open;
+    const menu = !!s.menu;
+    const gated = hi > 0 && !unlocked;
+    const photos = [['p-sacred', 'p-room'], ['p-gam', 'p-church', 'p-valley'], ['p-esbelli2', 'p-esbelli3', 'p-esbelli'], ['p-yunak4', 'p-yunak3', 'p-yunak', 'p-yunak2']];
+    const ph = photos[hi];
+    const n = ph.length;
+    const sl = (s.slide || 0) % n;
+    const h = houses[hi];
+    const d = gated
+      ? { name: t.hiddenName, num: h.num, tag: t.lockTag, place: t.region + ', Türkiye', story: h.lineLocked, facts: [], gated: true, open: false }
+      : { name: h.name, num: h.num, tag: h.tag, place: h.place, story: h.story, facts: h.facts, gated: false, open: true };
+    const chapCls = ['p-room', 'p-church', 'p-valley'];
+    const chapNames = [t.ch1t, t.ch2t, t.ch3t];
+    const chapSubs = ['Sacred House · Ürgüp', 'Gamirasu · Ayvalı', 'Ayvalı · ' + t.region];
+    const chapTexts = [t.ch1p, t.ch2p, t.ch3p];
+    const chap = (s.chap || 0) % 3;
+    const chapLocked = chap > 0 && !unlocked;
+    const chapTitle = (i) => (i > 0 && !unlocked ? t.hiddenStory : chapNames[i]);
+    const pickChap = (i) => () => this.setState({ chap: i });
+    const anchors = ['#manifesto', '#houses', '#stories', '#why', '#letter'];
+    const labels = [t.nav1, t.nav2, t.nav3, t.nav4, t.nav5];
+    const opening = s.opening;
+    const go = (i) => () => {
+      this.setState({ opening: i });
+      setTimeout(() => this.setState({ house: i, slide: 0, open: true, menu: false }), 450);
+    };
+    return {
+      lang: lang,
+      t: t,
+      accent: this.props.accent ?? '#C9B58E',
+      unlocked: unlocked,
+      locked: !unlocked,
+      langs: codes.map((c) => ({
+        code: c.toUpperCase(), name: names[c],
+        on: c === lang ? 'true' : 'false', cls: c === lang ? 'on' : '',
+        pick: () => this.setState({ lang: c })
+      })),
+      menuLabel: menu ? t.close : t.menu,
+      menuCls: menu ? 'open' : '',
+      menuOnCls: menu ? 'menu-on' : '',
+      menuHidden: menu ? 'false' : 'true',
+      menuExpanded: menu ? 'true' : 'false',
+      toggleMenu: () => this.setState({ menu: !menu, open: false }),
+      navItems: anchors.map((a, i) => ({
+        n: '0' + (i + 1), label: labels[i], href: a, railCls: i === 0 ? 'on' : '',
+        go: () => this.setState({ menu: false })
+      })),
+      d: d,
+      slides: ph.map((c, i) => ({ cls: c, on: i === sl ? 'on' : '', ph: c === 'p-none', lbl: t.phSoon })),
+      multi: n > 1,
+      counter: '0' + (sl + 1) + ' / 0' + n,
+      prevSlide: () => this.setState({ slide: (sl - 1 + n) % n }),
+      nextSlide: () => this.setState({ slide: (sl + 1) % n }),
+      dosCls: open ? 'open' : '',
+      dosHidden: open ? 'false' : 'true',
+      openSacred: go(0),
+      closeDossier: () => this.setState({ open: false, opening: null }),
+      sacredCls: opening === 0 ? 'opening' : '',
+      nextHouse: () => this.setState({ house: (hi + 1) % houses.length, slide: 0 }),
+      hiddenDoors: [1, 2, 3].map((i) => {
+        const x = houses[i];
+        return {
+          num: x.num,
+          name: unlocked ? x.name : t.hiddenName,
+          tag: unlocked ? x.tag : t.lockTag,
+          place: unlocked ? x.placeShort : t.region,
+          line: unlocked ? x.lineOpen : x.lineLocked,
+          cta: unlocked ? t.openDossier : t.lockCta,
+          cls: photos[i][0],
+          ph: photos[i][0] === 'p-none',
+          mt: ['0px', '90px', '40px'][i - 1],
+          aria: t.openDossier + ' · ' + (unlocked ? x.name : t.hiddenName + ' ' + x.num),
+          doorCls: opening === i ? 'opening' : '',
+          open: go(i)
+        };
+      }),
+      c2title: unlocked ? t.ch2t : t.hiddenStory,
+      c2sub: unlocked ? 'Gamirasu · Ayvalı' : t.lockTag,
+      c3title: unlocked ? t.ch3t : t.hiddenStory,
+      c3sub: unlocked ? 'Ayvalı · ' + t.region : t.lockTag,
+      cards: [0, 1, 2, 3].map((i) => {
+        const x = houses[i];
+        const free = i === 0 || unlocked;
+        return {
+          num: x.num,
+          name: free ? x.name : t.hiddenName,
+          tag: free ? x.tag : t.lockTag,
+          place: free ? x.placeShort : t.region,
+          line: free ? x.lineOpen : x.lineLocked,
+          cta: free ? t.openDossier : t.lockCta,
+          cls: photos[i][0],
+          isLocked: !free,
+          aria: t.openDossier + ' · ' + (free ? x.name : t.hiddenName + ' ' + x.num),
+          doorCls: opening === i ? 'opening' : '',
+          open: go(i)
+        };
+      }),
+      layers: chapCls.map((c, i) => ({ cls: c, on: i === chap ? 'on' : '' })),
+      chapTabs: [0, 1, 2].map((i) => ({ n: '0' + (i + 1), label: chapTitle(i), on: i === chap ? 'true' : 'false', cls: i === chap ? 'on' : '', pick: pickChap(i) })),
+      thumbs: [0, 1, 2].filter((i) => i !== chap).map((i) => ({ cls: chapCls[i], label: chapTitle(i), aria: chapTitle(i), pick: pickChap(i) })),
+      chapLocked: chapLocked,
+      chapOpen: !chapLocked,
+      chapSub: chapLocked ? t.lockTag : chapSubs[chap],
+      chapText: chapTexts[chap],
+      submit: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ unlocked: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

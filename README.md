@@ -9,6 +9,7 @@ Journal numérique des lieux qui ont une âme. Maquette du site (projet "Hôtels
 
 | Fichier | Rôle |
 |---|---|
+| `V4.dc.html` | Refonte graphique inspirée d'une maquette de voyage : fond noir, titres en gros capitales, accent rouge, en-tête avec onglets, colonne de numéros, quatre cartes photo, chapitres plein cadre avec vignettes. Logo Alcove et rideau d'ouverture à l'arrivée. Mêmes contenus, **FR/EN** et abonnement simulé que la V3. |
 | `V3.dc.html` | Version premium en cours, **FR/EN**. Rideau d'entrée, arche du hero qui s'ouvre au défilement, une porte pour l'icône et trois portes cachées (entrouvertes, photos visibles), dossier avec galerie à flèches et nuages en haut et en bas de la photo, menu plein écran. Cappadoce uniquement (le Japon viendra plus tard). |
 | `Main.dc.html` | V2 conservée (3 langues EN/FR/RU). |
 | `plates/`, `cappadoce/` | Illustrations de remplacement et scripts qui les génèrent (plus utilisées). |
